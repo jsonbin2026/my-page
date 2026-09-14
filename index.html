@@ -2728,7 +2728,7 @@ App.renderNav();
 App.Stats.updateUI();
 if(CLOUD_ENABLED){
     App.updateCloudStatus('online');
-    App.loadCloudData(true);
+    App.loadCloudData(false);
     async function checkCloudUpdate(){
         if (document.visibilityState === 'hidden') return;
         try {
