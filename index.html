@@ -1,0 +1,2074 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<title>YZ球球大作战官网</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800;14..32,900&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet"/>
+<style>
+:root{--accent-r:212;--accent-g:175;--accent-b:55;--accent:#d4af37;--accent-light:#e8c86a;--accent-lighter:#f5d98a;--accent-dark:#c49a30;--accent-glow:rgba(212,175,55,0.06);--bg-primary:#0b0a08;--bg-card:rgba(18,16,14,0.75);--text-primary:#f0ebe3;--text-secondary:#b8aa9a;--text-muted:#6a5a48;--border-subtle:rgba(255,255,255,0.05);--radius-card:32px;--radius-sm:16px;--radius-full:9999px;--transition:all 0.4s cubic-bezier(0.16,1,0.3,1);--extracted-color:#d4af37}
+*{margin:0;padding:0;box-sizing:border-box}
+body{min-height:100vh;display:flex;justify-content:center;align-items:flex-start;padding:16px;background:var(--bg-primary);background-image:radial-gradient(ellipse at 30% 20%,var(--accent-glow) 0%,transparent 60%),radial-gradient(ellipse at 70% 80%,var(--accent-glow) 0%,transparent 50%);background-attachment:fixed;overflow-x:hidden;font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;transition:background 0.6s ease}
+body::before{content:'';position:fixed;top:-30%;left:-20%;width:70%;height:70%;background:radial-gradient(circle,var(--accent-glow) 0%,transparent 70%);pointer-events:none;z-index:0;animation:ambientFloat 20s ease-in-out infinite alternate;transition:background 0.6s ease}
+body::after{content:'';position:fixed;bottom:-30%;right:-20%;width:60%;height:60%;background:radial-gradient(circle,var(--accent-glow) 0%,transparent 65%);pointer-events:none;z-index:0;animation:ambientFloat2 24s ease-in-out infinite alternate;transition:background 0.6s ease}
+@keyframes ambientFloat{0%{transform:translate(0,0) scale(1);opacity:0.3}100%{transform:translate(6%,8%) scale(1.15);opacity:0.5}}
+@keyframes ambientFloat2{0%{transform:translate(0,0) scale(1);opacity:0.2}100%{transform:translate(-6%,-6%) scale(1.2);opacity:0.4}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:0.01ms!important;animation-iteration-count:1!important;transition-duration:0.01ms!important}}
+.app-wrapper{position:relative;z-index:1;max-width:420px;width:100%;padding:20px 18px 24px;background:rgba(16,14,12,0.82);backdrop-filter:blur(40px) saturate(1.6);-webkit-backdrop-filter:blur(40px) saturate(1.6);border-radius:36px;border:1px solid rgba(255,255,255,0.06);box-shadow:0 40px 120px rgba(0,0,0,0.7),0 0 0 1px rgba(255,255,255,0.03) inset;transition:var(--transition)}
+.app-wrapper::before{content:'';position:absolute;top:-1px;left:20%;right:20%;height:2px;background:linear-gradient(90deg,transparent,var(--accent-light),var(--accent-lighter),var(--accent-light),transparent);border-radius:100%;opacity:0.6;transition:background 0.6s ease}
+.app-wrapper::after{content:'';position:absolute;bottom:-1px;left:25%;right:25%;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.05),transparent);border-radius:100%}
+.announcement-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.82);backdrop-filter:blur(32px);-webkit-backdrop-filter:blur(32px);display:none;justify-content:center;align-items:center;z-index:99997;padding:20px}
+.announcement-overlay.active{display:flex;animation:fadeIn 0.4s ease}
+.announcement-card{max-width:380px;width:100%;padding:32px 28px 28px;background:rgba(20,18,16,0.96);backdrop-filter:blur(40px);-webkit-backdrop-filter:blur(40px);border-radius:28px;border:1px solid rgba(255,255,255,0.06);box-shadow:0 50px 150px rgba(0,0,0,0.8);animation:zoomIn 0.4s cubic-bezier(0.16,1,0.3,1);position:relative;text-align:center}
+@keyframes fadeIn{0%{opacity:0}100%{opacity:1}}
+@keyframes zoomIn{0%{transform:scale(0.92) translateY(20px);opacity:0}100%{transform:scale(1) translateY(0);opacity:1}}
+.announcement-card .ann-title{font-size:20px;font-weight:800;color:var(--text-primary);display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:14px;font-family:'Playfair Display',serif}
+.announcement-card .ann-title i{color:var(--accent-light);font-size:22px}
+.announcement-card .ann-body{font-size:14px;line-height:1.9;color:var(--text-secondary);background:rgba(0,0,0,0.3);padding:18px 20px;border-radius:18px;margin-bottom:14px;border:1px solid rgba(255,255,255,0.04);text-align:left;max-height:240px;overflow-y:auto;white-space:pre-wrap;word-break:break-word}
+.announcement-card .ann-body strong{color:var(--accent-lighter)}
+.announcement-card .ann-image{max-width:100%;max-height:180px;border-radius:14px;margin-bottom:12px;display:none;object-fit:contain;background:#1a1510}
+.announcement-card .ann-image.show{display:inline-block}
+.announcement-card .ann-close-btn{padding:12px 40px;border:none;border-radius:var(--radius-full);background:linear-gradient(135deg,var(--accent-dark),var(--accent-light),var(--accent-lighter));color:#1a1510;font-size:16px;font-weight:700;cursor:pointer;transition:0.3s;box-shadow:0 8px 40px rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.12)}
+.announcement-card .ann-close-btn:hover{transform:scale(1.04);box-shadow:0 12px 60px rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.2)}
+.stats-panel{display:none;padding:10px 14px 8px;background:rgba(255,255,255,0.02);border-radius:var(--radius-sm);border:1px solid var(--border-subtle);margin-bottom:10px;flex-wrap:wrap;gap:4px 14px;justify-content:space-around}
+.admin-mode .stats-panel{display:flex}
+.stats-panel .stat-item{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--text-muted)}
+.stats-panel .stat-item i{color:var(--accent-light);font-size:12px}
+.stats-panel .stat-item .num{color:var(--text-primary);font-weight:700;font-size:14px;min-width:20px}
+.stats-panel .stat-item .label{font-size:9px;color:var(--text-muted)}
+.brand{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.brand h1{font-size:22px;font-weight:900;letter-spacing:-0.5px;background:linear-gradient(135deg,#f5efe6 0%,var(--accent-light) 40%,var(--accent-lighter) 80%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;display:flex;align-items:center;gap:10px;font-family:'Playfair Display',serif;cursor:pointer;transition:background 0.6s ease}
+.brand h1 i{-webkit-text-fill-color:initial;color:var(--accent-light);font-size:22px;transition:color 0.6s ease}
+.brand .brand-edit-btn{display:none;background:none;border:none;color:var(--accent-light);font-size:13px;cursor:pointer;padding:4px 8px;border-radius:8px;transition:0.3s}
+.brand .brand-edit-btn:hover{background:rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.08)}
+.admin-mode .brand .brand-edit-btn{display:inline-flex}
+.brand .tools{color:rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.2);font-size:16px;transition:0.4s;cursor:default}
+.brand .tools:hover{color:var(--accent-light);transform:rotate(40deg)}
+.brand-logo-wrapper{position:relative;display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;flex-shrink:0;filter:drop-shadow(0 0 20px rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.06))}
+.brand-logo-wrapper i{font-size:30px;color:var(--accent-light);filter:drop-shadow(0 0 20px rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.08));transition:color 0.6s ease}
+.brand-logo-wrapper img{width:44px;height:44px;border-radius:50%;object-fit:cover;display:none;box-shadow:0 0 30px rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.06)}
+.brand-logo-upload-btn{display:none!important;position:absolute;bottom:-2px;right:-2px;background:rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.9);border:2px solid rgba(16,14,12,0.95);border-radius:50%;width:18px;height:18px;color:#fff;font-size:8px;cursor:pointer;align-items:center;justify-content:center;padding:0;line-height:1;z-index:2;transition:0.3s}
+.brand-logo-upload-btn:hover{background:rgba(var(--accent-r),var(--accent-g),var(--accent-b),1);transform:scale(1.1)}
+.brand-logo-upload-btn input{display:none}
+.admin-mode .brand-logo-upload-btn{display:flex!important}
+.notice{background:rgba(255,255,255,0.02);border-radius:20px;padding:16px 18px;border:1px solid var(--border-subtle);font-size:12px;line-height:2;color:var(--text-secondary);backdrop-filter:blur(4px);position:relative;overflow:hidden;cursor:pointer;background-size:cover;background-position:center;transition:background-image 0.4s ease}
+.notice::after{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:linear-gradient(180deg,var(--accent-light),var(--accent-lighter),var(--accent-light));border-radius:3px;opacity:0.6;transition:background 0.6s ease}
+.notice strong{color:var(--accent-lighter);font-weight:800}
+.notice .small{font-size:11px;color:var(--text-muted);display:block;margin-top:2px}
+.notice .highlight{color:var(--accent-light);font-weight:600}
+.notice .notice-edit-btn{display:none;position:absolute;top:8px;right:10px;background:rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.06);border:none;color:var(--accent-light);font-size:10px;cursor:pointer;padding:3px 10px;border-radius:20px;z-index:2;transition:0.3s}
+.notice .notice-edit-btn:hover{background:rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.14)}
+.admin-mode .notice .notice-edit-btn{display:inline-flex}
+.notice .notice-bg-upload{display:none;position:absolute;bottom:8px;right:10px;z-index:3;gap:4px;align-items:center;flex-wrap:wrap}
+.admin-mode .notice .notice-bg-upload{display:flex}
+.notice .notice-content{position:relative;z-index:1}
+.contact-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px;align-items:center;position:relative;z-index:1}
+.contact-row .contact-item{display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,0.02);padding:5px 14px;border-radius:var(--radius-full);border:1px solid var(--border-subtle);transition:0.3s;color:var(--accent-light);font-size:10.5px;text-decoration:none;position:relative;cursor:pointer}
+.contact-row .contact-item:hover{background:rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.05);border-color:rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.12)}
+.contact-row .contact-item i{font-size:11px}
+.contact-item .cust-icon{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;overflow:hidden;flex-shrink:0;background:rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.05)}
+.contact-item .cust-icon img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+.contact-item .cust-icon i{font-size:11px;color:var(--accent-light)}
+.contact-item .edit-contact-btn{display:none;background:none;border:none;color:var(--accent-light);font-size:9px;cursor:pointer;padding:2px 4px;border-radius:4px;opacity:0.6;transition:0.3s}
+.contact-item .edit-contact-btn:hover{opacity:1;background:rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.06)}
+.admin-mode .contact-item .edit-contact-btn{display:inline-flex}
+.contact-upload-wrap{display:none;margin-left:3px}
+.admin-mode .contact-upload-wrap{display:inline-flex}
+.contact-upload-btn{display:inline-flex;align-items:center;gap:3px;padding:2px 10px;background:rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.06);border:1px solid rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.08);border-radius:var(--radius-full);color:var(--accent-light);font-size:9px;cursor:pointer;transition:0.3s;font-weight:600;white-space:nowrap}
+.contact-upload-btn:hover{background:rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.12);border-color:rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.18)}
+.contact-upload-btn input{display:none}
+.contact-remove-btn{display:none;align-items:center;gap:2px;padding:2px 10px;background:rgba(255,70,70,0.06);border:1px solid rgba(255,70,70,0.08);border-radius:var(--radius-full);color:#ff7a7a;font-size:9px;cursor:pointer;transition:0.3s;font-weight:600;white-space:nowrap}
+.contact-remove-btn:hover{background:rgba(255,70,70,0.12);border-color:rgba(255,70,70,0.16)}
+.contact-remove-btn.show{display:inline-flex}
+.contact-row .contact-item.highlight-link{border-color:rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.15);background:rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.04);animation:colorShift 3.2s ease-in-out infinite}
+.contact-row .contact-item.highlight-link:hover{animation-play-state:paused}
+@keyframes colorShift{0%{color:#e8c86a;border-color:rgba(212,175,55,0.15);background:rgba(212,175,55,0.04);box-shadow:0 0 8px rgba(212,175,55,0.02)}25%{color:#ff9a9a;border-color:rgba(224,64,64,0.18);background:rgba(224,64,64,0.04);box-shadow:0 0 12px rgba(224,64,64,0.03)}50%{color:#8ab8ff;border-color:rgba(64,128,224,0.18);background:rgba(64,128,224,0.04);box-shadow:0 0 12px rgba(64,128,224,0.03)}75%{color:#7ae09a;border-color:rgba(64,192,96,0.18);background:rgba(64,192,96,0.04);box-shadow:0 0 12px rgba(64,192,96,0.03)}100%{color:#e8c86a;border-color:rgba(212,175,55,0.15);background:rgba(212,175,55,0.04);box-shadow:0 0 8px rgba(212,175,55,0.02)}}
+.contact-row .contact-item.highlight-link i{animation:iconShift 3.2s ease-in-out infinite}
+@keyframes iconShift{0%{color:#e8c86a}25%{color:#ff9a9a}50%{color:#8ab8ff}75%{color:#7ae09a}100%{color:#e8c86a}}
+.contact-row .contact-item.highlight-link .label-text{animation:textShift 3.2s ease-in-out infinite}
+@keyframes textShift{0%{color:#f0ebe3}25%{color:#ffb8b8}50%{color:#b8d4ff}75%{color:#a8e8b8}100%{color:#f0ebe3}}
+.admin-badge{display:none;text-align:center;padding:5px 12px;background:rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.06);border-radius:var(--radius-full);font-size:10px;color:var(--accent-light);border:1px solid rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.06);margin-bottom:10px}
+.admin-mode .admin-badge{display:block}
+.admin-tools-panel{display:none;flex-wrap:wrap;gap:5px;padding:8px 0;margin-bottom:4px;align-items:center}
+.admin-mode .admin-tools-panel{display:flex}
+.admin-tools-panel .tool-btn{display:inline-flex;align-items:center;gap:4px;padding:5px 12px;background:rgba(255,255,255,0.02);border:1px solid var(--border-subtle);border-radius:var(--radius-full);color:var(--accent-light);font-size:10px;cursor:pointer;transition:0.3s;font-weight:600;white-space:nowrap}
+.admin-tools-panel .tool-btn:hover{background:rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.06);border-color:rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.12)}
+.admin-tools-panel .tool-btn i{font-size:10px}
+.admin-tools-panel .tool-btn.danger{color:#ff7a7a;border-color:rgba(255,70,70,0.08);background:rgba(255,70,70,0.03)}
+.admin-tools-panel .tool-btn.danger:hover{background:rgba(255,70,70,0.08);border-color:rgba(255,70,70,0.14)}
+.admin-tools-panel .tool-btn.success{color:#6bdb8a;border-color:rgba(64,192,96,0.08);background:rgba(64,192,96,0.03)}
+.admin-tools-panel .tool-btn.success:hover{background:rgba(64,192,96,0.08);border-color:rgba(64,192,96,0.14)}
+.search-wrap{display:none;margin-bottom:8px}
+.admin-mode .search-wrap{display:block}
+.search-wrap input{width:100%;padding:9px 16px;background:rgba(255,255,255,0.02);border:1px solid var(--border-subtle);border-radius:var(--radius-full);color:var(--text-primary);font-size:12px;outline:none;transition:0.3s}
+.search-wrap input:focus{border-color:rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.15);box-shadow:0 0 30px rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.02)}
+.search-wrap input::placeholder{color:var(--text-muted)}
+.project-nav{display:flex;flex-wrap:wrap;gap:5px;padding:6px 0 14px;justify-content:flex-start}
+.project-nav .nav-item{flex:0 0 calc(50% - 3px);display:flex;align-items:center;justify-content:center;gap:7px;padding:8px 12px;background:rgba(255,255,255,0.02);border-radius:var(--radius-full);border:1px solid var(--border-subtle);cursor:pointer;transition:var(--transition);white-space:nowrap;position:relative;min-width:0;user-select:none}
+.project-nav .nav-item:hover{background:rgba(255,255,255,0.04)}
+.project-nav .nav-item.active{background:rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.08);border-color:rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.16);box-shadow:0 0 40px rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.02),inset 0 0 30px rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.01)}
+.project-nav .nav-item .nav-icon-wrap{position:relative;display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;flex-shrink:0}
+.project-nav .nav-item .nav-icon-wrap i{font-size:14px;color:var(--text-muted);transition:0.3s}
+.project-nav .nav-item .nav-icon-wrap img{width:20px;height:20px;border-radius:50%;object-fit:cover;display:none}
+.project-nav .nav-item.active .nav-icon-wrap i{color:var(--accent-light)}
+.project-nav .nav-item.active .nav-icon-wrap img{border:1px solid var(--accent-light)}
+.project-nav .nav-item .nav-icon-upload-btn{display:none;position:absolute;bottom:-4px;right:-5px;background:rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.85);border:1.5px solid rgba(16,14,12,0.95);border-radius:50%;width:13px;height:13px;color:#fff;font-size:6px;cursor:pointer;align-items:center;justify-content:center;padding:0;line-height:1;z-index:2;transition:0.3s}
+.project-nav .nav-item .nav-icon-upload-btn:hover{background:rgba(var(--accent-r),var(--accent-g),var(--accent-b),1);transform:scale(1.15)}
+.project-nav .nav-item .nav-icon-upload-btn input{display:none}
+.admin-mode .project-nav .nav-item .nav-icon-upload-btn{display:flex!important}
+.project-nav .nav-item span{font-size:12px;font-weight:700;color:var(--text-muted);transition:0.3s;letter-spacing:0.2px;pointer-events:none}
+.project-nav .nav-item.active span{color:var(--text-primary)}
+.project-nav .nav-item.add-btn{border-style:dashed;border-color:rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.10);color:var(--accent-light);font-size:12px}
+.project-nav .nav-item.add-btn i{color:var(--accent-light)}
+.project-nav .nav-item.add-btn:hover{background:rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.03);border-color:rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.18)}
+.project-nav .nav-item.dragging{opacity:0.3;border-style:dashed;border-color:var(--accent-light)}
+.project-nav .nav-item.drag-over{border-color:var(--accent-light);background:rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.08)}
+.project-nav .nav-item .disabled-badge{font-size:8px;color:#ff7a7a;margin-left:2px}
+.project-area-wrapper{border-radius:24px;padding:8px;background-size:cover;background-position:center;transition:background-image 0.4s ease}
+.project-area-wrapper .project-area-bg-upload{display:none;justify-content:center;gap:6px;margin-bottom:6px;flex-wrap:wrap}
+.admin-mode .project-area-wrapper .project-area-bg-upload{display:flex}
+.project-card{border-radius:24px;padding:28px 22px 24px;border:1px solid var(--border-subtle);animation:cardReveal 0.5s cubic-bezier(0.16,1,0.3,1);backdrop-filter:blur(6px);position:relative;overflow:hidden;transition:background 0.6s ease}
+.project-card::before{content:'';position:absolute;top:-30%;right:-20%;width:50%;height:50%;background:radial-gradient(circle,rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.03),transparent);pointer-events:none;transition:background 0.6s ease}
+@keyframes cardReveal{0%{opacity:0;transform:translateY(24px) scale(0.96)}100%{opacity:1;transform:translateY(0) scale(1)}}
+.card-name-tier1{font-size:48px;font-weight:900;letter-spacing:-2px;background:linear-gradient(135deg,#f5efe6 0%,var(--accent-light) 30%,var(--accent-lighter) 65%,var(--accent-dark) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1.05;font-family:'Playfair Display',serif;margin-bottom:0;user-select:none;transition:background 0.6s ease}
+.card-name-tier2{font-size:28px;font-weight:700;color:rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.06);letter-spacing:8px;margin-top:-4px;margin-bottom:2px;user-select:none;font-family:'Playfair Display',serif;line-height:1.1;transition:color 0.6s ease}
+.card-name-tier3{font-size:22px;font-weight:700;color:var(--text-primary);margin-top:2px;margin-bottom:16px;line-height:1.2}
+.card-name-tier3 .highlight{background:linear-gradient(90deg,var(--accent-light),var(--accent-lighter));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-weight:800;transition:background 0.6s ease}
+.card-big-icon{display:flex;justify-content:center;align-items:center;margin:10px auto 20px;width:110px;height:110px;border-radius:50%;background:radial-gradient(circle at 30% 25%,rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.06),rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.005) 70%);border:1px solid rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.04);box-shadow:0 0 60px rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.02),inset 0 0 40px rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.005);overflow:hidden;transition:var(--transition);position:relative}
+.card-big-icon:hover{border-color:rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.10);box-shadow:0 0 80px rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.04);transform:scale(1.03)}
+.card-big-icon img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+.card-big-icon i{font-size:46px;color:var(--accent-light);filter:drop-shadow(0 0 30px rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.04));transition:color 0.6s ease}
+.card-big-icon video{width:100%;height:100%;object-fit:cover;border-radius:50%}
+.big-icon-actions{display:none;justify-content:center;gap:8px;margin-top:-10px;margin-bottom:16px;flex-wrap:wrap}
+.admin-mode .big-icon-actions{display:flex}
+.big-icon-actions .big-icon-upload-btn{display:inline-flex;align-items:center;gap:4px;padding:6px 16px;background:rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.08);border:1px solid rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.18);border-radius:var(--radius-full);color:var(--accent-light);font-size:11px;cursor:pointer;transition:0.3s;font-weight:600;white-space:nowrap}
+.big-icon-actions .big-icon-upload-btn:hover{background:rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.15);border-color:rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.28);transform:translateY(-1px)}
+.big-icon-actions .big-icon-upload-btn input{display:none}
+.big-icon-actions .big-icon-remove-btn{display:inline-flex;align-items:center;gap:4px;padding:6px 16px;background:rgba(255,70,70,0.06);border:1px solid rgba(255,70,70,0.1);border-radius:var(--radius-full);color:#ff7a7a;font-size:11px;cursor:pointer;transition:0.3s;font-weight:600;white-space:nowrap}
+.big-icon-actions .big-icon-remove-btn:hover{background:rgba(255,70,70,0.12);border-color:rgba(255,70,70,0.18);transform:translateY(-1px)}
+.action-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin:8px 0 18px}
+.action-grid .action-card{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:14px 6px;border-radius:18px;background:rgba(255,255,255,0.02);border:1px solid var(--border-subtle);text-decoration:none;color:var(--text-primary);transition:var(--transition);cursor:pointer;min-height:76px;position:relative;overflow:hidden}
+.action-grid .action-card:hover{background:rgba(255,255,255,0.04);border-color:rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.08);transform:translateY(-3px);box-shadow:0 12px 40px rgba(0,0,0,0.3)}
+.action-grid .action-card i{font-size:20px;color:var(--accent-light);transition:0.3s}
+.action-grid .action-card:hover i{color:var(--accent-lighter);transform:scale(1.05)}
+.action-grid .action-card .label{font-size:11px;font-weight:700;color:var(--text-secondary)}
+.action-grid .action-card .sub-label{font-size:8px;color:var(--text-muted);font-weight:400}
+.action-grid .action-card.channel{background:rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.02);border-color:rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.04)}
+.action-grid .action-card.channel i{color:var(--accent-lighter)}
+.action-grid .action-card.channel:hover{background:rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.04);border-color:rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.10)}
+.action-grid .action-card.channel .label{color:var(--accent-lighter)}
+.card-desc{font-size:12px;color:var(--text-secondary);line-height:1.9;padding:0 2px;margin-top:4px;border-top:1px solid var(--border-subtle);padding-top:16px}
+.card-desc strong{color:var(--accent-light);font-weight:700}
+.card-desc i{color:var(--accent-light);margin-right:5px;opacity:0.4}
+.project-info-row{display:flex;flex-wrap:wrap;gap:4px 10px;font-size:10px;color:var(--text-muted);margin:8px 0}
+.project-info-row .info-tag{background:rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.03);padding:2px 8px;border-radius:20px}
+.project-info-row .info-tag i{margin-right:4px;color:var(--accent-light);opacity:0.6}
+.video-preview{width:100%;max-height:180px;border-radius:16px;margin-top:8px}
+.footer-note{margin-top:20px;text-align:center;font-size:9.5px;color:var(--text-muted);border-top:1px solid var(--border-subtle);padding-top:16px;letter-spacing:0.6px;cursor:default;user-select:none}
+.footer-note i{margin-right:5px;color:var(--text-muted);opacity:0.5}
+.password-overlay,.link-edit-overlay,.generic-edit-overlay,.add-project-overlay,.bg-config-overlay,.confirm-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.82);backdrop-filter:blur(32px);-webkit-backdrop-filter:blur(32px);display:none;justify-content:center;align-items:center;z-index:99998;padding:16px}
+.password-overlay.active,.link-edit-overlay.active,.generic-edit-overlay.active,.add-project-overlay.active,.bg-config-overlay.active,.confirm-overlay.active{display:flex;animation:fadeIn 0.3s ease}
+.password-card,.link-edit-card,.generic-edit-card,.add-project-card,.bg-config-card,.confirm-card{max-width:380px;width:100%;padding:30px 24px 28px;background:rgba(18,16,14,0.96);backdrop-filter:blur(40px);-webkit-backdrop-filter:blur(40px);border-radius:28px;border:1px solid rgba(255,255,255,0.05);box-shadow:0 50px 150px rgba(0,0,0,0.7);animation:zoomIn 0.35s cubic-bezier(0.16,1,0.3,1);text-align:center;max-height:90vh;overflow-y:auto}
+.password-card .pwd-title,.link-edit-card .edit-title,.generic-edit-card .edit-title,.add-project-card .edit-title,.bg-config-card .edit-title,.confirm-card .edit-title{font-size:19px;font-weight:700;color:var(--text-primary);margin-bottom:4px;display:flex;align-items:center;justify-content:center;gap:10px}
+.password-card .pwd-title i,.link-edit-card .edit-title i,.generic-edit-card .edit-title i,.add-project-card .edit-title i,.bg-config-card .edit-title i,.confirm-card .edit-title i{color:var(--accent-light);font-size:20px}
+.password-card .pwd-sub,.link-edit-card .edit-sub,.generic-edit-card .edit-sub,.add-project-card .edit-sub,.bg-config-card .edit-sub,.confirm-card .edit-sub{font-size:12.5px;color:var(--text-muted);margin-bottom:16px}
+.password-card .pwd-input-wrap{position:relative;margin-bottom:12px}
+.password-card .pwd-input-wrap input{width:100%;padding:13px 18px;background:rgba(255,255,255,0.03);border:1px solid var(--border-subtle);border-radius:var(--radius-full);color:var(--text-primary);font-size:17px;font-weight:600;letter-spacing:4px;text-align:center;outline:none;transition:0.3s}
+.password-card .pwd-input-wrap input:focus{border-color:rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.15);box-shadow:0 0 30px rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.02)}
+.password-card .pwd-error{color:#ff6b6b;font-size:11.5px;min-height:20px;margin-bottom:6px}
+.pwd-btn-group,.edit-btn-group{display:flex;gap:8px;margin-top:4px}
+.pwd-btn-group button,.edit-btn-group button{flex:1;padding:11px 0;border:none;border-radius:var(--radius-full);font-size:14px;font-weight:600;cursor:pointer;transition:0.3s}
+.pwd-confirm,.edit-save{background:linear-gradient(135deg,var(--accent-dark),var(--accent-light),var(--accent-lighter));color:#1a1510}
+.pwd-confirm:hover,.edit-save:hover{transform:scale(1.02);box-shadow:0 8px 30px rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.15)}
+.pwd-cancel,.edit-cancel{background:rgba(255,255,255,0.03);color:var(--text-muted);border:1px solid var(--border-subtle)}
+.pwd-cancel:hover,.edit-cancel:hover{background:rgba(255,255,255,0.05)}
+.input-group{margin-bottom:12px;text-align:left}
+.input-group label{display:block;font-size:11px;font-weight:600;color:var(--text-secondary);margin-bottom:4px}
+.input-group input,.input-group textarea,.input-group select{width:100%;padding:9px 14px;background:rgba(255,255,255,0.03);border:1px solid var(--border-subtle);border-radius:var(--radius-full);color:var(--text-primary);font-size:13px;outline:none;transition:0.3s;font-family:inherit}
+.input-group textarea{border-radius:var(--radius-sm);resize:vertical;min-height:55px;line-height:1.5}
+.input-group input:focus,.input-group textarea:focus,.input-group select:focus{border-color:rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.12);box-shadow:0 0 30px rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.02)}
+.input-group input::placeholder,.input-group textarea::placeholder{color:var(--text-muted);font-size:12px}
+.input-group select option{background:#1a1510;color:var(--text-primary)}
+.input-group .icon-preview{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%;background:rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.04);border:1px solid var(--border-subtle);margin-left:6px;font-size:16px;color:var(--accent-light)}
+.input-group .icon-preview img{width:28px;height:28px;border-radius:50%;object-fit:cover}
+.input-group .icon-upload-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:8px}
+.input-group .link-hint{font-size:10px;color:var(--text-muted);margin-top:2px;padding:3px 10px;background:rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.02);border-radius:20px;display:inline-block}
+.input-group .link-hint i{color:var(--accent-light);margin-right:4px;opacity:0.6}
+.color-options{display:flex;flex-wrap:wrap;gap:6px;margin-top:3px}
+.color-option{width:34px;height:34px;border-radius:50%;border:2px solid transparent;cursor:pointer;transition:0.3s;position:relative}
+.color-option:hover{transform:scale(1.08)}
+.color-option.active{border-color:#fff;box-shadow:0 0 20px rgba(255,255,255,0.1)}
+.color-option .check{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;opacity:0;transition:0.2s}
+.color-option.active .check{opacity:1}
+.confirm-card .confirm-message{font-size:14.5px;color:var(--text-secondary);line-height:1.6;margin-bottom:16px}
+.confirm-card .confirm-message strong{color:var(--accent-light)}
+.image-popup-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);display:none;justify-content:center;align-items:center;z-index:99999;padding:30px;cursor:pointer}
+.image-popup-overlay.active{display:flex;animation:fadeIn 0.3s ease}
+.image-popup-overlay .popup-content{max-width:380px;width:100%;max-height:80vh;border-radius:24px;overflow:hidden;box-shadow:0 50px 150px rgba(0,0,0,0.8);border:1px solid rgba(255,255,255,0.05);cursor:default;position:relative;animation:zoomIn 0.35s cubic-bezier(0.16,1,0.3,1);background:#1a1510;display:flex;flex-direction:column;align-items:center}
+.image-popup-overlay .popup-content img{width:100%;height:auto;max-height:55vh;object-fit:contain;display:block;border-radius:24px 24px 0 0;background:#1a1510}
+.image-popup-overlay .popup-content .popup-actions{padding:16px 20px 20px;width:100%;display:flex;gap:12px;justify-content:center;background:rgba(0,0,0,0.3);border-radius:0 0 24px 24px}
+.image-popup-overlay .popup-content .popup-actions button{padding:9px 20px;border:none;border-radius:var(--radius-full);font-size:13px;font-weight:600;cursor:pointer;transition:0.3s;flex:1;max-width:140px}
+.image-popup-overlay .popup-content .popup-actions .btn-save{background:linear-gradient(135deg,var(--accent-dark),var(--accent-light),var(--accent-lighter));color:#1a1510}
+.image-popup-overlay .popup-content .popup-actions .btn-save:hover{transform:scale(1.04)}
+.image-popup-overlay .popup-content .popup-actions .btn-close-popup{background:rgba(255,255,255,0.04);color:var(--text-muted);border:1px solid var(--border-subtle)}
+.image-popup-overlay .popup-content .popup-actions .btn-close-popup:hover{background:rgba(255,255,255,0.08)}
+.popup-placeholder{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 30px;background:#1a1510;color:var(--text-muted);text-align:center;min-height:260px;border-radius:24px}
+.popup-placeholder i{font-size:48px;color:#3a2a1a;margin-bottom:14px}
+.popup-placeholder p{font-size:13.5px;color:var(--text-muted);line-height:1.6}
+.context-menu{position:fixed;background:rgba(18,16,14,0.96);backdrop-filter:blur(28px);border:1px solid rgba(255,255,255,0.05);border-radius:14px;padding:6px 0;z-index:100000;display:none;min-width:140px;box-shadow:0 24px 80px rgba(0,0,0,0.6)}
+.context-menu.active{display:block}
+.context-menu button{display:block;width:100%;padding:7px 16px;background:none;border:none;color:var(--text-secondary);font-size:12.5px;text-align:left;cursor:pointer;transition:0.2s;white-space:nowrap}
+.context-menu button:hover{background:rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.06);color:var(--accent-light)}
+.context-menu button.danger{color:#ff7a7a}
+.context-menu button.danger:hover{background:rgba(255,70,70,0.06)}
+.admin-panel .admin-item{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;background:rgba(255,255,255,0.02);border-radius:12px;border:1px solid var(--border-subtle);flex-wrap:wrap;gap:4px;transition:0.3s}
+.admin-panel .admin-item:hover{background:rgba(255,255,255,0.04)}
+.admin-panel .admin-item .item-left{display:flex;align-items:center;gap:8px;min-width:80px}
+.admin-panel .admin-item .item-left .nav-icon-wrap{position:relative;display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;flex-shrink:0}
+.admin-panel .admin-item .item-left .nav-icon-wrap i{font-size:16px;color:var(--accent-light)}
+.admin-panel .admin-item .item-left .nav-icon-wrap img{width:24px;height:24px;border-radius:50%;object-fit:cover}
+.admin-panel .admin-item .item-left .nav-icon-upload-btn{display:none!important;position:absolute;bottom:-4px;right:-5px;background:rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.85);border:1.5px solid rgba(16,14,12,0.95);border-radius:50%;width:13px;height:13px;color:#fff;font-size:6px;cursor:pointer;align-items:center;justify-content:center;padding:0;line-height:1;z-index:2;transition:0.3s}
+.admin-panel .admin-item .item-left .nav-icon-upload-btn input{display:none}
+.admin-mode .admin-panel .admin-item .item-left .nav-icon-upload-btn{display:flex!important}
+.admin-panel .admin-item .item-name{color:var(--text-primary);font-weight:600;font-size:12px}
+.admin-panel .admin-item .item-status{font-size:9px;color:var(--text-muted)}
+.admin-panel .admin-item .item-actions{display:flex;gap:3px;flex-wrap:wrap}
+.admin-panel .admin-item .item-actions button{background:rgba(255,255,255,0.04);border:none;color:var(--text-muted);padding:2px 10px;border-radius:14px;cursor:pointer;font-size:10px;transition:0.3s}
+.admin-panel .admin-item .item-actions button:hover{background:rgba(255,255,255,0.08)}
+.admin-panel .admin-item .item-actions button.edit-btn{color:#7abfff;background:rgba(100,180,255,0.04)}
+.admin-panel .admin-item .item-actions button.edit-btn:hover{background:rgba(100,180,255,0.10)}
+.admin-panel .admin-item .item-actions button.toggle-btn{color:#c89664;background:rgba(200,150,100,0.04)}
+.admin-panel .admin-item .item-actions button.toggle-btn:hover{background:rgba(200,150,100,0.10)}
+.admin-panel .admin-item .item-actions button.del-btn{color:#ff7a7a;background:rgba(255,70,70,0.03)}
+.admin-panel .admin-item .item-actions button.del-btn:hover{background:rgba(255,70,70,0.08)}
+.admin-panel .admin-item .item-actions button.move-btn{color:var(--text-muted);background:rgba(255,255,255,0.02);padding:2px 6px}
+.admin-panel .admin-item .item-actions button.move-btn:hover{background:rgba(255,255,255,0.06)}
+.admin-panel .admin-item .item-actions button.move-btn:disabled{opacity:0.2;pointer-events:none}
+.cloud-status-bar{display:none;padding:4px 14px;border-radius:var(--radius-full);font-size:9px;align-items:center;gap:5px;margin-bottom:4px;background:rgba(255,255,255,0.02);border:1px solid var(--border-subtle)}
+.admin-mode .cloud-status-bar{display:flex}
+.cloud-status-bar .status-dot{width:7px;height:7px;border-radius:50%;display:inline-block;animation:dotPulse 2s ease-in-out infinite}
+.cloud-status-bar .status-dot.online{background:#6bdb8a;box-shadow:0 0 10px rgba(107,219,138,0.15)}
+.cloud-status-bar .status-dot.offline{background:#ff6b6b;box-shadow:0 0 10px rgba(255,107,107,0.12)}
+.cloud-status-bar .status-dot.syncing{background:#f5d98a;animation:pulse 0.8s ease-in-out infinite}
+@keyframes dotPulse{0%,100%{opacity:0.6}50%{opacity:1}}
+@keyframes pulse{0%,100%{opacity:0.4}50%{opacity:1}}
+.netlify-badge,[class*="netlify"],[class*="Netlify"],footer a[href*="netlify"],a[href*="netlify.com"],a[href*="netlify.app"],.powered-by,.powered-by-netlify,.deploy-badge,.netlify-footer,#netlify-badge,.netlify-deploy-badge,[data-testid="footer"],[data-testid="footer"] *,footer *:not(.footer-note):not(.footer-note *),body>footer:not(.footer-note),[role="contentinfo"],.footer__powered-by,.netlify-container,.netlify-footer__badge,a[href*="netlify"]{display:none!important;visibility:hidden!important;opacity:0!important;pointer-events:none!important;width:0!important;height:0!important;overflow:hidden!important;position:absolute!important;clip:rect(0,0,0,0)!important;max-height:0!important;max-width:0!important;border:none!important;padding:0!important;margin:0!important;font-size:0!important;line-height:0!important;min-height:0!important;min-width:0!important;transform:scale(0)!important;cursor:default!important}
+.footer-note{display:block!important;visibility:visible!important;opacity:1!important;position:relative!important;width:auto!important;height:auto!important;overflow:visible!important;clip:auto!important;max-height:none!important;max-width:none!important;border:none!important;padding:16px 0 0!important;margin:20px 0 0!important;font-size:9.5px!important;line-height:normal!important;min-height:0!important;min-width:0!important;transform:scale(1)!important;pointer-events:auto!important}
+.card-btn-item{display:flex;align-items:center;gap:4px;padding:4px 8px;background:rgba(255,255,255,0.02);border-radius:10px;border:1px solid rgba(255,255,255,0.04);transition:0.3s;cursor:grab;flex-wrap:wrap}
+.card-btn-item:hover{background:rgba(255,255,255,0.04)}
+.card-btn-item .drag-handle{color:var(--text-muted);font-size:10px;cursor:grab;flex-shrink:0;user-select:none}
+.card-btn-item .btn-status{font-size:9px;flex-shrink:0}
+.card-btn-item .btn-icon-wrap{width:20px;height:20px;display:flex;align-items:center;justify-content:center;flex-shrink:0;border-radius:50%;background:rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.04)}
+.card-btn-item .btn-icon-wrap img{width:16px;height:16px;border-radius:50%;object-fit:cover}
+.card-btn-item .btn-icon-wrap i{font-size:11px;color:var(--accent-light)}
+.card-btn-item input,.card-btn-item select{padding:2px 6px;background:rgba(255,255,255,0.03);border:1px solid var(--border-subtle);border-radius:6px;color:var(--text-primary);font-size:10px;outline:none;font-family:inherit;transition:0.3s;min-width:0}
+.card-btn-item input:focus,.card-btn-item select:focus{border-color:rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.15)}
+.card-btn-item .btn-label-input{flex:1;min-width:40px}
+.card-btn-item .btn-sub-input{width:45px;font-size:9px;color:var(--text-secondary)}
+.card-btn-item .btn-type-select{width:50px;font-size:9px;padding:2px 4px}
+.card-btn-item .btn-link-input{flex:1;min-width:50px;font-size:9px;color:var(--text-muted)}
+.card-btn-item .btn-icon-upload{font-size:8px;color:var(--accent-light);cursor:pointer;padding:2px 4px;background:rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.04);border-radius:4px;white-space:nowrap;transition:0.3s;flex-shrink:0}
+.card-btn-item .btn-icon-upload:hover{background:rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.10)}
+.card-btn-item .btn-icon-upload input{display:none}
+.card-btn-item .btn-toggle{padding:2px 6px;border:none;border-radius:4px;cursor:pointer;font-size:9px;transition:0.3s;flex-shrink:0}
+.card-btn-item .btn-toggle.enabled{background:rgba(107,219,138,0.06);color:#6bdb8a}
+.card-btn-item .btn-toggle.enabled:hover{background:rgba(107,219,138,0.12)}
+.card-btn-item .btn-toggle.disabled{background:rgba(255,70,70,0.06);color:#ff7a7a}
+.card-btn-item .btn-toggle.disabled:hover{background:rgba(255,70,70,0.12)}
+.card-btn-item .btn-delete{padding:2px 5px;background:rgba(255,70,70,0.04);border:none;border-radius:4px;color:#ff7a7a;cursor:pointer;font-size:9px;transition:0.3s;flex-shrink:0}
+.card-btn-item .btn-delete:hover{background:rgba(255,70,70,0.12)}
+.card-btn-item.drag-over{border-color:var(--accent-light);background:rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.08)}
+.card-btn-item.dragging{opacity:0.3}
+#addCardButtonBtn{margin-top:6px;padding:5px 12px;background:rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.04);border:1px dashed rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.12);border-radius:var(--radius-full);color:var(--accent-light);font-size:11px;cursor:pointer;transition:0.3s;font-weight:600;width:100%}
+#addCardButtonBtn:hover{background:rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.08);border-color:rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.2)}
+.card-buttons-config-area{border-top:1px solid var(--border-subtle);padding-top:12px;margin-top:8px}
+@media(max-width:440px){.app-wrapper{padding:16px 12px 20px;border-radius:28px}.card-name-tier1{font-size:38px}.card-name-tier2{font-size:22px;letter-spacing:5px}.card-name-tier3{font-size:18px}.card-big-icon{width:90px;height:90px}.card-big-icon i{font-size:36px}.action-grid{gap:8px}.action-grid .action-card{padding:12px 4px;min-height:64px;border-radius:14px}.action-grid .action-card i{font-size:18px}.action-grid .action-card .label{font-size:10px}.project-nav .nav-item{flex:0 0 calc(50% - 3px);padding:7px 10px}.project-nav .nav-item span{font-size:11px}.project-nav .nav-item .nav-icon-wrap{width:16px;height:16px}.project-nav .nav-item .nav-icon-wrap i{font-size:12px}.project-nav .nav-item .nav-icon-wrap img{width:16px;height:16px}.contact-row .contact-item{font-size:9px;padding:4px 10px}.brand h1{font-size:18px}.brand-logo-wrapper{width:38px;height:38px}.brand-logo-wrapper i{font-size:26px}.brand-logo-wrapper img{width:38px;height:38px}.admin-tools-panel .tool-btn{font-size:9px;padding:4px 10px}.password-card,.link-edit-card,.generic-edit-card,.add-project-card,.bg-config-card,.confirm-card{padding:22px 18px 22px}.stats-panel .stat-item{font-size:10px}.stats-panel .stat-item .num{font-size:12px}.announcement-card{padding:24px 20px 22px}.announcement-card .ann-title{font-size:17px}.announcement-card .ann-body{font-size:12.5px;padding:14px 16px}.card-desc{font-size:11px}.project-area-wrapper{padding:4px}.card-btn-item{padding:3px 6px;gap:3px}.card-btn-item .btn-label-input{min-width:30px;font-size:9px}.card-btn-item .btn-sub-input{width:35px;font-size:8px}.card-btn-item .btn-type-select{width:40px;font-size:8px}.card-btn-item .btn-link-input{min-width:35px;font-size:8px}.big-icon-actions .big-icon-upload-btn,.big-icon-actions .big-icon-remove-btn{font-size:10px;padding:5px 12px}}
+@media(max-width:360px){.project-nav .nav-item{flex:0 0 100%;padding:6px 10px}.card-name-tier1{font-size:30px}.card-name-tier2{font-size:18px;letter-spacing:4px}.card-name-tier3{font-size:15px}.card-big-icon{width:76px;height:76px}.card-big-icon i{font-size:30px}.action-grid .action-card{min-height:56px;padding:8px 3px}.action-grid .action-card i{font-size:15px}.action-grid .action-card .label{font-size:9px}}
+</style>
+</head>
+<body class="theme-gold">
+<div class="announcement-overlay" id="announcementOverlay">
+<div class="announcement-card">
+<button class="ann-edit-btn" id="announcementEditBtn" style="display:none;"><i class="fas fa-pen"></i> 编辑</button>
+<div class="ann-title"><i class="fas fa-bullhorn"></i> <span id="announcementTitle">📢 公告</span></div>
+<div class="ann-body" id="announcementBody">欢迎来到YZ官网\n严选全网顶尖脚本，实测上机校验，过滤残次失效资源，紧跟版本快速更新，运行丝滑稳定，一站式体验</div>
+<img id="announcementImage" class="ann-image" src="" alt="公告图片"/>
+<button class="ann-close-btn" id="announcementCloseBtn">知道了</button>
+</div>
+</div>
+<div class="password-overlay" id="passwordOverlay">
+<div class="password-card">
+<div class="pwd-title"><i class="fas fa-lock"></i> 管理员验证</div>
+<div class="pwd-sub">请输入管理员密码以进入管理模式</div>
+<div class="pwd-input-wrap"><input type="password" id="pwdInput" placeholder="请输入密码" maxlength="20" autocomplete="off"/></div>
+<div class="pwd-error" id="pwdError"></div>
+<div class="pwd-btn-group"><button class="pwd-cancel" id="pwdCancelBtn">取消</button><button class="pwd-confirm" id="pwdConfirmBtn">确认</button></div>
+</div>
+</div>
+<div class="password-overlay" id="changePwdOverlay">
+<div class="password-card">
+<div class="pwd-title"><i class="fas fa-key"></i> 修改管理员密码</div>
+<div class="pwd-sub">请输入旧密码并设置新密码</div>
+<div class="pwd-input-wrap"><input type="password" id="oldPwdInput" placeholder="旧密码" maxlength="20" autocomplete="off"/></div>
+<div class="pwd-input-wrap"><input type="password" id="newPwdInput" placeholder="新密码" maxlength="20" autocomplete="off"/></div>
+<div class="pwd-input-wrap"><input type="password" id="confirmPwdInput" placeholder="确认新密码" maxlength="20" autocomplete="off"/></div>
+<div class="pwd-error" id="changePwdError"></div>
+<div class="pwd-btn-group"><button class="pwd-cancel" id="changePwdCancelBtn">取消</button><button class="pwd-confirm" id="changePwdConfirmBtn">确认修改</button></div>
+</div>
+</div>
+<div class="link-edit-overlay" id="linkEditOverlay">
+<div class="link-edit-card">
+<div class="edit-title"><i class="fas fa-pen-to-square"></i> 编辑项目</div>
+<div class="edit-sub">正在编辑：<span id="editProjectName">ACE</span></div>
+<div class="input-group"><label>项目名称</label><input type="text" id="editName" placeholder="项目名称"/></div>
+<div class="input-group"><label>副标题</label><input type="text" id="editSubtitle" placeholder="副标题"/></div>
+<div class="input-group">
+<label>图标选择</label>
+<div style="display:flex;gap:6px;align-items:center;">
+<select id="editIconSelect" style="flex:1;padding:9px 14px;background:rgba(255,255,255,0.03);border:1px solid var(--border-subtle);border-radius:var(--radius-full);color:var(--text-primary);font-size:12.5px;outline:none;font-family:inherit;">
+<option value="fa-cube">🧊 fa-cube</option><option value="fa-crown">👑 fa-crown</option><option value="fa-dragon">🐉 fa-dragon</option><option value="fa-house">🏠 fa-house</option><option value="fa-skull">💀 fa-skull</option><option value="fa-code">💻 fa-code</option><option value="fa-atom">⚛️ fa-atom</option><option value="fa-chart-bar">📊 fa-chart-bar</option><option value="fa-apple">🍎 fa-apple</option><option value="fa-rocket">🚀 fa-rocket</option><option value="fa-star">⭐ fa-star</option><option value="fa-fire">🔥 fa-fire</option><option value="fa-bolt">⚡ fa-bolt</option><option value="fa-gamepad">🎮 fa-gamepad</option><option value="fa-robot">🤖 fa-robot</option><option value="fa-ghost">👻 fa-ghost</option><option value="fa-meteor">☄️ fa-meteor</option><option value="fa-satellite">🛰️ fa-satellite</option><option value="fa-shield-halved">🛡️ fa-shield-halved</option><option value="fa-sword">⚔️ fa-sword</option><option value="fa-wand-sparkles">🪄 fa-wand-sparkles</option><option value="fa-hat-wizard">🧙 fa-hat-wizard</option><option value="fa-scroll">📜 fa-scroll</option><option value="fa-dice">🎲 fa-dice</option><option value="fa-trophy">🏆 fa-trophy</option><option value="fa-medal">🥇 fa-medal</option>
+</select>
+<span class="icon-preview" id="editIconPreview"><i class="fas fa-cube"></i></span>
+</div>
+<div class="icon-upload-row">
+<label class="contact-upload-btn" style="display:inline-flex;font-size:10px;">📷 上传自定义图标<input type="file" accept="image/*" id="editIconUpload"/></label>
+<button class="contact-remove-btn" id="editIconRemove" style="display:none;font-size:10px;">✕ 移除</button>
+</div>
+</div>
+<div class="input-group"><label>版本号</label><input type="text" id="editVersion" placeholder="例如 v2.3"/></div>
+<div class="input-group"><label>更新日期</label><input type="date" id="editUpdateDate"/></div>
+<div class="input-group"><label>文件大小</label><input type="text" id="editFileSize" placeholder="例如 112 MB"/></div>
+<div class="input-group"><label>标签（逗号分隔）</label><input type="text" id="editTags" placeholder="热门,新品"/></div>
+<div class="input-group"><label>描述</label><textarea id="editDesc" placeholder="项目描述..." rows="3"></textarea></div>
+<div class="input-group"><label>📥 下载链接</label><input type="text" id="editDownloadLink" placeholder="https://www.123pan.com/s/xxx"/><div class="link-hint"><i class="fas fa-info-circle"></i> 填写完整的 http:// 或 https:// 链接（自动同步到卡片按钮）</div></div>
+<div class="input-group"><label>📢 官方频道</label><input type="text" id="editChannelLink" placeholder="https://pd.qq.com/s/xxxxx"/><div class="link-hint"><i class="fas fa-info-circle"></i> 自动同步到"官方频道"按钮</div></div>
+<div class="input-group"><label>👥 官方群</label><input type="text" id="editGroupLink" placeholder="https://qm.qq.com/q/xxxxx"/><div class="link-hint"><i class="fas fa-info-circle"></i> 自动同步到"官方群"按钮</div></div>
+<div class="input-group"><label>卡片背景色</label><div class="color-options" id="cardBgColors"></div></div>
+<div class="card-buttons-config-area">
+<label style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:4px;font-size:12px;font-weight:600;color:var(--text-secondary);margin-bottom:4px;">
+<span><i class="fas fa-object-group"></i> 卡片按钮配置</span>
+<span style="font-size:9px;color:var(--text-muted);font-weight:400;">拖拽排序 · 每个项目独立</span>
+</label>
+<div style="font-size:10px;color:var(--text-muted);margin-bottom:6px;display:flex;gap:8px;flex-wrap:wrap;">
+<span>🟢 启用 · 🔴 禁用</span>
+<span>📌 类型：下载 / 频道 / 群 / 自定义</span>
+<span>💡 右键图标可移除</span>
+</div>
+<div id="cardButtonsContainer" style="display:flex;flex-direction:column;gap:4px;max-height:280px;overflow-y:auto;padding-right:4px;"></div>
+<button id="addCardButtonBtn"><i class="fas fa-plus"></i> 添加按钮</button>
+</div>
+<div class="edit-btn-group" style="margin-top:12px;"><button class="edit-cancel" id="linkEditCancelBtn">取消</button><button class="edit-save" id="linkEditSaveBtn">保存</button></div>
+</div>
+</div>
+<div class="add-project-overlay" id="addProjectOverlay">
+<div class="add-project-card">
+<div class="edit-title"><i class="fas fa-plus-circle"></i> 添加项目</div>
+<div class="edit-sub">输入新项目信息</div>
+<div class="input-group"><label>项目名称 *</label><input type="text" id="addName" placeholder="例如：Nova"/></div>
+<div class="input-group">
+<label>图标选择</label>
+<div style="display:flex;gap:6px;align-items:center;">
+<select id="addIconSelect" style="flex:1;padding:9px 14px;background:rgba(255,255,255,0.03);border:1px solid var(--border-subtle);border-radius:var(--radius-full);color:var(--text-primary);font-size:12.5px;outline:none;font-family:inherit;">
+<option value="fa-cube">🧊 fa-cube</option><option value="fa-rocket">🚀 fa-rocket</option><option value="fa-star">⭐ fa-star</option><option value="fa-fire">🔥 fa-fire</option><option value="fa-bolt">⚡ fa-bolt</option><option value="fa-gamepad">🎮 fa-gamepad</option><option value="fa-robot">🤖 fa-robot</option><option value="fa-ghost">👻 fa-ghost</option><option value="fa-crown">👑 fa-crown</option><option value="fa-dragon">🐉 fa-dragon</option><option value="fa-house">🏠 fa-house</option><option value="fa-skull">💀 fa-skull</option><option value="fa-code">💻 fa-code</option><option value="fa-atom">⚛️ fa-atom</option><option value="fa-chart-bar">📊 fa-chart-bar</option><option value="fa-apple">🍎 fa-apple</option><option value="fa-meteor">☄️ fa-meteor</option>
+</select>
+<span class="icon-preview" id="addIconPreview"><i class="fas fa-cube"></i></span>
+</div>
+</div>
+<div class="input-group"><label>副标题</label><input type="text" id="addSubtitle" placeholder="例如：新生力量"/></div>
+<div class="input-group"><label>版本号</label><input type="text" id="addVersion" placeholder="例如 v1.0"/></div>
+<div class="input-group"><label>更新日期</label><input type="date" id="addUpdateDate"/></div>
+<div class="input-group"><label>文件大小</label><input type="text" id="addFileSize" placeholder="例如 10 MB"/></div>
+<div class="input-group"><label>标签（逗号分隔）</label><input type="text" id="addTags" placeholder="热门,新品"/></div>
+<div class="input-group"><label>描述</label><textarea id="addDesc" placeholder="项目描述..." rows="3"></textarea></div>
+<div class="edit-btn-group"><button class="edit-cancel" id="addProjectCancelBtn">取消</button><button class="edit-save" id="addProjectSaveBtn">添加</button></div>
+</div>
+</div>
+<div class="bg-config-overlay" id="bgConfigOverlay">
+<div class="bg-config-card">
+<div class="edit-title"><i class="fas fa-palette"></i> 动态背景颜色</div>
+<div class="edit-sub">选择页面的动态背景光晕颜色主题</div>
+<div class="input-group"><label>动态背景颜色主题</label><div class="color-options" id="dynamicBgColors"></div></div>
+<div class="input-group"><label>卡片风格</label>
+<select id="cardThemeSelect"><option value="default">默认</option><option value="rounded">大圆角</option><option value="minimal">极简</option><option value="cyber">赛博</option></select>
+</div>
+<div class="edit-btn-group"><button class="edit-cancel" id="bgConfigCloseBtn">关闭</button></div>
+</div>
+</div>
+<div class="generic-edit-overlay" id="genericEditOverlay">
+<div class="generic-edit-card">
+<div class="edit-title" id="genericEditTitle">编辑</div>
+<div class="edit-sub" id="genericEditSub">修改内容</div>
+<div class="input-group"><label id="genericEditLabel">内容</label><textarea id="genericEditValue" rows="4" placeholder="输入内容..."></textarea></div>
+<div id="announcementImageUploadArea" style="display:none;margin-top:12px;padding-top:12px;border-top:1px solid var(--border-subtle);">
+<div class="input-group">
+<label>公告配图</label>
+<div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+<label class="contact-upload-btn" style="display:inline-flex;">📷 上传图片<input type="file" accept="image/*" id="announcementEditImageInput"/></label>
+<button class="contact-remove-btn" id="announcementEditImageRemove" style="display:none;">✕ 移除</button>
+<div id="announcementEditImagePreview" style="width:72px;height:72px;border-radius:12px;overflow:hidden;border:1px solid var(--border-subtle);background:#1a1510;display:none;align-items:center;justify-content:center;">
+<img id="announcementEditImagePreviewImg" style="width:100%;height:100%;object-fit:cover;display:none;"/>
+<span style="font-size:9px;color:var(--text-muted);">无</span>
+</div>
+</div>
+</div>
+</div>
+<div class="edit-btn-group"><button class="edit-cancel" id="genericEditCancelBtn">取消</button><button class="edit-save" id="genericEditSaveBtn">保存</button></div>
+</div>
+</div>
+<div class="confirm-overlay" id="confirmOverlay">
+<div class="confirm-card">
+<div class="edit-title"><i class="fas fa-triangle-exclamation" style="color:#ff6b6b;"></i> 确认操作</div>
+<div class="confirm-message" id="confirmMessage">确定要执行此操作吗？</div>
+<div class="edit-btn-group"><button class="edit-cancel" id="confirmCancelBtn">取消</button><button class="edit-save" id="confirmOkBtn">确定</button></div>
+</div>
+</div>
+<div class="image-popup-overlay" id="imagePopup"><div class="popup-content" id="popupContent"></div></div>
+<div class="context-menu" id="contextMenu">
+<button data-action="edit"><i class="fas fa-pen"></i> 编辑项目</button>
+<button data-action="copy-download"><i class="fas fa-copy"></i> 复制下载链接</button>
+<button data-action="delete" class="danger"><i class="fas fa-trash"></i> 删除项目</button>
+</div>
+<div class="app-wrapper" id="appWrapper">
+<div class="header-section">
+<div class="brand">
+<h1 id="brandTitle">
+<span class="brand-logo-wrapper" id="brandLogoWrapper">
+<i class="fas fa-crown" id="brandIcon"></i>
+<img id="brandLogoImg" alt="品牌Logo"/>
+<button class="brand-logo-upload-btn" id="brandLogoUploadBtn" title="上传品牌Logo"><i class="fas fa-camera"></i><input type="file" accept="image/*" id="brandLogoInput"/></button>
+</span>
+<span id="brandText">YZ官网</span>
+</h1>
+<div style="display:flex;align-items:center;gap:4px;">
+<button class="brand-edit-btn" id="brandEditBtn"><i class="fas fa-pen"></i></button>
+<i class="fas fa-tools tools"></i>
+</div>
+</div>
+<div class="notice" id="noticeBox">
+<button class="notice-edit-btn" id="noticeEditBtn"><i class="fas fa-pen"></i> 编辑</button>
+<div class="notice-content" id="noticeContent"></div>
+<div class="notice-bg-upload">
+<label class="contact-upload-btn">📷 上传背景图<input type="file" accept="image/*" id="noticeBgInput"/></label>
+<button class="contact-remove-btn" id="noticeBgRemove">✕ 移除</button>
+</div>
+<div class="contact-row" id="contactRow">
+<span class="contact-item" id="yzContactItem">
+<span class="cust-icon" id="yzIconContainer"><i class="fas fa-headset"></i></span>
+<span>YZ客服</span>
+<span class="contact-upload-wrap" id="yzUploadWrap">
+<label class="contact-upload-btn">📷 上传<input type="file" accept="image/*" id="yzUploadInput"/></label>
+<button class="contact-remove-btn" id="yzRemoveBtn">✕ 移除</button>
+</span>
+</span>
+<a href="#" class="contact-item highlight-link" target="_blank" id="contactShopLink"><i class="fas fa-clock"></i> <span class="label-text">24H自助下单地址</span><button class="edit-contact-btn" data-contact="shop"><i class="fas fa-pen"></i></button></a>
+<a href="#" class="contact-item highlight-link" target="_blank" id="contactDownloadLink"><i class="fas fa-download"></i> <span class="label-text">辅助下载地址及教程</span><button class="edit-contact-btn" data-contact="download"><i class="fas fa-pen"></i></button></a>
+</div>
+</div>
+</div>
+<div class="admin-badge" id="adminBadge"><i class="fas fa-crown" style="color:var(--accent-light);"></i> 管理员模式已开启 · 可管理项目与内容</div>
+<div class="cloud-status-bar" id="cloudStatusBar">
+<span class="status-dot" id="cloudStatusDot"></span>
+<span id="cloudStatusLabel">云同步：就绪</span>
+<span style="margin-left:auto;font-size:8px;color:var(--text-muted);" id="cloudLastSyncTime"></span>
+</div>
+<div class="stats-panel" id="statsPanel">
+<div class="stat-item"><i class="fas fa-eye"></i> <span class="num" id="statVisits">0</span> <span class="label">今日访问</span></div>
+<div class="stat-item"><i class="fas fa-user"></i> <span class="num" id="statVisitors">0</span> <span class="label">今日访客</span></div>
+<div class="stat-item"><i class="fas fa-mouse-pointer"></i> <span class="num" id="statClicks">0</span> <span class="label">总点击</span></div>
+<div class="stat-item"><i class="fas fa-download"></i> <span class="num" id="statDownloads">0</span> <span class="label">总下载</span></div>
+</div>
+<div class="admin-tools-panel" id="adminToolsPanel">
+<button class="tool-btn" id="addProjectBtn"><i class="fas fa-plus"></i> 添加项目</button>
+<button class="tool-btn" id="deleteProjectBtn"><i class="fas fa-trash"></i> 删除当前项目</button>
+<button class="tool-btn" id="bgConfigBtn"><i class="fas fa-palette"></i> 动态背景</button>
+<button class="tool-btn" id="exportBtn"><i class="fas fa-download"></i> 导出配置</button>
+<button class="tool-btn" id="importBtn"><i class="fas fa-upload"></i> 导入配置</button>
+<button class="tool-btn" id="customCssBtn"><i class="fas fa-code"></i> 自定义CSS</button>
+<button class="tool-btn" id="editAnnouncementBtn"><i class="fas fa-bullhorn"></i> 公告</button>
+<button class="tool-btn success" id="cloudUploadBtn"><i class="fas fa-cloud-upload-alt"></i> ☁️ 云同步上传</button>
+<button class="tool-btn danger" id="resetBtn"><i class="fas fa-rotate-left"></i> 恢复默认</button>
+<button class="tool-btn" id="changePwdBtn"><i class="fas fa-key"></i> 修改密码</button>
+<input type="file" id="importFileInput" accept=".json" style="display:none;"/>
+</div>
+<div class="search-wrap"><input type="text" id="searchInput" placeholder="🔍 搜索项目..." autocomplete="off"/></div>
+<div class="project-area-wrapper" id="projectAreaWrapper">
+<div class="project-area-bg-upload">
+<label class="contact-upload-btn">📷 上传区域背景图<input type="file" accept="image/*" id="projectAreaBgInput"/></label>
+<button class="contact-remove-btn" id="projectAreaBgRemove">✕ 移除</button>
+</div>
+<div class="project-nav" id="projectNav"></div>
+<div id="projectCardContainer"></div>
+</div>
+<div class="footer-note" id="footerTrigger"><i class="fas fa-lock"></i> YZ全项目 · 所有卡密售出不退不换</div>
+</div>
+<script>
+(function(){
+'use strict';
+const SUPABASE_URL='https://rmukgjebuqyrnqlrbbyw.supabase.co';
+const SUPABASE_ANON_KEY='sb_publishable_lKxdp1Hvb_4zuHslDT1T4A_cGaKDcwF';
+const CLOUD_ENABLED=true;
+const App={};
+App.Stats={
+_today:function(){return new Date().toISOString().split('T')[0]},
+_getKey:function(k){return 'stats_'+k+'_'+this._today()},
+get:function(key){var v=localStorage.getItem(this._getKey(key));return v?parseInt(v,10)||0:0},
+inc:function(key){var k=this._getKey(key);var v=parseInt(localStorage.getItem(k)||'0',10)+1;localStorage.setItem(k,String(v));return v},
+getTotal:function(key){var total=0;for(var i=0;i<30;i++){var d=new Date();d.setDate(d.getDate()-i);var k='stats_'+key+'_'+d.toISOString().split('T')[0];var v=parseInt(localStorage.getItem(k)||'0',10);total+=v}return total},
+getTodayVisitors:function(){var today=this._today();var key='stats_visitors_'+today;var visitors=localStorage.getItem(key);if(visitors===null){localStorage.setItem(key,'1');return 1}return parseInt(visitors,10)||0},
+addVisitor:function(){var today=this._today();var key='stats_visitors_'+today;var current=parseInt(localStorage.getItem(key)||'0',10);var sessionKey='visitor_'+today;if(!sessionStorage.getItem(sessionKey)){sessionStorage.setItem(sessionKey,'1');localStorage.setItem(key,String(current+1));return current+1}return current},
+trackProjectView:function(projectKey){var k='stats_pv_'+projectKey+'_'+this._today();var v=parseInt(localStorage.getItem(k)||'0',10)+1;localStorage.setItem(k,String(v))},
+trackDownload:function(projectKey){var k='stats_dl_'+projectKey+'_'+this._today();var v=parseInt(localStorage.getItem(k)||'0',10)+1;localStorage.setItem(k,String(v));this.inc('total_downloads')},
+getProjectViews:function(projectKey){var total=0;for(var i=0;i<30;i++){var d=new Date();d.setDate(d.getDate()-i);var k='stats_pv_'+projectKey+'_'+d.toISOString().split('T')[0];var v=parseInt(localStorage.getItem(k)||'0',10);total+=v}return total},
+getProjectDownloads:function(projectKey){var total=0;for(var i=0;i<30;i++){var d=new Date();d.setDate(d.getDate()-i);var k='stats_dl_'+projectKey+'_'+d.toISOString().split('T')[0];var v=parseInt(localStorage.getItem(k)||'0',10);total+=v}return total},
+updateUI:function(){document.getElementById('statVisits').textContent=this.get('total_visits');document.getElementById('statVisitors').textContent=this.getTodayVisitors();document.getElementById('statClicks').textContent=this.getTotal('total_clicks');document.getElementById('statDownloads').textContent=this.getTotal('total_downloads')}
+};
+App.sha256=function(ascii){
+function rightRotate(value,amount){return(value>>>amount)|(value<<(32-amount))}
+var mathPow=Math.pow,maxWord=mathPow(2,32),lengthProperty='length',i,j,result='';
+var words=[],asciiBitLength=ascii[lengthProperty]*8;
+var hash=App.sha256.h=App.sha256.h||[],k=App.sha256.k=App.sha256.k||[],primeCounter=k[lengthProperty];
+var isComposite={};
+for(var candidate=2;primeCounter<64;candidate++){
+if(!isComposite[candidate]){
+for(i=0;i<313;i+=candidate)isComposite[i]=candidate;
+hash[primeCounter]=(mathPow(candidate,0.5)*maxWord)|0;
+k[primeCounter++]=(mathPow(candidate,1/3)*maxWord)|0;
+}
+}
+ascii+='\x80';
+while(ascii[lengthProperty]%64-56)ascii+='\x00';
+for(i=0;i<ascii[lengthProperty];i++){
+j=ascii.charCodeAt(i);
+if(j>>8)return '';
+words[i>>2]|=j<<((3-i)%4)*8;
+}
+words[words[lengthProperty]]=((asciiBitLength/maxWord)|0);
+words[words[lengthProperty]]=(asciiBitLength);
+for(j=0;j<words[lengthProperty];){
+var w=words.slice(j,j+=16),oldHash=hash;
+hash=hash.slice(0,8);
+for(i=0;i<64;i++){
+var w15=w[i-15],w2=w[i-2],a=hash[0],e=hash[4];
+var temp1=hash[7]+(rightRotate(e,6)^rightRotate(e,11)^rightRotate(e,25))+((e&hash[5])^((~e)&hash[6]))+k[i]+(w[i]=(i<16)?w[i]:(w[i-16]+(rightRotate(w15,7)^rightRotate(w15,18)^(w15>>>3))+w[i-7]+(rightRotate(w2,17)^rightRotate(w2,19)^(w2>>>10)))|0);
+var temp2=(rightRotate(a,2)^rightRotate(a,13)^rightRotate(a,22))+((a&hash[1])^(a&hash[2])^(hash[1]&hash[2]));
+hash=[(temp1+temp2)|0].concat(hash);
+hash[4]=(hash[4]+temp1)|0;
+}
+for(i=0;i<8;i++)hash[i]=(hash[i]+oldHash[i])|0;
+}
+for(i=0;i<8;i++){
+for(j=3;j+1;j--){
+var b=(hash[i]>>(j*8))&255;
+result+=((b<16)?0:'')+b.toString(16);
+}
+}
+return result;
+};
+const DEFAULT_PASSWORD_HASH=App.sha256('147258');
+App.getPasswordHash=function(){return localStorage.getItem('adminPasswordHash')||DEFAULT_PASSWORD_HASH};
+App.setPasswordHash=function(hash){localStorage.setItem('adminPasswordHash',hash)};
+const DB_NAME='yz_admin_db',DB_VERSION=1;
+let db=null,dbAvailable=true;
+const memoryStore=new Map();
+App.openDB=function(){
+return new Promise((resolve)=>{
+if(!window.indexedDB){dbAvailable=false;resolve(null);return}
+try{
+const request=indexedDB.open(DB_NAME,DB_VERSION);
+request.onupgradeneeded=(e)=>{
+const database=e.target.result;
+if(!database.objectStoreNames.contains('images'))database.createObjectStore('images');
+if(!database.objectStoreNames.contains('videos'))database.createObjectStore('videos');
+if(!database.objectStoreNames.contains('navIcons'))database.createObjectStore('navIcons');
+};
+request.onsuccess=(e)=>{
+db=e.target.result;
+dbAvailable=true;
+db.onclose=()=>{dbAvailable=false;db=null;App.openDB()};
+db.onversionchange=()=>{db.close();dbAvailable=false;db=null};
+resolve(db);
+};
+request.onerror=()=>{dbAvailable=false;resolve(null)};
+}catch(e){dbAvailable=false;resolve(null)}
+});
+};
+App._lsKey=function(storeName,key){return 'yz_db_'+storeName+'_'+key};
+App.getFromDB=async function(storeName,key){
+try{
+const lsValue=localStorage.getItem(App._lsKey(storeName,key));
+if(lsValue!==null&&lsValue!=='')return lsValue;
+}catch(e){}
+if(!dbAvailable||!db){
+return memoryStore.get(storeName+'_'+key)||'';
+}
+return new Promise((resolve)=>{
+try{
+const tx=db.transaction(storeName,'readonly');
+const store=tx.objectStore(storeName);
+const req=store.get(key);
+req.onsuccess=()=>resolve(req.result||'');
+req.onerror=()=>resolve('');
+tx.onerror=()=>resolve('');
+}catch(e){resolve('')}
+});
+};
+App.saveToDB=async function(storeName,key,value){
+let lsWritten=false;
+try{
+localStorage.setItem(App._lsKey(storeName,key),value);
+lsWritten=true;
+}catch(e){console.warn('localStorage 写入失败:',e)}
+if(!dbAvailable||!db){
+memoryStore.set(storeName+'_'+key,value);
+return lsWritten;
+}
+return new Promise((resolve)=>{
+try{
+const tx=db.transaction(storeName,'readwrite');
+const store=tx.objectStore(storeName);
+store.put(value,key);
+tx.oncomplete=()=>resolve(true);
+tx.onerror=()=>resolve(lsWritten);
+tx.onabort=()=>resolve(lsWritten);
+}catch(e){resolve(lsWritten)}
+});
+};
+App.deleteFromDB=async function(storeName,key){
+try{localStorage.removeItem(App._lsKey(storeName,key))}catch(e){}
+if(!dbAvailable||!db){memoryStore.delete(storeName+'_'+key);return}
+return new Promise((resolve)=>{
+try{
+const tx=db.transaction(storeName,'readwrite');
+const store=tx.objectStore(storeName);
+store.delete(key);
+tx.oncomplete=()=>resolve();
+tx.onerror=()=>resolve();
+}catch(e){resolve()}
+});
+};
+App.Storage={
+get(key,fallback){try{const v=localStorage.getItem(key);return v!==null?JSON.parse(v):fallback}catch(e){return fallback}},
+set(key,value){try{localStorage.setItem(key,JSON.stringify(value))}catch(e){}},
+remove(key){try{localStorage.removeItem(key)}catch(e){}}
+};
+const defaultProjectsData={
+ace:{name:'ACE',icon:'fa-crown',subtitle:'巅峰王者',desc:'ACE 专属直装，极致性能。支持主流游戏，稳定流畅。',bgColor:'rgba(18, 16, 14, 0.75)',enabled:true,version:'v2.3',updateDate:'2025-01-01',fileSize:'112 MB',tags:['热门']},
+gulu:{name:'GuLu',icon:'fa-dragon',subtitle:'灵动如龙',desc:'GuLu 轻量级辅助，操作便捷，兼容性极佳。',bgColor:'rgba(18, 16, 14, 0.75)',enabled:true,version:'v1.5',updateDate:'2024-12-15',fileSize:'8 MB',tags:['轻量']},
+muwu:{name:'木屋',icon:'fa-house',subtitle:'温暖港湾',desc:'木屋辅助，稳定可靠，适合长期使用。',bgColor:'rgba(18, 16, 14, 0.75)',enabled:true,version:'v3.1',updateDate:'2025-02-20',fileSize:'25 MB',tags:['稳定']},
+fury:{name:'Fury',icon:'fa-skull',subtitle:'最强卡点',desc:'直装版本约 112.0 MB · 打开即用 · 弹窗搭配 DY 端口。支持 <strong>绿色球球</strong>、<strong>重建球宝家园</strong> 等。注入器版本约 7.2 MB，需断网进入。',bgColor:'rgba(18, 16, 14, 0.75)',enabled:true,version:'v4.0',updateDate:'2025-03-10',fileSize:'112 MB',tags:['直装','注入']},
+edge:{name:'Edge',icon:'fa-code',subtitle:'锋芒毕露',desc:'Edge 尖端技术，高效稳定，专为竞技而生。',bgColor:'rgba(18, 16, 14, 0.75)',enabled:true,version:'v2.0',updateDate:'2024-11-01',fileSize:'15 MB',tags:['竞技']},
+atom:{name:'atom',icon:'fa-atom',subtitle:'微观之力',desc:'atom 轻巧强大，资源占用低，完美适配各种环境。',bgColor:'rgba(18, 16, 14, 0.75)',enabled:true,version:'v1.8',updateDate:'2024-10-20',fileSize:'5 MB',tags:['轻量','兼容']},
+a8:{name:'A8',icon:'fa-chart-bar',subtitle:'性能旗舰',desc:'A8 高性能辅助，专为高端设备打造，极致流畅体验。',bgColor:'rgba(18, 16, 14, 0.75)',enabled:true,version:'v5.2',updateDate:'2025-01-25',fileSize:'50 MB',tags:['高性能']},
+apple:{name:'苹果高系统',icon:'fa-apple',subtitle:'iOS 专属',desc:'苹果高系统专用辅助，完美适配 iOS 生态，稳定安全。',bgColor:'rgba(18, 16, 14, 0.75)',enabled:true,version:'v2.1',updateDate:'2025-02-14',fileSize:'30 MB',tags:['iOS']}
+};
+const defaultCardButtons=[
+{id:'download',type:'download',label:'下载链接',subLabel:'直装',icon:'fa-download',link:'#',enabled:true},
+{id:'channel',type:'channel',label:'官方频道',subLabel:'QQ频道',icon:'fa-broadcast-tower',link:'#',enabled:true},
+{id:'group',type:'group',label:'官方群',subLabel:'QQ群',icon:'fa-users',link:'#',enabled:true}
+];
+const defaultOrder=['ace','gulu','muwu','fury','edge','atom','a8','apple'];
+App.getCardButtons=function(projectKey){
+const all=App.getAllProjectsData();
+const data=all[projectKey];
+if(data&&data.cardButtons&&Array.isArray(data.cardButtons)&&data.cardButtons.length>0){
+return data.cardButtons;
+}
+return JSON.parse(JSON.stringify(defaultCardButtons));
+};
+App.saveCardButtons=function(projectKey,buttons){
+const all=App.getAllProjectsData();
+if(!all[projectKey])return;
+all[projectKey].cardButtons=buttons;
+App.saveAllProjectsData(all);
+};
+App.getAllProjectsData=function(){
+const stored=App.Storage.get('allProjectsData',{});
+const merged={...defaultProjectsData};
+Object.keys(stored).forEach(k=>{merged[k]={...merged[k],...stored[k]}});
+Object.keys(merged).forEach(k=>{
+if(!merged[k].cardButtons||!Array.isArray(merged[k].cardButtons)||merged[k].cardButtons.length===0){
+merged[k].cardButtons=JSON.parse(JSON.stringify(defaultCardButtons));
+}
+});
+return merged;
+};
+App.saveAllProjectsData=function(data){
+App.Storage.set('allProjectsData',data);
+if(CLOUD_ENABLED)App.uploadCloudData(true);
+};
+App.getProjectData=function(key){return App.getAllProjectsData()[key]||null};
+App.updateProjectData=function(key,updates){
+const all=App.getAllProjectsData();
+all[key]={...all[key],...updates};
+App.saveAllProjectsData(all);
+};
+App.addProjectData=function(key,data){
+const all=App.getAllProjectsData();
+data.cardButtons=JSON.parse(JSON.stringify(defaultCardButtons));
+all[key]=data;
+App.saveAllProjectsData(all);
+};
+App.deleteProjectData=function(key){
+const all=App.getAllProjectsData();
+delete all[key];
+App.saveAllProjectsData(all);
+};
+let projectOrder=[],currentKey='ace',searchQuery='',isAdminMode=App.Storage.get('adminMode',false),yzPopupImage='';
+App.getProjectIconHtml=function(projectKey){
+var data=App.getProjectData(projectKey);
+if(!data)return '<i class="fas fa-cube"></i>';
+var navIcon=navIconCache[projectKey];
+if(navIcon){
+return '<img src="'+navIcon+'" alt="'+data.name+'" style="width:100%;height:100%;border-radius:50%;object-fit:cover;"/>';
+}
+var iconClass=data.icon||'fa-cube';
+return '<i class="fas '+iconClass+'"></i>';
+};
+App.loadOrder=function(){
+const allKeys=Object.keys(App.getAllProjectsData());
+const saved=App.Storage.get('projectOrder',[]);
+let validOrder=saved.filter(k=>allKeys.includes(k));
+allKeys.forEach(k=>{if(!validOrder.includes(k))validOrder.push(k)});
+projectOrder=validOrder.length?validOrder:[...allKeys];
+if(!projectOrder.includes(currentKey))currentKey=projectOrder[0]||'';
+if(!currentKey&&projectOrder.length)currentKey=projectOrder[0];
+};
+App.saveOrder=function(){
+App.Storage.set('projectOrder',projectOrder);
+if(CLOUD_ENABLED)App.uploadCloudData(true);
+};
+App.moveProject=function(key,direction){
+const idx=projectOrder.indexOf(key);
+if(idx===-1)return;
+const newIdx=idx+direction;
+if(newIdx<0||newIdx>=projectOrder.length)return;
+[projectOrder[idx],projectOrder[newIdx]]=[projectOrder[newIdx],projectOrder[idx]];
+App.saveOrder();
+App.renderNav();
+};
+const imageCache={},videoCache={},navIconCache={},bigIconCache={};
+App.getProjectImage=async function(key){if(imageCache[key]!==undefined)return imageCache[key];const fromDB=await App.getFromDB('images',key);imageCache[key]=fromDB||'';return imageCache[key]};
+App.setProjectImage=async function(key,base64){imageCache[key]=base64;await App.saveToDB('images',key,base64)};
+App.removeProjectImage=async function(key){delete imageCache[key];await App.deleteFromDB('images',key)};
+App.getProjectVideo=async function(key){if(videoCache[key]!==undefined)return videoCache[key];const fromDB=await App.getFromDB('videos',key);videoCache[key]=fromDB||'';return videoCache[key]};
+App.setProjectVideo=async function(key,base64){videoCache[key]=base64;await App.saveToDB('videos',key,base64)};
+App.removeProjectVideo=async function(key){delete videoCache[key];await App.deleteFromDB('videos',key)};
+App.getNavIcon=async function(key){if(navIconCache[key]!==undefined)return navIconCache[key];const fromDB=await App.getFromDB('navIcons',key);navIconCache[key]=fromDB||'';return navIconCache[key]};
+App.setNavIcon=async function(key,base64){navIconCache[key]=base64;const saved=await App.saveToDB('navIcons',key,base64);const verify=await App.getFromDB('navIcons',key);if(verify&&verify.length>0)console.log('✅ 导航小图标已保存:',key);return verify};
+App.removeNavIcon=async function(key){delete navIconCache[key];await App.deleteFromDB('navIcons',key)};
+App.getBigIcon=async function(key){if(bigIconCache[key]!==undefined)return bigIconCache[key];const fromDB=await App.getFromDB('images','bigicon_'+key);bigIconCache[key]=fromDB||'';return bigIconCache[key]};
+App.setBigIcon=async function(key,base64){bigIconCache[key]=base64;await App.saveToDB('images','bigicon_'+key,base64);await App.setNavIcon(key,base64);const verify=await App.getFromDB('images','bigicon_'+key);if(verify&&verify.length>0)console.log('✅ 卡片大图标已保存并同步小图标:',key);return verify};
+App.removeBigIcon=async function(key){delete bigIconCache[key];await App.deleteFromDB('images','bigicon_'+key);await App.removeNavIcon(key)};
+App.preloadIcons=async function(){
+const allKeys=Object.keys(App.getAllProjectsData());
+await Promise.all(allKeys.map(async function(key){
+const navIcon=await App.getFromDB('navIcons',key);
+navIconCache[key]=navIcon||'';
+const bigIcon=await App.getFromDB('images','bigicon_'+key);
+bigIconCache[key]=bigIcon||'';
+}));
+console.log('✅ 所有图标预加载完成');
+};
+let announcementImageData;
+App.getAnnouncementImage=async function(){if(announcementImageData!==undefined)return announcementImageData;const fromDB=await App.getFromDB('images','announcement_img');announcementImageData=fromDB||'';return announcementImageData};
+App.setAnnouncementImage=async function(base64){announcementImageData=base64;await App.saveToDB('images','announcement_img',base64)};
+App.removeAnnouncementImage=async function(){announcementImageData='';await App.deleteFromDB('images','announcement_img')};
+let noticeBgData;
+App.getNoticeBg=async function(){if(noticeBgData!==undefined)return noticeBgData;const fromDB=await App.getFromDB('images','notice_bg');noticeBgData=fromDB||'';return noticeBgData};
+App.setNoticeBg=async function(base64){noticeBgData=base64;await App.saveToDB('images','notice_bg',base64)};
+App.removeNoticeBg=async function(){noticeBgData='';await App.deleteFromDB('images','notice_bg')};
+let projectAreaBgData;
+App.getProjectAreaBg=async function(){if(projectAreaBgData!==undefined)return projectAreaBgData;const fromDB=await App.getFromDB('images','project_area_bg');projectAreaBgData=fromDB||'';return projectAreaBgData};
+App.setProjectAreaBg=async function(base64){projectAreaBgData=base64;await App.saveToDB('images','project_area_bg',base64)};
+App.removeProjectAreaBg=async function(){projectAreaBgData='';await App.deleteFromDB('images','project_area_bg')};
+App.loadYzPopupImage=async function(){yzPopupImage=await App.getFromDB('images','yz_popup');App.updateYZIcon()};
+App.saveYzPopupImage=async function(base64){yzPopupImage=base64;await App.saveToDB('images','yz_popup',base64)};
+App.removeYzPopupImage=async function(){yzPopupImage='';await App.deleteFromDB('images','yz_popup')};
+App.updateYZIcon=function(){const container=document.getElementById('yzIconContainer');if(!container)return;container.innerHTML=yzPopupImage?'<img src="'+yzPopupImage+'" alt="YZ客服"/>':'<i class="fas fa-headset"></i>'};
+App.getBrandName=function(){return localStorage.getItem('brandName')||'YZ官网'};
+App.getNoticeContent=function(){return localStorage.getItem('noticeContent')||''};
+App.getShopLink=function(){return localStorage.getItem('shopContactLink')||'https://你的24H自助下单链接.com'};
+App.getDownloadContactLink=function(){return localStorage.getItem('downloadContactLink')||'https://你的辅助下载教程链接.com'};
+App.getDynamicBgClass=function(){return localStorage.getItem('dynamicBgTheme')||'theme-gold'};
+App.getCardTheme=function(){return localStorage.getItem('cardTheme')||'default'};
+App.applyDynamicBg=function(){
+var theme=App.getDynamicBgClass();
+document.body.className=theme;
+var colorMap={
+'theme-gold':{r:212,g:175,b:55,hex:'#d4af37'},'theme-red':{r:224,g:64,b:64,hex:'#e04040'},'theme-blue':{r:64,g:128,b:224,hex:'#4080e0'},'theme-green':{r:64,g:192,b:96,hex:'#40c060'},'theme-purple':{r:160,g:64,b:208,hex:'#a040d0'},'theme-cyan':{r:64,g:192,b:192,hex:'#40c0c0'},'theme-pink':{r:224,g:96,b:160,hex:'#e060a0'},'theme-orange':{r:224,g:128,b:64,hex:'#e08040'}};
+var colors=colorMap[theme]||colorMap['theme-gold'];
+var root=document.documentElement;
+root.style.setProperty('--accent-r',colors.r);
+root.style.setProperty('--accent-g',colors.g);
+root.style.setProperty('--accent-b',colors.b);
+root.style.setProperty('--accent',colors.hex);
+root.style.setProperty('--accent-light',colors.hex);
+root.style.setProperty('--accent-lighter','color-mix(in srgb, '+colors.hex+', white 30%)');
+root.style.setProperty('--accent-dark','color-mix(in srgb, '+colors.hex+', black 20%)');
+root.style.setProperty('--accent-glow','color-mix(in srgb, '+colors.hex+', transparent 92%)');
+root.style.setProperty('--extracted-color',colors.hex);
+document.body.style.backgroundImage='radial-gradient(ellipse at 30% 20%, '+'color-mix(in srgb, '+colors.hex+', transparent 96%) 0%, transparent 60%), '+'radial-gradient(ellipse at 70% 80%, '+'color-mix(in srgb, '+colors.hex+', transparent 97%) 0%, transparent 50%)';
+};
+App.applyCardTheme=function(){
+const theme=App.getCardTheme();
+const wrapper=document.getElementById('appWrapper');
+wrapper.classList.remove('card-theme-rounded','card-theme-minimal','card-theme-cyber');
+if(theme!=='default')wrapper.classList.add('card-theme-'+theme);
+};
+App.extractColorFromBg=function(){
+var bgImg=document.getElementById('noticeBox').style.backgroundImage;
+if(!bgImg||bgImg==='none'||bgImg==='')return;
+var url=bgImg.replace(/^url\(["']?/,'').replace(/["']?\)$/,'');
+if(!url)return;
+var img=new Image();
+img.crossOrigin='Anonymous';
+img.onload=function(){
+try{
+var canvas=document.createElement('canvas');
+canvas.width=50;canvas.height=50;
+var ctx=canvas.getContext('2d');
+ctx.drawImage(img,0,0,50,50);
+var data=ctx.getImageData(0,0,50,50).data;
+var r=0,g=0,b=0,count=0;
+for(var i=0;i<data.length;i+=4){r+=data[i];g+=data[i+1];b+=data[i+2];count++}
+r=Math.round(r/count);g=Math.round(g/count);b=Math.round(b/count);
+var hex='#'+[r,g,b].map(function(c){return c.toString(16).padStart(2,'0')}).join('');
+var root=document.documentElement;
+root.style.setProperty('--extracted-color',hex);
+root.style.setProperty('--accent',hex);
+root.style.setProperty('--accent-light',hex);
+root.style.setProperty('--accent-lighter','color-mix(in srgb, '+hex+', white 30%)');
+root.style.setProperty('--accent-dark','color-mix(in srgb, '+hex+', black 20%)');
+root.style.setProperty('--accent-glow','color-mix(in srgb, '+hex+', transparent 92%)');
+document.body.classList.add('theme-extracted');
+}catch(e){}
+};
+img.onerror=function(){};
+img.src=url;
+};
+App.getAnnouncement=function(){
+try{var raw=localStorage.getItem('announcementData');if(raw)return JSON.parse(raw)}catch(e){}
+return{title:'📢 公告',body:'欢迎来到YZ官网\n严选全网顶尖脚本，实测上机校验，过滤残次失效资源，紧跟版本快速更新，运行丝滑稳定，一站式体验'};
+};
+App.saveAnnouncement=function(data){
+localStorage.setItem('announcementData',JSON.stringify(data));
+if(CLOUD_ENABLED)App.uploadCloudData(true);
+};
+App.showAnnouncement=async function(){
+var data=App.getAnnouncement();
+document.getElementById('announcementTitle').textContent=data.title||'📢 公告';
+document.getElementById('announcementBody').textContent=data.body||'欢迎来到YZ官网';
+var imgData=await App.getAnnouncementImage();
+var imgEl=document.getElementById('announcementImage');
+if(imgData){imgEl.src=imgData;imgEl.classList.add('show')}else{imgEl.classList.remove('show')}
+document.getElementById('announcementOverlay').classList.add('active');
+document.body.style.overflow='hidden';
+};
+App.hideAnnouncement=function(){
+document.getElementById('announcementOverlay').classList.remove('active');
+document.body.style.overflow='';
+};
+App.loadBrandLogo=function(){
+var logoData=localStorage.getItem('brandLogo');
+var icon=document.getElementById('brandIcon');
+var img=document.getElementById('brandLogoImg');
+if(logoData){icon.style.display='none';img.src=logoData;img.style.display='block'}else{icon.style.display='inline';img.style.display='none'}
+};
+App.saveBrandLogo=function(base64){
+localStorage.setItem('brandLogo',base64);
+var icon=document.getElementById('brandIcon');
+var img=document.getElementById('brandLogoImg');
+icon.style.display='none';img.src=base64;img.style.display='block';
+if(CLOUD_ENABLED)App.uploadCloudData(true);
+};
+App.removeBrandLogo=function(){
+localStorage.removeItem('brandLogo');
+var icon=document.getElementById('brandIcon');
+var img=document.getElementById('brandLogoImg');
+icon.style.display='inline';img.style.display='none';img.src='';
+if(CLOUD_ENABLED)App.uploadCloudData(true);
+};
+App.sanitizeNotice=function(html){
+const allowedTags=['br','strong','i','span','div','p','a','b','em','u','h1','h2','h3','h4'];
+const tempDiv=document.createElement('div');
+tempDiv.innerHTML=html;
+function clean(node){
+if(node.nodeType===3)return;
+if(node.nodeType===1){
+const tagName=node.tagName.toLowerCase();
+if(!allowedTags.includes(tagName)){
+const text=document.createTextNode(node.textContent);
+node.parentNode.replaceChild(text,node);
+return;
+}
+for(let i=node.attributes.length-1;i>=0;i--){
+const attr=node.attributes[i];
+if(attr.name.startsWith('on')||(attr.name==='style'&&attr.value.includes('expression'))){
+node.removeAttribute(attr.name);
+}
+}
+Array.from(node.childNodes).forEach(clean);
+}
+}
+Array.from(tempDiv.childNodes).forEach(clean);
+return tempDiv.innerHTML;
+};
+App.compressImage=function(file,maxSize){
+maxSize=maxSize||200;
+return new Promise((resolve,reject)=>{
+const reader=new FileReader();
+reader.onload=function(e){
+const img=new Image();
+img.onload=function(){
+const canvas=document.createElement('canvas');
+let w=img.width,h=img.height;
+const ratio=maxSize/Math.max(w,h);
+if(ratio<1){w*=ratio;h*=ratio}
+canvas.width=w;canvas.height=h;
+const ctx=canvas.getContext('2d');
+ctx.drawImage(img,0,0,w,h);
+resolve(canvas.toDataURL('image/jpeg',0.85));
+};
+img.onerror=reject;
+img.src=e.target.result;
+};
+reader.onerror=reject;
+reader.readAsDataURL(file);
+});
+};
+const elements={
+appWrapper:document.getElementById('appWrapper'),projectNav:document.getElementById('projectNav'),cardContainer:document.getElementById('projectCardContainer'),brandText:document.getElementById('brandText'),noticeContent:document.getElementById('noticeContent'),contactShopLink:document.getElementById('contactShopLink'),contactDownloadLink:document.getElementById('contactDownloadLink'),pwdOverlay:document.getElementById('passwordOverlay'),changePwdOverlay:document.getElementById('changePwdOverlay'),pwdInput:document.getElementById('pwdInput'),pwdError:document.getElementById('pwdError'),linkEditOverlay:document.getElementById('linkEditOverlay'),addProjectOverlay:document.getElementById('addProjectOverlay'),bgConfigOverlay:document.getElementById('bgConfigOverlay'),genericEditOverlay:document.getElementById('genericEditOverlay'),confirmOverlay:document.getElementById('confirmOverlay'),imagePopup:document.getElementById('imagePopup'),contextMenu:document.getElementById('contextMenu'),announcementOverlay:document.getElementById('announcementOverlay'),statsPanel:document.getElementById('statsPanel'),projectAreaWrapper:document.getElementById('projectAreaWrapper')};
+App.showToast=function(title,sub){
+sub=sub||'';
+const toast=document.createElement('div');
+toast.style.cssText='position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(18,16,14,0.96);backdrop-filter:blur(20px);padding:18px 36px;border-radius:20px;border:1px solid rgba(212,175,55,0.25);color:#f5d98a;font-size:17px;font-weight:700;z-index:999999;text-align:center;animation:fadeIn 0.3s ease, zoomIn 0.3s cubic-bezier(0.16,1,0.3,1);box-shadow:0 30px 80px rgba(0,0,0,0.5);';
+toast.innerHTML=title+(sub?'<br><span style="font-size:12.5px;font-weight:400;color:var(--text-muted);">'+sub+'</span>':'');
+document.body.appendChild(toast);
+setTimeout(function(){toast.style.opacity='0';toast.style.transition='opacity 0.4s ease';setTimeout(function(){toast.remove()},400)},2000);
+};
+App.closeAllOverlays=function(){
+var overlays=[elements.pwdOverlay,elements.changePwdOverlay,elements.linkEditOverlay,elements.addProjectOverlay,elements.bgConfigOverlay,elements.genericEditOverlay,elements.confirmOverlay];
+for(var i=0;i<overlays.length;i++)overlays[i].classList.remove('active');
+elements.imagePopup.classList.remove('active');
+elements.contextMenu.classList.remove('active');
+document.body.style.overflow='';
+};
+App.updateCloudStatus=function(status){
+var dot=document.getElementById('cloudStatusDot');
+var label=document.getElementById('cloudStatusLabel');
+var timeEl=document.getElementById('cloudLastSyncTime');
+if(!dot||!label)return;
+dot.className='status-dot';
+if(status==='online'){dot.classList.add('online');label.textContent='☁️ 云同步：已连接'}
+else if(status==='syncing'){dot.classList.add('syncing');label.textContent='☁️ 同步中...'}
+else{dot.classList.add('offline');label.textContent='☁️ 云同步：已就绪'}
+var lastSync=localStorage.getItem('cloud_last_sync');
+if(timeEl){if(lastSync){var d=new Date(parseInt(lastSync));timeEl.textContent='上次同步：'+d.toLocaleString('zh-CN',{hour12:false})}else{timeEl.textContent=''}}
+};
+App.uploadCloudData=async function(silent){
+silent=silent||false;
+if(silent)return; // 👈 核心：拦截所有自动同步，只允许手动点击上传
+if(!CLOUD_ENABLED){if(!silent)App.showToast('⚠️ 云同步未启用');return false}
+App.updateCloudStatus('syncing');
+try{
+var data={
+allProjectsData:App.getAllProjectsData(),
+projectOrder:projectOrder,
+brandName:App.getBrandName(),
+noticeContent:App.getNoticeContent(),
+shopContactLink:App.getShopLink(),
+downloadContactLink:App.getDownloadContactLink(),
+dynamicBgTheme:App.getDynamicBgClass(),
+cardTheme:App.getCardTheme(),
+customCss:localStorage.getItem('customCss')||'',
+adminPasswordHash:App.getPasswordHash(),
+brandLogo:localStorage.getItem('brandLogo')||'',
+announcementData:localStorage.getItem('announcementData')||''
+};
+var response=await fetch(SUPABASE_URL+'/rest/v1/site_config?id=eq.1',{
+method:'PATCH',
+headers:{'apikey':SUPABASE_ANON_KEY,'Authorization':'Bearer '+SUPABASE_ANON_KEY,'Content-Type':'application/json','Prefer':'return=minimal'},
+body:JSON.stringify({data:data,updated_at:new Date().toISOString()})
+});
+if(response.ok){
+localStorage.setItem('cloud_last_sync',String(Date.now()));
+App.updateCloudStatus('online');
+if(!silent)App.showToast('✅ 云同步上传成功','数据已保存至云端');
+return true;
+}else{
+App.updateCloudStatus('offline');
+if(!silent)App.showToast('❌ 上传失败','状态码：'+response.status);
+return false;
+}
+}catch(e){
+App.updateCloudStatus('offline');
+if(!silent)App.showToast('❌ 上传异常',e.message);
+return false;
+}
+};
+App.loadCloudData=async function(silent){
+silent=silent||false;
+if(!CLOUD_ENABLED){if(!silent)App.showToast('⚠️ 云同步未启用');return false}
+App.updateCloudStatus('syncing');
+try{
+var response=await fetch(SUPABASE_URL+'/rest/v1/site_config?id=eq.1&select=data&t=' + Date.now(), {
+    cache: 'no-store', // 👈 强制浏览器绕过缓存拉取最新数据
+    headers:{'apikey':SUPABASE_ANON_KEY,'Authorization':'Bearer '+SUPABASE_ANON_KEY}
+});
+if(!response.ok){App.updateCloudStatus('offline');if(!silent)App.showToast('❌ 拉取失败','状态码：'+response.status);return false}
+var result=await response.json();
+var data=(result&&result[0]&&result[0].data)?result[0].data:{};
+if(data.allProjectsData){
+var local=App.getAllProjectsData();
+var merged={...local};
+Object.keys(data.allProjectsData).forEach(function(k){merged[k]={...merged[k],...data.allProjectsData[k]}});
+App.Storage.set('allProjectsData',merged);
+}
+if(data.projectOrder)App.Storage.set('projectOrder',data.projectOrder);
+if(data.brandName)localStorage.setItem('brandName',data.brandName);
+if(data.noticeContent!==undefined)localStorage.setItem('noticeContent',data.noticeContent);
+if(data.shopContactLink)localStorage.setItem('shopContactLink',data.shopContactLink);
+if(data.downloadContactLink)localStorage.setItem('downloadContactLink',data.downloadContactLink);
+if(data.dynamicBgTheme)localStorage.setItem('dynamicBgTheme',data.dynamicBgTheme);
+if(data.cardTheme)localStorage.setItem('cardTheme',data.cardTheme);
+if(data.customCss)localStorage.setItem('customCss',data.customCss);
+if(data.adminPasswordHash)localStorage.setItem('adminPasswordHash',data.adminPasswordHash);
+if(data.brandLogo)localStorage.setItem('brandLogo',data.brandLogo);
+if(data.announcementData)localStorage.setItem('announcementData',data.announcementData);
+localStorage.setItem('cloud_last_sync',String(Date.now()));
+App.updateCloudStatus('online');
+if(!silent)App.showToast('✅ 云同步拉取成功','已从云端加载最新数据');
+App.loadOrder();
+App.applyDynamicBg();
+App.applyCardTheme();
+App.applyCustomCss();
+App.loadBrandLogo();
+document.getElementById('brandText').textContent=App.getBrandName();
+App.renderNoticeContent();
+App.renderContactLinks();
+await App.preloadIcons();
+App.renderNav();
+return true;
+}catch(e){
+App.updateCloudStatus('offline');
+if(!silent)App.showToast('❌ 拉取异常',e.message);
+return false;
+}
+};
+App.setAdminMode=function(enabled){
+isAdminMode=enabled;
+App.Storage.set('adminMode',enabled);
+elements.appWrapper.classList.toggle('admin-mode',isAdminMode);
+document.getElementById('adminBadge').style.display=isAdminMode?'block':'none';
+document.getElementById('yzUploadWrap').style.display=isAdminMode?'inline-flex':'none';
+var removeBtn=document.getElementById('yzRemoveBtn');
+if(removeBtn)removeBtn.style.display=(isAdminMode&&yzPopupImage)?'inline-flex':'none';
+var statsPanel=document.getElementById('statsPanel');
+statsPanel.style.display=isAdminMode?'flex':'none';
+document.querySelector('.notice-bg-upload').style.display=isAdminMode?'flex':'none';
+document.querySelector('.project-area-bg-upload').style.display=isAdminMode?'flex':'none';
+var annEditBtn=document.getElementById('announcementEditBtn');
+if(annEditBtn)annEditBtn.style.display=isAdminMode?'inline-flex':'none';
+if(isAdminMode){App.Stats.updateUI();App.updateCloudStatus('online')}
+App.renderNav();
+App.renderCard();
+};
+App.openPasswordDialog=function(){
+App.closeAllOverlays();
+elements.pwdInput.value='';
+elements.pwdError.textContent='';
+elements.pwdOverlay.classList.add('active');
+document.body.style.overflow='hidden';
+setTimeout(function(){elements.pwdInput.focus()},100);
+};
+App.closePasswordDialog=function(){elements.pwdOverlay.classList.remove('active');document.body.style.overflow=''};
+App.verifyPassword=function(){
+var input=elements.pwdInput.value.trim();
+if(!input){elements.pwdError.textContent='❌ 请输入密码';return}
+var hash=App.sha256(input);
+var storedHash=App.getPasswordHash();
+if(hash===storedHash){
+App.closePasswordDialog();
+App.setAdminMode(!isAdminMode);
+App.showToast(isAdminMode?'👑 管理员模式已开启':'🔒 已退出管理员模式',isAdminMode?'可管理项目与内容':'管理功能已隐藏');
+}else{
+elements.pwdError.textContent='❌ 密码错误，请重试';
+elements.pwdInput.value='';
+elements.pwdInput.focus();
+}
+};
+App.openChangePwdDialog=function(){
+App.closeAllOverlays();
+document.getElementById('oldPwdInput').value='';
+document.getElementById('newPwdInput').value='';
+document.getElementById('confirmPwdInput').value='';
+document.getElementById('changePwdError').textContent='';
+elements.changePwdOverlay.classList.add('active');
+document.body.style.overflow='hidden';
+setTimeout(function(){document.getElementById('oldPwdInput').focus()},100);
+};
+App.closeChangePwdDialog=function(){elements.changePwdOverlay.classList.remove('active');document.body.style.overflow=''};
+App.changePassword=function(){
+var oldPwd=document.getElementById('oldPwdInput').value.trim();
+var newPwd=document.getElementById('newPwdInput').value.trim();
+var confirmPwd=document.getElementById('confirmPwdInput').value.trim();
+var errorEl=document.getElementById('changePwdError');
+if(!oldPwd){errorEl.textContent='❌ 请输入旧密码';return}
+if(!newPwd){errorEl.textContent='❌ 请输入新密码';return}
+if(newPwd.length<6){errorEl.textContent='❌ 新密码至少6位';return}
+if(newPwd!==confirmPwd){errorEl.textContent='❌ 两次输入的新密码不一致';return}
+var oldHash=App.sha256(oldPwd);
+if(oldHash!==App.getPasswordHash()){errorEl.textContent='❌ 旧密码错误';document.getElementById('oldPwdInput').value='';document.getElementById('oldPwdInput').focus();return}
+App.setPasswordHash(App.sha256(newPwd));
+App.closeChangePwdDialog();
+App.showToast('✅ 密码修改成功','请牢记新密码');
+if(CLOUD_ENABLED)App.uploadCloudData(true);
+};
+var editingKey=null,selectedBgColor='',editCustomIconData=null,editCardButtons=[];
+App.openLinkEditor=function(key){
+App.closeAllOverlays();
+var data=App.getProjectData(key);
+if(!data)return;
+editingKey=key;
+selectedBgColor=data.bgColor||'rgba(18, 16, 14, 0.75)';
+document.getElementById('editProjectName').textContent=data.name;
+document.getElementById('editName').value=data.name;
+document.getElementById('editSubtitle').value=data.subtitle||'';
+document.getElementById('editVersion').value=data.version||'';
+document.getElementById('editUpdateDate').value=data.updateDate||'';
+document.getElementById('editFileSize').value=data.fileSize||'';
+document.getElementById('editTags').value=(data.tags||[]).join(', ');
+document.getElementById('editDesc').value=data.desc||'';
+document.getElementById('editDownloadLink').value=data.downloadLink||'#';
+document.getElementById('editChannelLink').value=data.channelLink||'#';
+document.getElementById('editGroupLink').value=data.groupLink||'#';
+var iconSelect=document.getElementById('editIconSelect');
+var iconPreview=document.getElementById('editIconPreview');
+var currentIcon=data.icon||'fa-cube';
+iconSelect.value=currentIcon;
+App.getNavIcon(key).then(function(imgData){
+editCustomIconData=imgData||null;
+if(editCustomIconData){
+iconPreview.innerHTML='<img src="'+editCustomIconData+'" style="width:28px;height:28px;border-radius:50%;object-fit:cover;"/>';
+document.getElementById('editIconRemove').style.display='inline-flex';
+}else{
+iconPreview.innerHTML='<i class="fas '+currentIcon+'" style="font-size:17px;"></i>';
+document.getElementById('editIconRemove').style.display='none';
+}
+});
+editCardButtons=App.getCardButtons(key);
+App.renderCardButtonsEditor();
+App.renderCardBgColors(selectedBgColor);
+elements.linkEditOverlay.classList.add('active');
+document.body.style.overflow='hidden';
+};
+App.renderCardButtonsEditor=function(){
+const container=document.getElementById('cardButtonsContainer');
+if(!container)return;
+const buttons=editCardButtons||[];
+if(!buttons.length){
+container.innerHTML='<div style="text-align:center;color:var(--text-muted);font-size:11px;padding:10px 0;">暂无按钮，点击下方添加</div>';
+return;
+}
+let html='';
+buttons.forEach((btn,index)=>{
+const iconHtml=btn.customIcon?`<img src="${btn.customIcon}" style="width:16px;height:16px;border-radius:50%;object-fit:cover;"/>`:`<i class="fas ${btn.icon||'fa-circle'}" style="font-size:11px;color:var(--accent-light);"></i>`;
+const isEnabled=btn.enabled!==false;
+html+=`
+<div class="card-btn-item" data-index="${index}" draggable="true">
+<span class="drag-handle">⠿</span>
+<span class="btn-status">${isEnabled?'🟢':'🔴'}</span>
+<span class="btn-icon-wrap">${iconHtml}</span>
+<input type="text" class="btn-label-input" value="${App.escapeHtml(btn.label||'')}" placeholder="按钮文字"/>
+<input type="text" class="btn-sub-input" value="${App.escapeHtml(btn.subLabel||'')}" placeholder="副标题"/>
+<select class="btn-type-select">
+<option value="download" ${btn.type==='download'?'selected':''}>📥下载</option>
+<option value="channel" ${btn.type==='channel'?'selected':''}>📢频道</option>
+<option value="group" ${btn.type==='group'?'selected':''}>👥群</option>
+<option value="custom" ${btn.type==='custom'?'selected':''}>🎯自定义</option>
+</select>
+<input type="text" class="btn-link-input" value="${App.escapeHtml(btn.link||'#')}" placeholder="链接"/>
+<label class="btn-icon-upload">📷<input type="file" accept="image/*"/></label>
+<button class="btn-toggle ${isEnabled?'enabled':'disabled'}">${isEnabled?'启用':'禁用'}</button>
+<button class="btn-delete">✕</button>
+</div>
+`;
+});
+container.innerHTML=html;
+container.querySelectorAll('.card-btn-item').forEach((item)=>{
+const index=parseInt(item.dataset.index);
+item.querySelector('.btn-label-input').addEventListener('change',function(){if(editCardButtons[index]){editCardButtons[index].label=this.value||'按钮';App.saveCardButtons(editingKey,editCardButtons)}});
+item.querySelector('.btn-sub-input').addEventListener('change',function(){if(editCardButtons[index]){editCardButtons[index].subLabel=this.value||'';App.saveCardButtons(editingKey,editCardButtons)}});
+item.querySelector('.btn-type-select').addEventListener('change',function(){
+if(editCardButtons[index]){
+const oldType=editCardButtons[index].type;
+editCardButtons[index].type=this.value;
+const iconMap={download:'fa-download',channel:'fa-broadcast-tower',group:'fa-users',custom:'fa-star'};
+editCardButtons[index].icon=iconMap[this.value]||'fa-circle';
+const subMap={download:'直装',channel:'QQ频道',group:'QQ群',custom:'自定义'};
+if(!editCardButtons[index].subLabel||editCardButtons[index].subLabel===''||editCardButtons[index].subLabel===subMap[oldType]){
+editCardButtons[index].subLabel=subMap[this.value]||'';
+}
+App.saveCardButtons(editingKey,editCardButtons);
+App.renderCardButtonsEditor();
+}
+});
+item.querySelector('.btn-link-input').addEventListener('change',function(){if(editCardButtons[index]){editCardButtons[index].link=this.value||'#';App.saveCardButtons(editingKey,editCardButtons)}});
+item.querySelector('.btn-toggle').addEventListener('click',function(){
+if(editCardButtons[index]){
+editCardButtons[index].enabled=editCardButtons[index].enabled===false?true:false;
+App.saveCardButtons(editingKey,editCardButtons);
+App.renderCardButtonsEditor();
+}
+});
+item.querySelector('.btn-delete').addEventListener('click',function(){
+if(editCardButtons.length<=1){App.showToast('⚠️ 至少保留一个按钮');return}
+editCardButtons.splice(index,1);
+App.saveCardButtons(editingKey,editCardButtons);
+App.renderCardButtonsEditor();
+});
+item.querySelector('.btn-icon-upload input[type="file"]').addEventListener('change',function(e){
+const file=this.files[0];
+if(!file)return;
+App.compressImage(file,40).then(function(compressed){
+if(editCardButtons[index]){
+editCardButtons[index].customIcon=compressed;
+editCardButtons[index].icon='fa-image';
+App.saveCardButtons(editingKey,editCardButtons);
+App.renderCardButtonsEditor();
+App.showToast('✅ 按钮图标已上传');
+}
+});
+this.value='';
+});
+item.querySelector('.btn-icon-wrap').addEventListener('contextmenu',function(e){
+e.preventDefault();
+if(editCardButtons[index]&&editCardButtons[index].customIcon){
+delete editCardButtons[index].customIcon;
+const iconMap={download:'fa-download',channel:'fa-broadcast-tower',group:'fa-users',custom:'fa-star'};
+editCardButtons[index].icon=iconMap[editCardButtons[index].type]||'fa-circle';
+App.saveCardButtons(editingKey,editCardButtons);
+App.renderCardButtonsEditor();
+App.showToast('🗑️ 自定义图标已移除');
+}
+});
+let dragSrcIndex=null;
+item.addEventListener('dragstart',function(){dragSrcIndex=parseInt(this.dataset.index);this.classList.add('dragging')});
+item.addEventListener('dragend',function(){this.classList.remove('dragging');document.querySelectorAll('.card-btn-item.drag-over').forEach(el=>el.classList.remove('drag-over'))});
+item.addEventListener('dragover',function(e){e.preventDefault();document.querySelectorAll('.card-btn-item').forEach(el=>el.classList.remove('drag-over'));this.classList.add('drag-over')});
+item.addEventListener('drop',function(e){
+e.preventDefault();
+this.classList.remove('drag-over');
+const targetIndex=parseInt(this.dataset.index);
+if(dragSrcIndex===null||dragSrcIndex===targetIndex)return;
+const[moved]=editCardButtons.splice(dragSrcIndex,1);
+editCardButtons.splice(targetIndex,0,moved);
+App.saveCardButtons(editingKey,editCardButtons);
+App.renderCardButtonsEditor();
+});
+});
+};
+document.getElementById('addCardButtonBtn').addEventListener('click',function(){
+if(!editingKey){App.showToast('⚠️ 请先打开编辑项目');return}
+editCardButtons.push({id:'custom_'+Date.now(),type:'custom',label:'自定义按钮',subLabel:'自定义',icon:'fa-star',link:'#',enabled:true});
+App.saveCardButtons(editingKey,editCardButtons);
+App.renderCardButtonsEditor();
+App.showToast('✅ 已添加新按钮');
+});
+App.escapeHtml=function(str){
+if(!str)return '';
+return str.replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+};
+document.getElementById('editIconSelect').addEventListener('change',function(){
+var val=this.value;
+var preview=document.getElementById('editIconPreview');
+editCustomIconData=null;
+document.getElementById('editIconRemove').style.display='none';
+preview.innerHTML='<i class="fas '+val+'" style="font-size:17px;"></i>';
+});
+document.getElementById('addIconSelect').addEventListener('change',function(){
+var val=this.value;
+document.getElementById('addIconPreview').innerHTML='<i class="fas '+val+'" style="font-size:17px;"></i>';
+});
+document.getElementById('editIconUpload').addEventListener('change',function(e){
+var file=this.files[0];
+if(!file)return;
+App.compressImage(file,120).then(function(compressed){
+editCustomIconData=compressed;
+document.getElementById('editIconPreview').innerHTML='<img src="'+compressed+'" style="width:28px;height:28px;border-radius:50%;object-fit:cover;"/>';
+document.getElementById('editIconRemove').style.display='inline-flex';
+App.showToast('✅ 自定义图标已上传');
+});
+this.value='';
+});
+document.getElementById('editIconRemove').addEventListener('click',function(){
+editCustomIconData=null;
+var preview=document.getElementById('editIconPreview');
+var val=document.getElementById('editIconSelect').value;
+preview.innerHTML='<i class="fas '+val+'" style="font-size:17px;"></i>';
+this.style.display='none';
+App.showToast('🗑️ 自定义图标已移除');
+});
+App.closeLinkEditor=function(){
+elements.linkEditOverlay.classList.remove('active');
+editingKey=null;
+editCustomIconData=null;
+editCardButtons=[];
+document.body.style.overflow='';
+};
+App.saveLinkEditor=async function(){
+if(!editingKey)return;
+var tagsInput=document.getElementById('editTags').value.trim();
+var tags=tagsInput?tagsInput.split(',').map(function(s){return s.trim()}).filter(function(s){return s}):[];
+var iconVal=document.getElementById('editIconSelect').value;
+var downloadLinkValue=document.getElementById('editDownloadLink').value.trim()||'#';
+var channelLinkValue=document.getElementById('editChannelLink').value.trim()||'#';
+var groupLinkValue=document.getElementById('editGroupLink').value.trim()||'#';
+var newData={
+name:document.getElementById('editName').value.trim()||'未命名',
+subtitle:document.getElementById('editSubtitle').value.trim(),
+icon:iconVal,
+version:document.getElementById('editVersion').value.trim(),
+updateDate:document.getElementById('editUpdateDate').value,
+fileSize:document.getElementById('editFileSize').value.trim(),
+tags:tags,
+desc:App.sanitizeNotice(document.getElementById('editDesc').value.trim()),
+bgColor:selectedBgColor,
+downloadLink:downloadLinkValue,
+channelLink:channelLinkValue,
+groupLink:groupLinkValue
+};
+App.updateProjectData(editingKey,newData);
+if(editCardButtons&&editCardButtons.length>0){
+editCardButtons.forEach(function(btn){
+if(btn.type==='download'&&downloadLinkValue!=='#')btn.link=downloadLinkValue;
+else if(btn.type==='channel'&&channelLinkValue!=='#')btn.link=channelLinkValue;
+else if(btn.type==='group'&&groupLinkValue!=='#')btn.link=groupLinkValue;
+});
+App.saveCardButtons(editingKey,editCardButtons);
+}
+if(editCustomIconData){
+await App.setNavIcon(editingKey,editCustomIconData);
+}else{
+await App.removeNavIcon(editingKey);
+}
+App.closeLinkEditor();
+App.showToast('✅ 项目已更新','修改已保存');
+App.renderNav();
+App.renderCard();
+};
+App.renderCardBgColors=function(selected){
+var container=document.getElementById('cardBgColors');
+var colors=[
+{name:'默认黑棕',value:'rgba(18, 16, 14, 0.75)'},
+{name:'暗红黑',value:'rgba(42, 20, 20, 0.75)'},
+{name:'暗蓝黑',value:'rgba(20, 25, 42, 0.75)'},
+{name:'暗绿黑',value:'rgba(20, 40, 25, 0.75)'},
+{name:'暗紫黑',value:'rgba(35, 20, 42, 0.75)'},
+{name:'暗青黑',value:'rgba(18, 35, 35, 0.75)'},
+{name:'暗粉黑',value:'rgba(42, 20, 32, 0.75)'},
+{name:'暗橙黑',value:'rgba(42, 30, 18, 0.75)'},
+{name:'深灰黑',value:'rgba(25, 25, 28, 0.75)'},
+{name:'深金棕',value:'rgba(40, 32, 18, 0.75)'}
+];
+var html='';
+for(var i=0;i<colors.length;i++){
+var c=colors[i];
+var active=c.value===selected?' active':'';
+html+='<div class="color-option'+active+'" data-value="'+c.value+'" style="background:'+c.value+';" title="'+c.name+'"><span class="check"><i class="fas fa-check"></i></span></div>';
+}
+container.innerHTML=html;
+container.querySelectorAll('.color-option').forEach(function(opt){
+opt.addEventListener('click',function(){
+container.querySelectorAll('.color-option').forEach(function(o){o.classList.remove('active')});
+opt.classList.add('active');
+selectedBgColor=opt.dataset.value;
+});
+});
+};
+App.openAddProject=function(){App.closeAllOverlays();elements.addProjectOverlay.classList.add('active');document.body.style.overflow='hidden'};
+App.closeAddProject=function(){elements.addProjectOverlay.classList.remove('active');document.body.style.overflow=''};
+App.saveAddProject=function(){
+var name=document.getElementById('addName').value.trim();
+if(!name){App.showToast('⚠️ 请输入项目名称');return}
+var key='proj_'+Date.now();
+var tagsInput=document.getElementById('addTags').value.trim();
+var tags=tagsInput?tagsInput.split(',').map(function(s){return s.trim()}).filter(function(s){return s}):[];
+var iconVal=document.getElementById('addIconSelect').value;
+var newData={
+name:name,icon:iconVal,
+subtitle:document.getElementById('addSubtitle').value.trim()||'新项目',
+version:document.getElementById('addVersion').value.trim()||'v1.0',
+updateDate:document.getElementById('addUpdateDate').value||new Date().toISOString().split('T')[0],
+fileSize:document.getElementById('addFileSize').value.trim()||'',
+tags:tags,
+desc:App.sanitizeNotice(document.getElementById('addDesc').value.trim())||'暂无描述',
+bgColor:'rgba(18, 16, 14, 0.75)',
+enabled:true,
+cardButtons:JSON.parse(JSON.stringify(defaultCardButtons))
+};
+App.addProjectData(key,newData);
+projectOrder.push(key);
+App.saveOrder();
+currentKey=key;
+App.closeAddProject();
+App.showToast('✅ 项目已添加','「'+name+'」已创建');
+App.renderNav();
+App.renderCard();
+};
+App.openBgConfig=function(){App.closeAllOverlays();App.renderDynamicBgColors();document.getElementById('cardThemeSelect').value=App.getCardTheme();elements.bgConfigOverlay.classList.add('active');document.body.style.overflow='hidden'};
+App.closeBgConfig=function(){elements.bgConfigOverlay.classList.remove('active');document.body.style.overflow=''};
+App.renderDynamicBgColors=function(){
+var current=App.getDynamicBgClass();
+var container=document.getElementById('dynamicBgColors');
+var themes=[
+{name:'金色',class:'theme-gold',color:'#d4af37'},
+{name:'红色',class:'theme-red',color:'#e04040'},
+{name:'蓝色',class:'theme-blue',color:'#4080e0'},
+{name:'绿色',class:'theme-green',color:'#40c060'},
+{name:'紫色',class:'theme-purple',color:'#a040d0'},
+{name:'青色',class:'theme-cyan',color:'#40c0c0'},
+{name:'粉色',class:'theme-pink',color:'#e060a0'},
+{name:'橙色',class:'theme-orange',color:'#e08040'}
+];
+var html='';
+for(var i=0;i<themes.length;i++){
+var t=themes[i];
+var active=t.class===current?' active':'';
+html+='<div class="color-option'+active+'" data-class="'+t.class+'" style="background:'+t.color+';" title="'+t.name+'"><span class="check"><i class="fas fa-check"></i></span></div>';
+}
+container.innerHTML=html;
+container.querySelectorAll('.color-option').forEach(function(opt){
+opt.addEventListener('click',function(){
+localStorage.setItem('dynamicBgTheme',opt.dataset.class);
+App.applyDynamicBg();
+App.showToast('🎨 动态背景已切换至: '+opt.title);
+App.renderDynamicBgColors();
+if(CLOUD_ENABLED)App.uploadCloudData(true);
+});
+});
+};
+document.getElementById('cardThemeSelect').addEventListener('change',function(){
+localStorage.setItem('cardTheme',this.value);
+App.applyCardTheme();
+if(CLOUD_ENABLED)App.uploadCloudData(true);
+});
+var genericEditTarget=null,genericEditAnnouncementImageData=null;
+App.openGenericEdit=function(target,title,sub,label,value){
+if(target==='announcement'&&!isAdminMode){App.showToast('⚠️ 只有管理员可以编辑公告');return}
+App.closeAllOverlays();
+genericEditTarget=target;
+document.getElementById('genericEditTitle').textContent=title;
+document.getElementById('genericEditSub').textContent=sub;
+document.getElementById('genericEditLabel').textContent=label;
+document.getElementById('genericEditValue').value=value;
+var imgArea=document.getElementById('announcementImageUploadArea');
+if(target==='announcement'){
+imgArea.style.display='block';
+App.getAnnouncementImage().then(function(img){
+genericEditAnnouncementImageData=img||null;
+var preview=document.getElementById('announcementEditImagePreview');
+var imgEl=document.getElementById('announcementEditImagePreviewImg');
+var removeBtn=document.getElementById('announcementEditImageRemove');
+if(img){
+preview.style.display='flex';
+imgEl.src=img;
+imgEl.style.display='block';
+preview.querySelector('span')&&(preview.querySelector('span').style.display='none');
+removeBtn.style.display='inline-flex';
+}else{
+preview.style.display='none';
+imgEl.style.display='none';
+removeBtn.style.display='none';
+}
+});
+}else{
+imgArea.style.display='none';
+genericEditAnnouncementImageData=null;
+}
+elements.genericEditOverlay.classList.add('active');
+document.body.style.overflow='hidden';
+};
+App.closeGenericEdit=function(){
+elements.genericEditOverlay.classList.remove('active');
+genericEditTarget=null;
+genericEditAnnouncementImageData=null;
+document.body.style.overflow='';
+};
+App.saveGenericEdit=function(){
+var value=document.getElementById('genericEditValue').value.trim();
+switch(genericEditTarget){
+case 'brand':localStorage.setItem('brandName',value||'YZ官网');document.getElementById('brandText').textContent=value||'YZ官网';break;
+case 'notice':localStorage.setItem('noticeContent',value);App.renderNoticeContent();break;
+case 'shop':localStorage.setItem('shopContactLink',value||'#');App.renderContactLinks();break;
+case 'download':localStorage.setItem('downloadContactLink',value||'#');App.renderContactLinks();break;
+case 'customCss':localStorage.setItem('customCss',value);App.applyCustomCss();break;
+case 'announcement':
+try{var data=JSON.parse(value);if(data&&typeof data==='object')App.saveAnnouncement({title:data.title||'📢 公告',body:data.body||''});else App.saveAnnouncement({title:'📢 公告',body:String(value)})}
+catch(e){App.saveAnnouncement({title:'📢 公告',body:String(value)})}
+if(genericEditAnnouncementImageData)App.setAnnouncementImage(genericEditAnnouncementImageData);
+else App.removeAnnouncementImage();
+break;
+}
+App.closeGenericEdit();
+App.showToast('✅ 已保存','修改已生效');
+if(CLOUD_ENABLED)App.uploadCloudData(true);
+};
+document.getElementById('announcementEditImageInput').addEventListener('change',function(e){
+var file=this.files[0];
+if(!file)return;
+App.compressImage(file,200).then(function(compressed){
+genericEditAnnouncementImageData=compressed;
+var preview=document.getElementById('announcementEditImagePreview');
+var imgEl=document.getElementById('announcementEditImagePreviewImg');
+preview.style.display='flex';
+imgEl.src=compressed;
+imgEl.style.display='block';
+preview.querySelector('span')&&(preview.querySelector('span').style.display='none');
+document.getElementById('announcementEditImageRemove').style.display='inline-flex';
+});
+this.value='';
+});
+document.getElementById('announcementEditImageRemove').addEventListener('click',function(){
+genericEditAnnouncementImageData=null;
+document.getElementById('announcementEditImagePreview').style.display='none';
+document.getElementById('announcementEditImagePreviewImg').style.display='none';
+this.style.display='none';
+});
+App.applyCustomCss=function(){
+var styleEl=document.getElementById('customCssStyle');
+if(!styleEl){styleEl=document.createElement('style');styleEl.id='customCssStyle';document.head.appendChild(styleEl)}
+styleEl.textContent=localStorage.getItem('customCss')||'';
+};
+var confirmCallback=null;
+App.openConfirmDialog=function(message,callback){
+App.closeAllOverlays();
+document.getElementById('confirmMessage').innerHTML=message;
+confirmCallback=callback;
+elements.confirmOverlay.classList.add('active');
+document.body.style.overflow='hidden';
+};
+App.closeConfirmDialog=function(){elements.confirmOverlay.classList.remove('active');confirmCallback=null;document.body.style.overflow=''};
+App.renderNav=function(){
+var allKeys=Object.keys(App.getAllProjectsData());
+var filteredKeys=searchQuery?allKeys.filter(function(k){var d=App.getProjectData(k);return d&&(d.name.toLowerCase().includes(searchQuery.toLowerCase())||(d.subtitle||'').toLowerCase().includes(searchQuery.toLowerCase())||(d.tags||[]).some(function(tag){return tag.toLowerCase().includes(searchQuery.toLowerCase())}))}):allKeys;
+var ordered=[];
+projectOrder.forEach(function(k){if(filteredKeys.includes(k))ordered.push(k)});
+filteredKeys.forEach(function(k){if(!ordered.includes(k))ordered.push(k)});
+projectOrder=ordered;
+if(!projectOrder.includes(currentKey))currentKey=projectOrder[0]||'';
+var navContainer=elements.projectNav;
+navContainer.innerHTML='';
+var frag=document.createDocumentFragment();
+for(var i=0;i<projectOrder.length;i++){
+var key=projectOrder[i];
+var data=App.getProjectData(key);
+if(!data)continue;
+if(!isAdminMode&&data.enabled===false)continue;
+var div=document.createElement('div');
+div.className='nav-item'+(key===currentKey?' active':'');
+div.dataset.project=key;
+var isTouchDevice='ontouchstart'in window||navigator.maxTouchPoints>0;
+div.draggable=isAdminMode&&!isTouchDevice;
+var disabledBadge=data.enabled===false?'<span class="disabled-badge">🔒</span>':'';
+var iconHtml=App.getProjectIconHtml(key);
+var uploadBtnHtml=isAdminMode?'<button class="nav-icon-upload-btn" data-project="'+key+'" title="上传图标"><i class="fas fa-camera"></i><input type="file" accept="image/*" data-project="'+key+'"/></button>':'';
+div.innerHTML='<span class="nav-icon-wrap">'+iconHtml+uploadBtnHtml+'</span><span>'+data.name+disabledBadge+'</span>';
+frag.appendChild(div);
+}
+if(isAdminMode){
+var addBtn=document.createElement('div');
+addBtn.className='nav-item add-btn';
+addBtn.innerHTML='<i class="fas fa-plus"></i><span>添加项目</span>';
+frag.appendChild(addBtn);
+}
+navContainer.appendChild(frag);
+if(!currentKey){
+elements.cardContainer.innerHTML='<p style="text-align:center;color:var(--text-muted);padding:30px 0;">暂无项目</p>';
+return;
+}
+App.renderCard();
+};
+App.renderCard=async function(){
+if(isAdminMode){App.renderAdminPanel();return}
+if(!currentKey){elements.cardContainer.innerHTML='<p style="text-align:center;color:var(--text-muted);padding:30px 0;">暂无项目</p>';return}
+var data=App.getProjectData(currentKey);
+if(!data){elements.cardContainer.innerHTML='<p style="text-align:center;color:#ff6b6b;padding:30px 0;">❌ 项目数据不存在</p>';return}
+App.Stats.trackProjectView(currentKey);
+App.Stats.inc('total_visits');
+var imageBase64=await App.getProjectImage(currentKey);
+var videoBase64=await App.getProjectVideo(currentKey);
+var hasImage=imageBase64&&imageBase64!=='';
+var hasVideo=videoBase64&&videoBase64!=='';
+var navIcon=await App.getNavIcon(currentKey);
+var bigIconBase64=await App.getBigIcon(currentKey);
+var iconHtml=hasVideo?'<video src="'+videoBase64+'" class="video-preview" controls></video>':hasImage?'<img src="'+imageBase64+'" alt="'+data.name+'"/>':bigIconBase64?'<img src="'+bigIconBase64+'" alt="'+data.name+'"/>':navIcon?'<img src="'+navIcon+'" alt="'+data.name+'"/>':'<i class="fas '+(data.icon||'fa-cube')+'"></i>';
+var cardBg=data.bgColor||'rgba(18, 16, 14, 0.75)';
+var tagsHtml=(data.tags||[]).map(function(tag){return '<span class="info-tag"><i class="fas fa-tag"></i>'+tag+'</span>'}).join('');
+var infoHtml='<div class="project-info-row">'+(data.version?'<span class="info-tag"><i class="fas fa-code-branch"></i>'+data.version+'</span>':'')+(data.updateDate?'<span class="info-tag"><i class="fas fa-calendar"></i>'+data.updateDate+'</span>':'')+(data.fileSize?'<span class="info-tag"><i class="fas fa-weight-hanging"></i>'+data.fileSize+'</span>':'')+tagsHtml+'</div>';
+var buttons=App.getCardButtons(currentKey);
+var enabledButtons=buttons.filter(function(b){return b.enabled!==false});
+var buttonsHtml='';
+enabledButtons.forEach(function(btn){
+var iconHtml2=btn.customIcon?'<img src="'+btn.customIcon+'" style="width:18px;height:18px;border-radius:50%;object-fit:cover;"/>':'<i class="fas '+(btn.icon||'fa-circle')+'" style="font-size:18px;"></i>';
+var isChannel=btn.type==='channel';
+buttonsHtml+=`<a href="${btn.link||'#'}" class="action-card ${isChannel?'channel':''}" target="_blank" rel="noopener" data-btn-id="${btn.id}">${iconHtml2}<span class="label">${btn.label||'按钮'}</span><span class="sub-label">${btn.subLabel||''}</span></a>`;
+});
+if(!enabledButtons.length)buttonsHtml='<div style="grid-column:1/-1;text-align:center;color:var(--text-muted);font-size:11px;padding:10px 0;">暂无启用的按钮</div>';
+var bigIconActionsHtml=isAdminMode?'<div class="big-icon-actions"><label class="big-icon-upload-btn" title="上传卡片大图标"><i class="fas fa-camera"></i> 上传大图标<input type="file" accept="image/*" id="cardBigIconUploadInput" data-project="'+currentKey+'"/></label>'+(bigIconBase64?'<button class="big-icon-remove-btn" id="cardBigIconRemoveBtn" data-project="'+currentKey+'"><i class="fas fa-trash"></i> 移除</button>':'')+'</div>':'';
+var container=elements.cardContainer;
+container.innerHTML='<div class="project-card" style="background: '+cardBg+';">'+
+'<div class="card-name-tier1">'+data.name+'</div>'+
+'<div class="card-name-tier2">'+data.name+'</div>'+
+'<div class="card-name-tier3">'+data.name+' <span class="highlight">'+(data.subtitle||'')+'</span></div>'+
+infoHtml+
+'<div class="card-big-icon" id="cardBigIcon">'+iconHtml+'</div>'+
+bigIconActionsHtml+
+'<div class="action-grid">'+buttonsHtml+'</div>'+
+'<div class="card-desc"><i class="fas fa-circle-info"></i> '+(data.desc||'暂无描述')+'</div>'+
+'</div>';
+var cardEl=container.querySelector('.project-card');
+if(cardEl){cardEl.addEventListener('click',function(e){if(e.target.closest('.action-card')||e.target.closest('.card-big-icon')||e.target.closest('.video-preview')||e.target.closest('.big-icon-actions'))return;App.Stats.inc('total_clicks')})}
+var bigIconUploadInput=container.querySelector('#cardBigIconUploadInput');
+if(bigIconUploadInput){bigIconUploadInput.addEventListener('change',async function(e){var file=e.target.files[0];if(!file)return;var projKey=this.dataset.project;var compressed=await App.compressImage(file,200);await App.setBigIcon(projKey,compressed);App.renderNav();App.renderCard();App.showToast('✅ 卡片大图标已上传','导航小图标已同步');this.value=''})}
+var bigIconRemoveBtn=container.querySelector('#cardBigIconRemoveBtn');
+if(bigIconRemoveBtn){bigIconRemoveBtn.addEventListener('click',async function(e){e.stopPropagation();var projKey=this.dataset.project;App.openConfirmDialog('确定要移除卡片大图标吗？',async function(){await App.removeBigIcon(projKey);App.renderNav();App.renderCard();App.showToast('🗑️ 大图标已移除')})})}
+};
+App.renderAdminPanel=function(){
+var container=elements.cardContainer;
+var html='<div class="admin-panel" style="padding: 4px 0;">'+
+'<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; flex-wrap:wrap; gap:6px;">'+
+'<span style="color:var(--text-muted); font-size:12px;"><i class="fas fa-database"></i> 共 '+projectOrder.length+' 个项目</span>'+
+'<button class="tool-btn" id="addProjectBtn" style="background:rgba(212,175,55,0.12); border:1px solid rgba(212,175,55,0.2); padding:4px 14px; border-radius:var(--radius-full); color:#f5d98a; cursor:pointer; font-size:12px;"><i class="fas fa-plus"></i> 添加项目</button>'+
+'</div>'+
+'<div style="display:flex; flex-direction:column; gap:4px;">';
+for(var i=0;i<projectOrder.length;i++){
+var key=projectOrder[i];
+var data=App.getProjectData(key);
+if(!data)continue;
+var isActive=key===currentKey;
+var status=data.enabled!==false?'🟢 启用':'🔴 禁用';
+var iconHtml=App.getProjectIconHtml(key);
+var uploadBtnHtml='<button class="nav-icon-upload-btn" data-project="'+key+'" title="上传图标"><i class="fas fa-camera"></i><input type="file" accept="image/*" data-project="'+key+'"/></button>';
+var pv=App.Stats.getProjectViews(key);
+var dl=App.Stats.getProjectDownloads(key);
+var btnCount=(data.cardButtons&&Array.isArray(data.cardButtons))?data.cardButtons.length:0;
+var hasBigIcon=bigIconCache[key]?'🖼️':'';
+html+='<div class="admin-item" data-key="'+key+'" style="border-color:'+(isActive?'rgba(212,175,55,0.2)':'var(--border-subtle)')+';">'+
+'<div class="item-left">'+
+'<span class="nav-icon-wrap">'+iconHtml+uploadBtnHtml+'</span>'+
+'<span class="item-name">'+data.name+'</span>'+
+'<span class="item-status">'+status+'</span>'+
+'<span style="font-size:8px;color:var(--text-muted);">👁 '+pv+' ⬇ '+dl+' 🔘'+btnCount+' '+hasBigIcon+'</span>'+
+'</div>'+
+'<div class="item-actions">'+
+'<button class="edit-btn" data-action="edit" data-key="'+key+'">✏️ 编辑</button>'+
+'<button class="toggle-btn" data-action="toggle" data-key="'+key+'">'+(data.enabled!==false?'🔒 禁用':'🔓 启用')+'</button>'+
+'<button class="move-btn" data-action="move-up" data-key="'+key+'" '+(projectOrder.indexOf(key)<=0?'disabled':'')+'>↑</button>'+
+'<button class="move-btn" data-action="move-down" data-key="'+key+'" '+(projectOrder.indexOf(key)>=projectOrder.length-1?'disabled':'')+'>↓</button>'+
+'<button class="del-btn" data-action="delete" data-key="'+key+'">🗑️</button>'+
+'</div>'+
+'</div>';
+}
+html+='</div></div>';
+container.innerHTML=html;
+container.querySelectorAll('.admin-item .item-actions button').forEach(function(btn){
+btn.addEventListener('click',function(e){
+e.stopPropagation();
+var action=btn.dataset.action;
+var key=btn.dataset.key;
+if(!key)return;
+switch(action){
+case 'edit':App.openLinkEditor(key);break;
+case 'toggle':var d=App.getProjectData(key);App.updateProjectData(key,{enabled:d.enabled===false});App.renderNav();App.renderAdminPanel();break;
+case 'move-up':App.moveProject(key,-1);App.renderAdminPanel();break;
+case 'move-down':App.moveProject(key,1);App.renderAdminPanel();break;
+case 'delete':
+if(projectOrder.length<=1){App.showToast('⚠️ 至少保留一个项目');return}
+var d2=App.getProjectData(key);
+App.openConfirmDialog('确定删除 <strong>'+d2.name+'</strong> 吗？',function(){
+App.deleteProjectData(key);
+App.removeProjectImage(key);App.removeProjectVideo(key);App.removeNavIcon(key);App.removeBigIcon(key);
+projectOrder=projectOrder.filter(function(k){return k!==key});
+App.saveOrder();
+if(currentKey===key)currentKey=projectOrder[0]||'';
+App.renderNav();
+App.showToast('🗑️ 项目已删除');
+});
+break;
+}
+});
+});
+container.querySelectorAll('.nav-icon-upload-btn input[type="file"]').forEach(function(input){
+input.addEventListener('change',async function(e){
+var file=this.files[0];
+if(!file)return;
+var projKey=this.dataset.project;
+var compressed=await App.compressImage(file,80);
+await App.setNavIcon(projKey,compressed);
+App.renderNav();
+App.renderAdminPanel();
+App.showToast('✅ 导航图标已更新');
+this.value='';
+});
+});
+container.querySelectorAll('.nav-icon-wrap').forEach(function(wrap){
+wrap.addEventListener('contextmenu',function(e){
+e.preventDefault();
+var item=this.closest('.admin-item');
+if(!item)return;
+var key=item.dataset.key;
+if(navIconCache[key]){
+App.openConfirmDialog('确定移除 <strong>'+key+'</strong> 的导航图标吗？',function(){
+App.removeNavIcon(key);
+App.renderNav();
+App.renderAdminPanel();
+App.showToast('🗑️ 图标已移除');
+});
+}
+});
+});
+};
+var draggedKey=null;
+elements.projectNav.addEventListener('click',function(e){
+var navItem=e.target.closest('.nav-item');
+if(!navItem)return;
+if(navItem.classList.contains('add-btn')){App.openAddProject();return}
+var key=navItem.dataset.project;
+if(key){currentKey=key;App.renderNav()}
+});
+elements.projectNav.addEventListener('dragstart',function(e){
+var item=e.target.closest('.nav-item');
+if(!item||!isAdminMode)return;
+draggedKey=item.dataset.project;
+item.classList.add('dragging');
+e.dataTransfer.effectAllowed='move';
+});
+elements.projectNav.addEventListener('dragover',function(e){
+e.preventDefault();
+var item=e.target.closest('.nav-item');
+if(item)item.classList.add('drag-over');
+});
+elements.projectNav.addEventListener('drop',function(e){
+e.preventDefault();
+var targetItem=e.target.closest('.nav-item');
+if(!targetItem)return;
+var targetKey=targetItem.dataset.project;
+if(!draggedKey||!targetKey||draggedKey===targetKey)return;
+var fromIdx=projectOrder.indexOf(draggedKey);
+var toIdx=projectOrder.indexOf(targetKey);
+projectOrder.splice(fromIdx,1);
+projectOrder.splice(toIdx,0,draggedKey);
+App.saveOrder();
+App.renderNav();
+document.querySelectorAll('.drag-over').forEach(function(el){el.classList.remove('drag-over')});
+});
+elements.projectNav.addEventListener('dragend',function(e){
+var item=e.target.closest('.nav-item');
+if(item)item.classList.remove('dragging');
+document.querySelectorAll('.drag-over').forEach(function(el){el.classList.remove('drag-over')});
+draggedKey=null;
+});
+elements.projectNav.addEventListener('change',async function(e){
+if(e.target.matches('.nav-icon-upload-btn input[type="file"]')){
+var file=e.target.files[0];
+if(!file)return;
+var projKey=e.target.dataset.project;
+var compressed=await App.compressImage(file,80);
+await App.setNavIcon(projKey,compressed);
+App.renderNav();
+if(isAdminMode)App.renderAdminPanel();
+App.showToast('✅ 导航图标已更新');
+e.target.value='';
+}
+});
+elements.projectNav.addEventListener('contextmenu',function(e){
+var wrap=e.target.closest('.nav-icon-wrap');
+if(!wrap||!isAdminMode)return;
+e.preventDefault();
+var item=wrap.closest('.nav-item');
+if(!item)return;
+var key=item.dataset.project;
+if(navIconCache[key]){
+App.openConfirmDialog('确定移除 <strong>'+key+'</strong> 的导航图标吗？',function(){
+App.removeNavIcon(key);
+App.renderNav();
+App.showToast('🗑️ 图标已移除');
+});
+}
+});
+elements.cardContainer.addEventListener('click',function(e){
+var addBtn=e.target.closest('#addProjectBtn');
+if(addBtn){App.openAddProject();return}
+});
+var contextTargetKey=null;
+elements.cardContainer.addEventListener('contextmenu',function(e){
+if(!isAdminMode)return;
+var card=e.target.closest('.project-card');
+if(!card)return;
+e.preventDefault();
+contextTargetKey=currentKey;
+var menu=elements.contextMenu;
+menu.style.top=Math.min(e.clientY,window.innerHeight-140)+'px';
+menu.style.left=Math.min(e.clientX,window.innerWidth-160)+'px';
+menu.classList.add('active');
+});
+document.addEventListener('click',function(e){if(!e.target.closest('.context-menu'))elements.contextMenu.classList.remove('active')});
+elements.contextMenu.addEventListener('click',function(e){
+var action=e.target.closest('button')?e.target.closest('button').dataset.action:null;
+if(!action)return;
+elements.contextMenu.classList.remove('active');
+if(action==='edit')App.openLinkEditor(contextTargetKey);
+else if(action==='copy-download'){
+var data=App.getProjectData(contextTargetKey);
+if(data&&data.downloadLink&&data.downloadLink!=='#'){
+navigator.clipboard.writeText(data.downloadLink).then(function(){App.showToast('✅ 下载链接已复制')});
+}else{App.showToast('⚠️ 该链接为空或不可复制')}
+}else if(action==='delete'){
+if(projectOrder.length<=1){App.showToast('⚠️ 至少保留一个项目');return}
+var data2=App.getProjectData(contextTargetKey);
+App.openConfirmDialog('确定删除 <strong>'+data2.name+'</strong> 吗？',function(){
+App.deleteProjectData(contextTargetKey);
+App.removeProjectImage(contextTargetKey);App.removeProjectVideo(contextTargetKey);App.removeNavIcon(contextTargetKey);App.removeBigIcon(contextTargetKey);
+projectOrder=projectOrder.filter(function(k){return k!==contextTargetKey});
+App.saveOrder();
+currentKey=projectOrder[0]||'';
+App.renderNav();
+App.showToast('🗑️ 项目已删除');
+});
+}
+});
+elements.cardContainer.addEventListener('click',function(e){
+var link=e.target.closest('.action-card');
+if(!link)return;
+var href=link.getAttribute('href');
+if(!href||href==='#'||href===''){
+e.preventDefault();
+App.showToast('⚠️ 该链接尚未设置','请在管理员模式下编辑项目');
+return;
+}
+var btnId=link.dataset.btnId;
+if(btnId&&btnId==='download'){var projectKey=currentKey;if(projectKey)App.Stats.trackDownload(projectKey)}
+if(href.startsWith('http://')||href.startsWith('https://'))return;
+else{e.preventDefault();App.showToast('⚠️ 链接格式无效','请检查链接是否以 http:// 或 https:// 开头')}
+});
+document.addEventListener('DOMContentLoaded',function(){
+App.Stats.addVisitor();
+App.Stats.inc('total_visits');
+App.Stats.updateUI();
+var annData=App.getAnnouncement();
+if(annData.body&&annData.body.trim())setTimeout(App.showAnnouncement,500);
+App.getNoticeBg().then(function(img){if(img){document.getElementById('noticeBox').style.backgroundImage='url('+img+')';document.getElementById('noticeBgRemove').classList.add('show');setTimeout(App.extractColorFromBg,300)}});
+App.getProjectAreaBg().then(function(img){if(img){document.getElementById('projectAreaWrapper').style.backgroundImage='url('+img+')';document.getElementById('projectAreaBgRemove').classList.add('show')}});
+});
+document.getElementById('cloudUploadBtn').addEventListener('click',function(){App.uploadCloudData(false)});
+document.getElementById('noticeBgInput').addEventListener('change',function(e){
+var file=this.files[0];
+if(!file)return;
+App.compressImage(file,300).then(function(compressed){
+App.setNoticeBg(compressed);
+document.getElementById('noticeBox').style.backgroundImage='url('+compressed+')';
+document.getElementById('noticeBgRemove').classList.add('show');
+setTimeout(App.extractColorFromBg,300);
+App.showToast('✅ 公告背景图已上传');
+});
+this.value='';
+});
+document.getElementById('noticeBgRemove').addEventListener('click',function(){
+App.removeNoticeBg();
+document.getElementById('noticeBox').style.backgroundImage='';
+this.classList.remove('show');
+document.documentElement.style.setProperty('--extracted-color','#d4af37');
+App.showToast('🗑️ 公告背景图已移除');
+});
+document.getElementById('projectAreaBgInput').addEventListener('change',function(e){
+var file=this.files[0];
+if(!file)return;
+App.compressImage(file,300).then(function(compressed){
+App.setProjectAreaBg(compressed);
+document.getElementById('projectAreaWrapper').style.backgroundImage='url('+compressed+')';
+document.getElementById('projectAreaBgRemove').classList.add('show');
+App.showToast('✅ 项目区域背景图已上传');
+});
+this.value='';
+});
+document.getElementById('projectAreaBgRemove').addEventListener('click',function(){
+App.removeProjectAreaBg();
+document.getElementById('projectAreaWrapper').style.backgroundImage='';
+this.classList.remove('show');
+App.showToast('🗑️ 项目区域背景图已移除');
+});
+document.getElementById('announcementCloseBtn').addEventListener('click',App.hideAnnouncement);
+document.getElementById('announcementOverlay').addEventListener('click',function(e){if(e.target===this)App.hideAnnouncement()});
+document.getElementById('editAnnouncementBtn').addEventListener('click',function(){
+if(!isAdminMode){App.showToast('⚠️ 只有管理员可以编辑公告');return}
+var data=App.getAnnouncement();
+App.openGenericEdit('announcement','编辑公告弹窗','修改弹窗公告内容（JSON格式：{"title":"标题","body":"内容"}）','公告内容',JSON.stringify(data,null,2));
+});
+document.getElementById('announcementEditBtn').addEventListener('click',function(e){
+e.stopPropagation();
+if(!isAdminMode){App.showToast('⚠️ 只有管理员可以编辑公告');return}
+var data=App.getAnnouncement();
+App.openGenericEdit('announcement','编辑公告弹窗','修改弹窗公告内容（JSON格式：{"title":"标题","body":"内容"}）','公告内容',JSON.stringify(data,null,2));
+});
+var clickCount=0,clickTimer;
+document.getElementById('footerTrigger').addEventListener('click',function(){
+clickCount++;
+if(clickCount>=5){
+if(isAdminMode)App.setAdminMode(false);
+else App.openPasswordDialog();
+clickCount=0;
+clearTimeout(clickTimer);
+}else{
+clearTimeout(clickTimer);
+clickTimer=setTimeout(function(){clickCount=0},2000);
+}
+});
+document.getElementById('pwdConfirmBtn').addEventListener('click',App.verifyPassword);
+document.getElementById('pwdCancelBtn').addEventListener('click',App.closePasswordDialog);
+elements.pwdInput.addEventListener('keydown',function(e){if(e.key==='Enter')App.verifyPassword();if(e.key==='Escape')App.closePasswordDialog()});
+elements.pwdOverlay.addEventListener('click',function(e){if(e.target===elements.pwdOverlay)App.closePasswordDialog()});
+document.getElementById('changePwdBtn').addEventListener('click',App.openChangePwdDialog);
+document.getElementById('changePwdCancelBtn').addEventListener('click',App.closeChangePwdDialog);
+document.getElementById('changePwdConfirmBtn').addEventListener('click',App.changePassword);
+elements.changePwdOverlay.addEventListener('click',function(e){if(e.target===elements.changePwdOverlay)App.closeChangePwdDialog()});
+['oldPwdInput','newPwdInput','confirmPwdInput'].forEach(function(id){document.getElementById(id).addEventListener('keydown',function(e){if(e.key==='Enter')App.changePassword();if(e.key==='Escape')App.closeChangePwdDialog()})});
+document.getElementById('linkEditSaveBtn').addEventListener('click',App.saveLinkEditor);
+document.getElementById('linkEditCancelBtn').addEventListener('click',App.closeLinkEditor);
+elements.linkEditOverlay.addEventListener('click',function(e){if(e.target===elements.linkEditOverlay)App.closeLinkEditor()});
+document.getElementById('addProjectSaveBtn').addEventListener('click',App.saveAddProject);
+document.getElementById('addProjectCancelBtn').addEventListener('click',App.closeAddProject);
+elements.addProjectOverlay.addEventListener('click',function(e){if(e.target===elements.addProjectOverlay)App.closeAddProject()});
+document.getElementById('bgConfigCloseBtn').addEventListener('click',App.closeBgConfig);
+elements.bgConfigOverlay.addEventListener('click',function(e){if(e.target===elements.bgConfigOverlay)App.closeBgConfig()});
+document.getElementById('genericEditSaveBtn').addEventListener('click',App.saveGenericEdit);
+document.getElementById('genericEditCancelBtn').addEventListener('click',App.closeGenericEdit);
+elements.genericEditOverlay.addEventListener('click',function(e){if(e.target===elements.genericEditOverlay)App.closeGenericEdit()});
+document.getElementById('confirmOkBtn').addEventListener('click',function(){if(confirmCallback)confirmCallback();App.closeConfirmDialog()});
+document.getElementById('confirmCancelBtn').addEventListener('click',App.closeConfirmDialog);
+elements.confirmOverlay.addEventListener('click',function(e){if(e.target===elements.confirmOverlay)App.closeConfirmDialog()});
+document.getElementById('addProjectBtn').addEventListener('click',App.openAddProject);
+document.getElementById('deleteProjectBtn').addEventListener('click',function(){
+if(projectOrder.length<=1){App.showToast('⚠️ 至少保留一个项目');return}
+var data=App.getProjectData(currentKey);
+App.openConfirmDialog('确定删除 <strong>'+data.name+'</strong> 吗？',function(){
+App.deleteProjectData(currentKey);
+App.removeProjectImage(currentKey);App.removeProjectVideo(currentKey);App.removeNavIcon(currentKey);App.removeBigIcon(currentKey);
+projectOrder=projectOrder.filter(function(k){return k!==currentKey});
+App.saveOrder();
+currentKey=projectOrder[0]||'';
+App.renderNav();
+App.showToast('🗑️ 项目已删除');
+});
+});
+document.getElementById('bgConfigBtn').addEventListener('click',App.openBgConfig);
+document.getElementById('customCssBtn').addEventListener('click',function(){App.openGenericEdit('customCss','自定义CSS','输入自定义CSS代码，将应用到整个页面','CSS代码',localStorage.getItem('customCss')||'')});
+document.getElementById('exportBtn').addEventListener('click',function(){
+var config={allProjectsData:App.getAllProjectsData(),projectOrder:projectOrder,brandName:App.getBrandName(),noticeContent:App.getNoticeContent(),shopContactLink:App.getShopLink(),downloadContactLink:App.getDownloadContactLink(),dynamicBgTheme:App.getDynamicBgClass(),cardTheme:App.getCardTheme(),customCss:localStorage.getItem('customCss')||'',adminPasswordHash:App.getPasswordHash(),brandLogo:localStorage.getItem('brandLogo')||'',announcementData:localStorage.getItem('announcementData')||''};
+var blob=new Blob([JSON.stringify(config,null,2)],{type:'application/json'});
+var url=URL.createObjectURL(blob);
+var a=document.createElement('a');
+a.href=url;a.download='yz_config.json';a.click();
+URL.revokeObjectURL(url);
+App.showToast('📤 配置已导出');
+});
+document.getElementById('importBtn').addEventListener('click',function(){document.getElementById('importFileInput').click()});
+document.getElementById('importFileInput').addEventListener('change',function(e){
+var file=this.files[0];
+if(!file)return;
+var reader=new FileReader();
+reader.onload=function(ev){
+try{
+var config=JSON.parse(ev.target.result);
+if(config.allProjectsData)App.saveAllProjectsData(config.allProjectsData);
+if(config.projectOrder){projectOrder=config.projectOrder;App.saveOrder()}
+if(config.brandName)localStorage.setItem('brandName',config.brandName);
+if(config.noticeContent!==undefined)localStorage.setItem('noticeContent',config.noticeContent);
+if(config.shopContactLink)localStorage.setItem('shopContactLink',config.shopContactLink);
+if(config.downloadContactLink)localStorage.setItem('downloadContactLink',config.downloadContactLink);
+if(config.dynamicBgTheme)localStorage.setItem('dynamicBgTheme',config.dynamicBgTheme);
+if(config.cardTheme)localStorage.setItem('cardTheme',config.cardTheme);
+if(config.customCss)localStorage.setItem('customCss',config.customCss);
+if(config.adminPasswordHash)localStorage.setItem('adminPasswordHash',config.adminPasswordHash);
+if(config.brandLogo)localStorage.setItem('brandLogo',config.brandLogo);
+if(config.announcementData)localStorage.setItem('announcementData',config.announcementData);
+App.loadOrder();App.applyDynamicBg();App.applyCardTheme();App.applyCustomCss();App.loadBrandLogo();
+document.getElementById('brandText').textContent=App.getBrandName();
+App.renderNoticeContent();App.renderContactLinks();
+App.preloadIcons().then(function(){App.renderNav()});
+App.showToast('📥 配置已导入');
+if(CLOUD_ENABLED)App.uploadCloudData(true);
+}catch(err){alert('导入失败，文件格式错误')}
+};
+reader.readAsText(file);
+this.value='';
+});
+document.getElementById('resetBtn').addEventListener('click',function(){App.openConfirmDialog('确定要恢复默认数据吗？<br><strong>所有自定义修改都将丢失！</strong>',function(){localStorage.clear();location.reload()})});
+document.getElementById('searchInput').addEventListener('input',function(){searchQuery=this.value.trim();App.renderNav()});
+document.getElementById('brandEditBtn').addEventListener('click',function(){App.openGenericEdit('brand','编辑品牌名称','修改网站品牌名','品牌名称',App.getBrandName())});
+document.getElementById('brandTitle').addEventListener('click',function(e){if(isAdminMode&&e.target.tagName!=='I')App.openGenericEdit('brand','编辑品牌名称','修改网站品牌名','品牌名称',App.getBrandName())});
+document.getElementById('noticeEditBtn').addEventListener('click',function(e){e.stopPropagation();App.openGenericEdit('notice','编辑公告内容','支持HTML格式（部分标签）','公告内容',App.getNoticeContent())});
+document.getElementById('noticeBox').addEventListener('click',function(e){if(isAdminMode&&!e.target.closest('.contact-item')&&!e.target.closest('#noticeEditBtn')&&!e.target.closest('.notice-bg-upload')){App.openGenericEdit('notice','编辑公告内容','支持HTML格式（部分标签）','公告内容',App.getNoticeContent())}});
+document.querySelectorAll('.edit-contact-btn').forEach(function(btn){btn.addEventListener('click',function(e){e.stopPropagation();e.preventDefault();var type=btn.dataset.contact;if(type==='shop')App.openGenericEdit('shop','编辑下单链接','修改24H自助下单地址','链接地址',App.getShopLink());else if(type==='download')App.openGenericEdit('download','编辑下载教程链接','修改辅助下载教程地址','链接地址',App.getDownloadContactLink())})});
+document.getElementById('yzContactItem').addEventListener('click',function(e){
+if(e.target.closest('.contact-upload-btn')||e.target.closest('.contact-remove-btn')||e.target.closest('input'))return;
+var content=document.getElementById('popupContent');
+if(yzPopupImage){content.innerHTML='<img src="'+yzPopupImage+'"/><div class="popup-actions"><button class="btn-save" id="saveImageBtn"><i class="fas fa-download"></i> 保存图片</button><button class="btn-close-popup" id="closePopupBtn"><i class="fas fa-times"></i> 关闭</button></div>'}else{content.innerHTML='<div class="popup-placeholder"><i class="fas fa-image"></i><p>暂无客服图片</p></div><div class="popup-actions"><button class="btn-close-popup" id="closePopupBtn"><i class="fas fa-times"></i> 关闭</button></div>'}
+elements.imagePopup.classList.add('active');
+document.body.style.overflow='hidden';
+var saveBtn=document.getElementById('saveImageBtn');
+if(saveBtn){saveBtn.addEventListener('click',function(){var imgEl=content.querySelector('img');if(!imgEl)return;var link=document.createElement('a');link.download='yz_customer.jpg';link.href=imgEl.src;link.click();App.showToast('📥 图片已保存')})}
+var closeBtn=document.getElementById('closePopupBtn');
+if(closeBtn){closeBtn.addEventListener('click',function(){elements.imagePopup.classList.remove('active');document.body.style.overflow=''})}
+});
+elements.imagePopup.addEventListener('click',function(e){if(e.target===e.currentTarget){e.currentTarget.classList.remove('active');document.body.style.overflow=''}});
+document.getElementById('yzUploadInput').addEventListener('change',function(e){var file=this.files[0];if(!file)return;App.compressImage(file,200).then(function(compressed){App.saveYzPopupImage(compressed);document.getElementById('yzRemoveBtn').classList.add('show');App.showToast('✅ 客服图片已上传')});this.value=''});
+document.getElementById('yzRemoveBtn').addEventListener('click',function(e){e.stopPropagation();App.removeYzPopupImage();document.getElementById('yzRemoveBtn').classList.remove('show');App.showToast('🗑️ 客服图片已移除')});
+document.getElementById('contactShopLink').addEventListener('click',function(e){var url=App.getShopLink();if(!url||url==='#'||url==='https://你的24H自助下单链接.com'){e.preventDefault();App.showToast('⚠️ 请先设置24H自助下单地址','管理员模式点击铅笔编辑');return}if(!url.startsWith('http://')&&!url.startsWith('https://')){e.preventDefault();App.showToast('⚠️ 链接格式无效','请以 http:// 或 https:// 开头')}});
+document.getElementById('contactDownloadLink').addEventListener('click',function(e){var url=App.getDownloadContactLink();if(!url||url==='#'||url==='https://你的辅助下载教程链接.com'){e.preventDefault();App.showToast('⚠️ 请先设置辅助下载地址','管理员模式点击铅笔编辑');return}if(!url.startsWith('http://')&&!url.startsWith('https://')){e.preventDefault();App.showToast('⚠️ 链接格式无效','请以 http:// 或 https:// 开头')}});
+document.getElementById('brandLogoUploadBtn').addEventListener('click',function(e){e.stopPropagation();var input=document.getElementById('brandLogoInput');if(input)input.click()});
+document.getElementById('brandLogoInput').addEventListener('change',function(e){var file=this.files[0];if(!file)return;App.compressImage(file,200).then(function(compressed){App.saveBrandLogo(compressed);App.showToast('✅ 品牌Logo已更新')});this.value=''});
+document.getElementById('brandLogoWrapper').addEventListener('contextmenu',function(e){e.preventDefault();if(!isAdminMode)return;if(localStorage.getItem('brandLogo')){App.openConfirmDialog('确定要移除品牌Logo吗？',function(){App.removeBrandLogo();App.showToast('🗑️ Logo已移除')})}});
+App.renderNoticeContent=function(){var custom=App.getNoticeContent();elements.noticeContent.innerHTML=App.sanitizeNotice(custom||'<strong>☆ YZ全项目公告声明 ☆</strong><br>客户下单须知（必看）<br>所有卡密售出不退不换，看清楚想清楚再下单！<br><span class="small"><i class="fas fa-circle-exclamation" style="color:var(--accent-lighter);"></i> 订单金额无论大小，任何问题联系店铺客服都会帮你解决！<br>一旦投诉订单，全部默认无售后<br>任何问题联系店铺微信或者企业微信！<br><span class="highlight">虚拟商品，拍下概不退款</span></span>')};
+App.renderContactLinks=function(){elements.contactShopLink.href=App.getShopLink();elements.contactDownloadLink.href=App.getDownloadContactLink()};
+function removeNetlifyBadge(){document.querySelectorAll('a[href*="netlify"]').forEach(function(el){el.remove()});document.querySelectorAll('[class*="netlify"]').forEach(function(el){el.remove()});document.querySelectorAll('footer a[href*="netlify"]').forEach(function(el){el.remove()});var walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT,{acceptNode:function(node){if(node.textContent&&node.textContent.includes('Powered by Netlify'))return NodeFilter.FILTER_ACCEPT;return NodeFilter.FILTER_REJECT}});var nodes=[];while(walker.nextNode())nodes.push(walker.currentNode);nodes.forEach(function(node){if(node.parentNode)node.parentNode.removeChild(node)})}
+removeNetlifyBadge();setTimeout(removeNetlifyBadge,500);setTimeout(removeNetlifyBadge,1000);setTimeout(removeNetlifyBadge,2000);setTimeout(removeNetlifyBadge,3000);setTimeout(removeNetlifyBadge,5000);
+App.init=function(){
+(function autoFixDownloadLinks(){var all=App.getAllProjectsData();var changed=false;Object.keys(all).forEach(function(key){var data=all[key];if(data.cardButtons&&Array.isArray(data.cardButtons)){data.cardButtons.forEach(function(btn){if(btn.type==='download'&&(!btn.link||btn.link==='#')&&data.downloadLink&&data.downloadLink!=='#'){btn.link=data.downloadLink;changed=true}if(btn.type==='channel'&&(!btn.link||btn.link==='#')&&data.channelLink&&data.channelLink!=='#'){btn.link=data.channelLink;changed=true}if(btn.type==='group'&&(!btn.link||btn.link==='#')&&data.groupLink&&data.groupLink!=='#'){btn.link=data.groupLink;changed=true}})} });if(changed)App.saveAllProjectsData(all)})();
+App.openDB().then(async function(){
+console.log('📦 IndexedDB 可用:',dbAvailable);
+await App.loadYzPopupImage();
+App.loadOrder();
+App.applyDynamicBg();
+App.applyCardTheme();
+App.applyCustomCss();
+App.loadBrandLogo();
+document.getElementById('brandText').textContent=App.getBrandName();
+App.renderNoticeContent();
+App.renderContactLinks();
+await App.preloadIcons();
+App.setAdminMode(isAdminMode);
+if(yzPopupImage)document.getElementById('yzRemoveBtn').classList.add('show');
+App.renderNav();
+App.Stats.updateUI();
+if(CLOUD_ENABLED){App.updateCloudStatus('online');App.loadCloudData(true)}
+removeNetlifyBadge();
+});
+};
+App.init();
+if(document.readyState==='complete')removeNetlifyBadge();else window.addEventListener('load',removeNetlifyBadge);
+var renderPending=false;
+var originalRenderNav=App.renderNav;
+App.renderNav=function(){if(renderPending)return;renderPending=true;requestAnimationFrame(function(){renderPending=false;originalRenderNav.call(App);removeNetlifyBadge()})};
+var originalRenderCard=App.renderCard;
+App.renderCard=function(){if(renderPending)return;renderPending=true;requestAnimationFrame(function(){renderPending=false;originalRenderCard.call(App);removeNetlifyBadge()})};
+console.log('✅ YZ球球大作战官网 已启动');
+console.log('🔑 默认管理员密码: 147258');
+})();
+</script>
+</body>
+</html>
