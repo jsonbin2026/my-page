@@ -1023,10 +1023,7 @@ if(!response.ok){App.updateCloudStatus('offline');if(!silent)App.showToast('❌ 
 var result=await response.json();
 var data=(result&&result[0]&&result[0].data)?result[0].data:{};
 if(data.allProjectsData){
-var local=App.getAllProjectsData();
-var merged={...local};
-Object.keys(data.allProjectsData).forEach(function(k){merged[k]={...merged[k],...data.allProjectsData[k]}});
-App.Storage.set('allProjectsData',merged);
+App.Storage.set('allProjectsData', data.allProjectsData); // 直接用云端数据完全覆盖本地
 }
 if(data.projectOrder)App.Storage.set('projectOrder',data.projectOrder);
 if(data.brandName)localStorage.setItem('brandName',data.brandName);
@@ -1039,7 +1036,10 @@ if(data.customCss)localStorage.setItem('customCss',data.customCss);
 if(data.adminPasswordHash)localStorage.setItem('adminPasswordHash',data.adminPasswordHash);
 if(data.brandLogo)localStorage.setItem('brandLogo',data.brandLogo);
 if(data.announcementData)localStorage.setItem('announcementData',data.announcementData);
-localStorage.setItem('cloud_last_sync',String(Date.now()));
+if(result && result[0] && result[0].updated_at) {
+    localStorage.setItem('cloud_updated_at', result[0].updated_at);
+}
+localStorage.setItem('cloud_last_sync', String(Date.now()));
 App.updateCloudStatus('online');
 if(!silent)App.showToast('✅ 云同步拉取成功','已从云端加载最新数据');
 App.loadOrder();
@@ -2055,7 +2055,35 @@ App.setAdminMode(isAdminMode);
 if(yzPopupImage)document.getElementById('yzRemoveBtn').classList.add('show');
 App.renderNav();
 App.Stats.updateUI();
-if(CLOUD_ENABLED){App.updateCloudStatus('online');App.loadCloudData(true)}
+if(CLOUD_ENABLED){
+    App.updateCloudStatus('online');
+    App.loadCloudData(true);
+    
+    // 👇 核心黑科技：自动检测云端更新，无需用户手动刷新
+    setInterval(async () => {
+        if (document.visibilityState === 'hidden') return; // 页面在后台时不请求，节省资源
+        try {
+            const res = await fetch(SUPABASE_URL + '/rest/v1/site_config?id=eq.1&select=updated_at&t=' + Date.now(), {
+                headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': 'Bearer ' + SUPABASE_ANON_KEY },
+                cache: 'no-store'
+            });
+            if (res.ok) {
+                const result = await res.json();
+                if (result && result[0] && result[0].updated_at) {
+                    const cloudUpdatedAt = result[0].updated_at;
+                    const localUpdatedAt = localStorage.getItem('cloud_updated_at') || '';
+                    // 一旦发现云端时间变了，说明管理员点击了上传，立刻自动拉取最新数据
+                    if (cloudUpdatedAt !== localUpdatedAt) {
+                        console.log('🔥 检测到云端数据更新，正在自动同步...');
+                        await App.loadCloudData(true); // 静默拉取并刷新界面
+                    }
+                }
+            }
+        } catch (e) {
+            console.warn('自动同步检查失败:', e);
+        }
+    }, 5000); // 每 5 秒检查一次
+}
 removeNetlifyBadge();
 });
 };
