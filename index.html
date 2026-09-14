@@ -2319,16 +2319,20 @@ break;
 }
 });
 });
+/* ===== 🔧 已修改：管理面板导航图标上传 → WebP 上传到 Supabase Storage ===== */
 container.querySelectorAll('.nav-icon-upload-btn input[type="file"]').forEach(function(input){
 input.addEventListener('change',async function(e){
 var file=this.files[0];
 if(!file)return;
+App.showToast('⏳ 正在上传...');
 var projKey=this.dataset.project;
-var compressed=await App.compressImage(file,80);
-await App.setNavIcon(projKey,compressed);
-App.renderNav();
-App.renderAdminPanel();
-App.showToast('✅ 导航图标已更新');
+var url=await App.uploadToStorage(file,'nav_icon');
+if(url){
+    await App.setNavIcon(projKey,url);
+    App.renderNav();
+    App.renderAdminPanel();
+    App.showToast('✅ 导航图标已更新');
+}
 this.value='';
 });
 });
@@ -2389,16 +2393,20 @@ if(item)item.classList.remove('dragging');
 document.querySelectorAll('.drag-over').forEach(function(el){el.classList.remove('drag-over')});
 draggedKey=null;
 });
+/* ===== 🔧 已修改：项目导航栏图标上传 → WebP 上传到 Supabase Storage ===== */
 elements.projectNav.addEventListener('change',async function(e){
 if(e.target.matches('.nav-icon-upload-btn input[type="file"]')){
 var file=e.target.files[0];
 if(!file)return;
+App.showToast('⏳ 正在上传...');
 var projKey=e.target.dataset.project;
-var compressed=await App.compressImage(file,80);
-await App.setNavIcon(projKey,compressed);
-App.renderNav();
-if(isAdminMode)App.renderAdminPanel();
-App.showToast('✅ 导航图标已更新');
+var url=await App.uploadToStorage(file,'nav_icon');
+if(url){
+    await App.setNavIcon(projKey,url);
+    App.renderNav();
+    if(isAdminMode)App.renderAdminPanel();
+    App.showToast('✅ 导航图标已更新');
+}
 e.target.value='';
 }
 });
@@ -2683,6 +2691,24 @@ App.uploadToStorage = async function(file, folder = 'uploads') {
     }
 };
 App.init=function(){
+// ======= 🔧 强力清理本地残留的 Base64 垃圾数据 =======
+(function cleanLocalStorage(){
+    try {
+        var all = localStorage.getItem('allProjectsData');
+        // 如果发现有旧版的 Base64 图片数据（以 data:image 开头），立刻清理
+        if (all && all.includes('data:image')) {
+            console.log('🧹 发现本地存在旧版 Base64 图片，正在清理...');
+            localStorage.removeItem('allProjectsData');
+            localStorage.removeItem('projectOrder');
+            localStorage.removeItem('adminMode');
+            localStorage.removeItem('brandLogo');
+            localStorage.removeItem('announcementData');
+            App.showToast('🧹 正在清理本地旧缓存，请稍候...');
+            setTimeout(function(){ location.reload(); }, 1000); // 清理后自动刷新
+        }
+    } catch(e) {}
+})();
+// ==========================================================
 (function autoFixDownloadLinks(){var all=App.getAllProjectsData();var changed=false;Object.keys(all).forEach(function(key){var data=all[key];if(data.cardButtons&&Array.isArray(data.cardButtons)){data.cardButtons.forEach(function(btn){if(btn.type==='download'&&(!btn.link||btn.link==='#')&&data.downloadLink&&data.downloadLink!=='#'){btn.link=data.downloadLink;changed=true}if(btn.type==='channel'&&(!btn.link||btn.link==='#')&&data.channelLink&&data.channelLink!=='#'){btn.link=data.channelLink;changed=true}if(btn.type==='group'&&(!btn.link||btn.link==='#')&&data.groupLink&&data.groupLink!=='#'){btn.link=data.groupLink;changed=true}})}if(!data.features||!Array.isArray(data.features)){data.features=JSON.parse(JSON.stringify(defaultFeatures));changed=true}});if(changed)App.saveAllProjectsData(all)})();
 App.openDB().then(async function(){
 console.log('📦 IndexedDB 可用:',dbAvailable);
