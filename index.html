@@ -314,6 +314,10 @@ i[class*="fa-"]{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grays
 .feature-edit-item .feature-icon-upload{font-size:8.5px;color:#5dd9ec;cursor:pointer;padding:3px 6px;background:rgba(93,217,236,0.06);border-radius:5px;white-space:nowrap;transition:0.3s;flex-shrink:0}
 .feature-edit-item .feature-icon-upload:hover{background:rgba(93,217,236,0.15)}
 .feature-edit-item .feature-icon-upload input{display:none}
+.feature-edit-item .feature-shot-upload{font-size:8.5px;color:#5dd9ec;cursor:pointer;padding:3px 6px;background:rgba(93,217,236,0.06);border-radius:5px;white-space:nowrap;transition:0.3s;flex-shrink:0}
+.feature-edit-item .feature-shot-upload:hover{background:rgba(93,217,236,0.15)}
+.feature-edit-item .feature-shot-upload.active{background:rgba(107,219,138,0.12);color:#6bdb8a}
+.feature-edit-item .feature-shot-upload input{display:none}
 .feature-edit-item .feature-delete{padding:3px 6px;background:rgba(255,70,70,0.05);border:none;border-radius:5px;color:#ff7a7a;cursor:pointer;font-size:9.5px;transition:0.3s;flex-shrink:0}
 .feature-edit-item .feature-delete:hover{background:rgba(255,70,70,0.15)}
 #addFeatureBtn{margin-top:6px;padding:6px 12px;background:rgba(93,217,236,0.05);border:1px dashed rgba(93,217,236,0.22);border-radius:var(--radius-full);color:#5dd9ec;font-size:11px;cursor:pointer;transition:0.3s;font-weight:600;width:100%}
@@ -538,29 +542,162 @@ i[class*="fa-"]{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grays
   35%{transform:scale(1.06);filter:brightness(1.18)}
   60%{transform:scale(0.98);filter:brightness(1.05)}
 }
-.feature-shot-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.88);backdrop-filter:blur(36px) saturate(1.4);-webkit-backdrop-filter:blur(36px) saturate(1.4);display:none;justify-content:center;align-items:center;z-index:99996;padding:14px;animation:fadeIn 0.3s ease}
-.feature-shot-overlay.active{display:flex}
-.feature-shot-card{width:100%;max-width:392px;max-height:90vh;background:linear-gradient(158deg,rgba(26,23,19,0.97),rgba(11,9,8,0.99));border:1px solid rgba(255,255,255,0.08);border-radius:22px;box-shadow:0 70px 200px rgba(0,0,0,0.9),0 0 0 1px rgba(255,255,255,0.035) inset,0 1px 0 rgba(255,255,255,0.06) inset;display:flex;flex-direction:column;overflow:hidden;animation:zoomIn 0.35s cubic-bezier(0.16,1,0.3,1)}
-.feature-shot-header{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;border-bottom:1px solid rgba(255,255,255,0.055);gap:8px;background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent)}
-.feature-shot-back{display:inline-flex;align-items:center;gap:5px;padding:6px 12px;background:linear-gradient(160deg,rgba(255,255,255,0.05),rgba(255,255,255,0.015));border:1px solid rgba(255,255,255,0.08);border-radius:999px;color:var(--text-secondary);font-size:11px;font-weight:700;cursor:pointer;transition:0.3s;flex-shrink:0;box-shadow:0 1px 0 rgba(255,255,255,0.05) inset}
-.feature-shot-back:hover{background:linear-gradient(160deg,rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.14),rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.05));color:var(--accent-lighter);border-color:rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.28);transform:translateX(-2px)}
-.feature-shot-title{flex:1;text-align:center;font-size:12.5px;font-weight:800;color:#6de0f0;text-shadow:0 0 14px rgba(93,217,236,0.35);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:0.3px}
-.feature-shot-actions{display:flex;gap:4px;align-items:center;flex-shrink:0;min-width:44px}
-.feature-shot-body{flex:1;overflow:auto;padding:14px;display:flex;justify-content:center;align-items:flex-start;min-height:220px;max-height:64vh;background:radial-gradient(ellipse at 50% 30%,rgba(93,217,236,0.04),transparent 60%),rgba(0,0,0,0.3)}
-.feature-shot-body img{max-width:100%;max-height:60vh;border-radius:12px;object-fit:contain;box-shadow:0 22px 70px rgba(0,0,0,0.65),0 0 40px rgba(93,217,236,0.08);border:1px solid rgba(93,217,236,0.18);background:#050a0d}
-.feature-shot-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--text-muted);gap:12px;padding:60px 20px;text-align:center;width:100%}
-.feature-shot-empty i{font-size:44px;color:rgba(93,217,236,0.18);filter:drop-shadow(0 0 14px rgba(93,217,236,0.2))}
-.feature-shot-empty p{font-size:12px;line-height:1.65;color:var(--text-muted)}
-.feature-shot-footer{display:none;padding:10px 14px 14px;border-top:1px solid rgba(255,255,255,0.055);gap:8px;justify-content:center;flex-wrap:wrap;background:linear-gradient(0deg,rgba(255,255,255,0.012),transparent)}
-.feature-shot-upload-btn,.feature-shot-remove-btn{display:inline-flex;align-items:center;gap:5px;padding:7px 16px;border-radius:999px;font-size:11.5px;font-weight:700;cursor:pointer;transition:0.3s;white-space:nowrap}
-.feature-shot-upload-btn{background:linear-gradient(135deg,rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.18),rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.06));border:1px solid rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.28);color:var(--accent-lighter);box-shadow:0 1px 0 rgba(255,255,255,0.06) inset}
-.feature-shot-upload-btn:hover{background:linear-gradient(135deg,rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.28),rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.10));transform:translateY(-1px)}
+
+/* ============================================================
+   ⭐ 功能截图：全屏页面式界面（非弹窗）
+   ============================================================ */
+.feature-shot-overlay{
+  position:fixed;
+  inset:0;
+  width:100%;
+  height:100%;
+  background:#0b0a08;
+  background-image:
+    radial-gradient(ellipse at 30% 0%, rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.07) 0%, transparent 55%),
+    radial-gradient(ellipse at 70% 100%, rgba(93,217,236,0.05) 0%, transparent 55%);
+  display:none;
+  z-index:99996;
+  padding:0;
+  overflow:hidden;
+}
+.feature-shot-overlay.active{display:block;animation:pageSlideIn 0.32s cubic-bezier(0.16,1,0.3,1)}
+@keyframes pageSlideIn{0%{transform:translateX(8%);opacity:0}100%{transform:translateX(0);opacity:1}}
+
+.feature-shot-card{
+  width:100%;
+  height:100%;
+  max-width:100%;
+  max-height:100%;
+  background:transparent;
+  border:none;
+  border-radius:0;
+  box-shadow:none;
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+}
+
+.feature-shot-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:14px 16px;
+  border-bottom:1px solid rgba(255,255,255,0.06);
+  gap:8px;
+  background:linear-gradient(180deg,rgba(20,18,15,0.98),rgba(20,18,15,0.85));
+  backdrop-filter:blur(20px) saturate(1.4);
+  -webkit-backdrop-filter:blur(20px) saturate(1.4);
+  position:sticky;
+  top:0;
+  z-index:10;
+  flex-shrink:0;
+  box-shadow:0 6px 24px rgba(0,0,0,0.35);
+}
+
+.feature-shot-back{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:7px 14px;
+  background:linear-gradient(160deg,rgba(255,255,255,0.055),rgba(255,255,255,0.018));
+  border:1px solid rgba(255,255,255,0.09);
+  border-radius:999px;
+  color:var(--text-secondary);
+  font-size:12.5px;font-weight:700;
+  cursor:pointer;transition:0.3s;flex-shrink:0;
+  box-shadow:0 1px 0 rgba(255,255,255,0.05) inset;
+}
+.feature-shot-back:hover{
+  background:linear-gradient(160deg,rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.16),rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.05));
+  color:var(--accent-lighter);
+  border-color:rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.3);
+  transform:translateX(-2px);
+}
+.feature-shot-back i{font-size:12px}
+
+.feature-shot-title{
+  flex:1;text-align:center;
+  font-size:14px;font-weight:800;
+  color:#6de0f0;
+  text-shadow:0 0 14px rgba(93,217,236,0.4);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  letter-spacing:0.4px;
+}
+.feature-shot-actions{
+  display:flex;gap:4px;align-items:center;flex-shrink:0;min-width:44px;
+}
+
+.feature-shot-body{
+  flex:1;
+  overflow:auto;
+  padding:24px 18px 32px;
+  display:flex;
+  justify-content:center;
+  align-items:flex-start;
+  min-height:0;
+  background:radial-gradient(ellipse at 50% 15%,rgba(93,217,236,0.035),transparent 60%);
+  -webkit-overflow-scrolling:touch;
+}
+.feature-shot-body img{
+  max-width:100%;
+  width:auto;
+  max-height:none;
+  border-radius:16px;
+  object-fit:contain;
+  box-shadow:0 26px 80px rgba(0,0,0,0.7),0 0 50px rgba(93,217,236,0.10);
+  border:1px solid rgba(93,217,236,0.20);
+  background:#050a0d;
+  display:block;
+}
+
+.feature-shot-empty{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  color:var(--text-muted);gap:14px;
+  padding:80px 24px;text-align:center;width:100%;
+}
+.feature-shot-empty i{
+  font-size:56px;
+  color:rgba(93,217,236,0.20);
+  filter:drop-shadow(0 0 18px rgba(93,217,236,0.25));
+}
+.feature-shot-empty p{
+  font-size:13.5px;line-height:1.7;color:var(--text-muted);
+}
+
+.feature-shot-footer{
+  display:none;
+  padding:14px 16px calc(16px + env(safe-area-inset-bottom,0px));
+  border-top:1px solid rgba(255,255,255,0.06);
+  gap:10px;justify-content:center;flex-wrap:wrap;
+  background:linear-gradient(0deg,rgba(20,18,15,0.98),rgba(20,18,15,0.85));
+  backdrop-filter:blur(20px) saturate(1.4);
+  -webkit-backdrop-filter:blur(20px) saturate(1.4);
+  flex-shrink:0;
+  box-shadow:0 -6px 24px rgba(0,0,0,0.35);
+}
+.feature-shot-upload-btn,.feature-shot-remove-btn{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:10px 22px;border-radius:999px;
+  font-size:12.5px;font-weight:700;
+  cursor:pointer;transition:0.3s;white-space:nowrap;
+}
+.feature-shot-upload-btn{
+  background:linear-gradient(135deg,rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.22),rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.07));
+  border:1px solid rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.32);
+  color:var(--accent-lighter);
+  box-shadow:0 1px 0 rgba(255,255,255,0.06) inset;
+}
+.feature-shot-upload-btn:hover{
+  background:linear-gradient(135deg,rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.32),rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.12));
+  transform:translateY(-1px);
+}
 .feature-shot-upload-btn input{display:none}
-.feature-shot-remove-btn{background:rgba(255,70,70,0.06);border:1px solid rgba(255,70,70,0.12);color:#ff7a7a}
-.feature-shot-remove-btn:hover{background:rgba(255,70,70,0.14);transform:translateY(-1px)}
-@media(max-width:440px){
-  .app-wrapper{max-width:100%!important;padding:7px 7px 10px!important;border-radius:18px!important}
-  .project-card{padding:11px 9px 10px!important;border-radius:14px!important}
+.feature-shot-remove-btn{
+  background:rgba(255,70,70,0.07);
+  border:1px solid rgba(255,70,70,0.14);
+  color:#ff7a7a;
+}
+.feature-shot-remove-btn:hover{
+  background:rgba(255,70,70,0.16);
+  transform:translateY(-1px);
 }
 </style>
 </head>
@@ -643,7 +780,7 @@ i[class*="fa-"]{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grays
 </label>
 <div style="font-size:10px;color:var(--text-muted);margin-bottom:6px;display:flex;gap:8px;flex-wrap:wrap;">
 <span>💡 显示在项目卡片最底部</span>
-<span>📷 点击卡片可上传/查看截图</span>
+<span>📷 小图标：功能图标 · 🖼️ 大图：功能介绍图片</span>
 <span>💡 右键图标可移除</span>
 </div>
 <div id="featureListContainer" style="display:flex;flex-direction:column;gap:5px;max-height:280px;overflow-y:auto;padding-right:4px;"></div>
@@ -719,7 +856,7 @@ i[class*="fa-"]{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grays
   <div class="feature-shot-card">
     <div class="feature-shot-header">
       <button class="feature-shot-back" id="featureShotBackBtn"><i class="fas fa-arrow-left"></i> 返回</button>
-      <div class="feature-shot-title" id="featureShotTitle">功能截图</div>
+      <div class="feature-shot-title" id="featureShotTitle">功能介绍</div>
       <div class="feature-shot-actions" id="featureShotActions"></div>
     </div>
     <div class="feature-shot-body" id="featureShotBody"></div>
@@ -1292,23 +1429,41 @@ document.body.classList.add('theme-extracted');
 img.onerror=function(){};
 img.src=url;
 };
+/* ========== 🐛 修复：公告弹窗 ========== */
 App.getAnnouncement=function(){
-try{var raw=localStorage.getItem('announcementData');if(raw)return JSON.parse(raw)}catch(e){}
-return{title: 公告,body:'欢迎来到YZ官网\n严选全网顶尖脚本，实测上机校验，过滤残次失效资源，紧跟版本快速更新，运行丝滑稳定，一站式体验'};
+  var DEF_BODY='欢迎来到YZ官网\n严选全网顶尖脚本，实测上机校验，过滤残次失效资源，紧跟版本快速更新，运行丝滑稳定，一站式体验';
+  try{
+    var raw=localStorage.getItem('announcementData');
+    if(raw){
+      var parsed=JSON.parse(raw);
+      if(parsed && typeof parsed==='object'){
+        var title=(typeof parsed.title==='string' && parsed.title.trim())?parsed.title:'公告';
+        var body=(typeof parsed.body==='string' && parsed.body.trim())?parsed.body:DEF_BODY;
+        return {title:title, body:body};
+      }
+    }
+  }catch(e){}
+  return {title:'公告', body:DEF_BODY};
 };
 App.saveAnnouncement=function(data){
 localStorage.setItem('announcementData',JSON.stringify(data));
 if(CLOUD_ENABLED)App.uploadCloudData(true);
 };
 App.showAnnouncement=async function(){
-var data=App.getAnnouncement();
-document.getElementById('announcementTitle').textContent=data.title|| 公告;
-document.getElementById('announcementBody').textContent=data.body||'欢迎来到YZ官网';
-var imgData=await App.getAnnouncementImage();
-var imgEl=document.getElementById('announcementImage');
-if(imgData){imgEl.src=imgData;imgEl.classList.add('show')}else{imgEl.classList.remove('show')}
-document.getElementById('announcementOverlay').classList.add('active');
-document.body.style.overflow='hidden';
+  try{
+    var data=App.getAnnouncement()||{};
+    document.getElementById('announcementTitle').textContent=data.title||'公告';
+    document.getElementById('announcementBody').textContent=data.body||'欢迎来到YZ官网';
+    try{
+      var imgData=await App.getAnnouncementImage();
+      var imgEl=document.getElementById('announcementImage');
+      if(imgData){imgEl.src=imgData;imgEl.classList.add('show')}else{imgEl.classList.remove('show')}
+    }catch(e){console.warn('公告配图加载失败',e)}
+    document.getElementById('announcementOverlay').classList.add('active');
+    document.body.style.overflow='hidden';
+  }catch(e){
+    console.error('公告弹窗显示失败:',e);
+  }
 };
 App.hideAnnouncement=function(){
 document.getElementById('announcementOverlay').classList.remove('active');
@@ -1680,7 +1835,6 @@ editCardButtons.splice(index,1);
 App.saveCardButtons(editingKey,editCardButtons);
 App.renderCardButtonsEditor();
 });
-/* ===== 🔧 已修改：卡片按钮图标上传 → WebP 上传到 Supabase Storage ===== */
 item.querySelector('.btn-icon-upload input[type="file"]').addEventListener('change',async function(e){const file=this.files[0];if(!file)return;App.showToast('⏳ 正在上传...');const url=await App.uploadToStorage(file,'card_btn_icon');if(url&&editCardButtons[index]){editCardButtons[index].customIcon=url;editCardButtons[index].icon='fa-image';App.saveCardButtons(editingKey,editCardButtons);App.renderCardButtonsEditor();App.showToast('✅ 按钮图标已上传')}this.value=''});
 item.querySelector('.btn-icon-wrap').addEventListener('contextmenu',function(e){
 e.preventDefault();
@@ -1745,6 +1899,8 @@ let opts='';
 FEATURE_ICON_OPTIONS.forEach(o=>{
 opts+=`<option value="${o.value}" ${f.icon===o.value?'selected':''}>${o.label}</option>`;
 });
+// 判断是否已经上传过大图
+const hasShot = !!(f.fid && featureShotCache[f.fid]);
 html+=`
 <div class="feature-edit-item" data-index="${index}" draggable="true">
 <span class="drag-handle">⠿</span>
@@ -1752,7 +1908,8 @@ html+=`
 <select class="feature-icon-select">${opts}</select>
 <input type="text" class="feature-title-input" value="${App.escapeHtml(f.title||'')}" placeholder="功能标题"/>
 <input type="text" class="feature-desc-input" value="${App.escapeHtml(f.desc||'')}" placeholder="功能描述"/>
-<label class="feature-icon-upload">📷<input type="file" accept="image/*"/></label>
+<label class="feature-icon-upload" title="上传功能小图标">📷<input type="file" accept="image/*"/></label>
+<label class="feature-shot-upload ${hasShot?'active':''}" title="上传功能介绍大图" style="font-size:8.5px;color:#5dd9ec;cursor:pointer;padding:3px 6px;background:rgba(93,217,236,0.06);border-radius:5px;white-space:nowrap;transition:0.3s;flex-shrink:0;">🖼️ 大图<input type="file" accept="image/*"/></label>
 <button class="feature-delete">✕</button>
 </div>
 `;
@@ -1774,15 +1931,44 @@ if(editFeatures[index]){editFeatures[index].title=this.value||'新功能';App.sa
 item.querySelector('.feature-desc-input').addEventListener('change',function(){
 if(editFeatures[index]){editFeatures[index].desc=this.value||'';App.saveFeatures(editingKey,editFeatures)}
 });
-/* ===== 🔧 已修改：功能图标上传 → WebP 上传到 Supabase Storage ===== */
-item.querySelector('.feature-icon-upload input[type="file"]').addEventListener('change',async function(){const file=this.files[0];if(!file)return;App.showToast('⏳ 正在上传...');const url=await App.uploadToStorage(file,'feature_icon');if(url&&editFeatures[index]){editFeatures[index].customIcon=url;App.saveFeatures(editingKey,editFeatures);App.renderFeatureEditor();App.showToast('✅ 功能图标已上传')}this.value=''});
+// 上传小图标
+item.querySelector('.feature-icon-upload input[type="file"]').addEventListener('change',async function(){const file=this.files[0];if(!file)return;App.showToast('⏳ 正在上传小图标...');const url=await App.uploadToStorage(file,'feature_icon');if(url&&editFeatures[index]){editFeatures[index].customIcon=url;App.saveFeatures(editingKey,editFeatures);App.renderFeatureEditor();App.showToast('✅ 功能小图标已上传')}this.value=''});
+// 上传功能介绍大图（在编辑弹窗里直接上传）
+item.querySelector('.feature-shot-upload input[type="file"]').addEventListener('change',async function(){
+  const file=this.files[0];
+  if(!file)return;
+  // 确保有 fid
+  if(!editFeatures[index].fid){ editFeatures[index].fid=App.genFid(); }
+  const fid=editFeatures[index].fid;
+  App.showToast('⏳ 正在上传大图...');
+  const url=await App.uploadToStorage(file,'feature_shot');
+  if(url){
+    await App.setFeatureScreenshot(fid,url);
+    App.saveFeatures(editingKey,editFeatures);
+    App.renderFeatureEditor();
+    App.showToast('✅ 功能介绍大图已上传');
+  }
+  this.value='';
+});
+// 右键小图标预览移除
 item.querySelector('.feature-icon-preview').addEventListener('contextmenu',function(e){
 e.preventDefault();
 if(editFeatures[index]&&editFeatures[index].customIcon){
 delete editFeatures[index].customIcon;
 App.saveFeatures(editingKey,editFeatures);
 App.renderFeatureEditor();
-App.showToast('🗑️ 自定义图标已移除');
+App.showToast('🗑️ 自定义小图标已移除');
+}
+});
+// 右键"🖼️ 大图"按钮移除大图
+item.querySelector('.feature-shot-upload').addEventListener('contextmenu',async function(e){
+e.preventDefault();
+const fid=editFeatures[index]&&editFeatures[index].fid;
+if(!fid)return;
+if(featureShotCache[fid]){
+  await App.removeFeatureScreenshot(fid);
+  App.renderFeatureEditor();
+  App.showToast('🗑️ 功能介绍大图已移除');
 }
 });
 item.querySelector('.feature-delete').addEventListener('click',function(){
@@ -1836,7 +2022,6 @@ document.getElementById('addIconSelect').addEventListener('change',function(){
 var val=this.value;
 document.getElementById('addIconPreview').innerHTML='<i class="fas '+val+'" style="font-size:17px;"></i>';
 });
-/* ===== 🔧 已修改：自定义图标上传 → WebP 上传到 Supabase Storage ===== */
 document.getElementById('editIconUpload').addEventListener('change',async function(e){var file=this.files[0];if(!file)return;App.showToast('⏳ 正在上传...');var url=await App.uploadToStorage(file,'edit_icon');if(url){editCustomIconData=url;document.getElementById('editIconPreview').innerHTML='<img src="'+url+'" style="width:28px;height:28px;border-radius:50%;object-fit:cover;"/>';document.getElementById('editIconRemove').style.display='inline-flex';App.showToast('✅ 自定义图标已上传')}this.value=''});
 document.getElementById('editIconRemove').addEventListener('click',function(){
 editCustomIconData=null;
@@ -2036,8 +2221,8 @@ case 'shop':localStorage.setItem('shopContactLink',value||'#');App.renderContact
 case 'download':localStorage.setItem('downloadContactLink',value||'#');App.renderContactLinks();break;
 case 'customCss':localStorage.setItem('customCss',value);App.applyCustomCss();break;
 case 'announcement':
-try{var data=JSON.parse(value);if(data&&typeof data==='object')App.saveAnnouncement({title:data.title|| 公告,body:data.body||''});else App.saveAnnouncement({title:公告,body:String(value)})}
-catch(e){App.saveAnnouncement({title: 公告,body:String(value)})}
+try{var data=JSON.parse(value);if(data&&typeof data==='object')App.saveAnnouncement({title:data.title||'公告',body:data.body||''});else App.saveAnnouncement({title:'公告',body:String(value)})}
+catch(e){App.saveAnnouncement({title:'公告',body:String(value)})}
 if(genericEditAnnouncementImageData)App.setAnnouncementImage(genericEditAnnouncementImageData);
 else App.removeAnnouncementImage();
 break;
@@ -2180,19 +2365,23 @@ requestAnimationFrame(function(){
   if(pc){ pc.classList.add('shake'); setTimeout(function(){pc.classList.remove('shake')},700); }
 });
 };
+
+/* ============================================================
+   ⭐ 功能截图：全屏页面式界面（非弹窗）
+   ============================================================ */
 var currentShotFid=null;
 App.openFeatureScreenshot=async function(fid){
   if(!fid)return;
   currentShotFid=fid;
-  var title='功能截图';
+  var title='功能介绍';
   try{
     var all=App.getAllProjectsData();
     for(var k in all){
       var arr=all[k].features||[];
       for(var i=0;i<arr.length;i++){
-        if(arr[i].fid===fid){title=arr[i].title||'功能截图';break;}
+        if(arr[i].fid===fid){title=arr[i].title||'功能介绍';break;}
       }
-      if(title!=='功能截图')break;
+      if(title!=='功能介绍')break;
     }
   }catch(e){}
   document.getElementById('featureShotTitle').textContent=title;
@@ -2200,13 +2389,14 @@ App.openFeatureScreenshot=async function(fid){
   body.innerHTML='<div class="feature-shot-empty"><i class="fas fa-spinner fa-spin"></i><p>加载中...</p></div>';
   elements.featureShotOverlay.classList.add('active');
   document.body.style.overflow='hidden';
-  App.renderFeatureShotFooter();
+  // 先加载图片，再渲染 footer（避免 hasShot 判断滞后）
   var shot=await App.getFeatureScreenshot(fid);
   if(shot){
     body.innerHTML='<img src="'+shot+'" alt="'+App.escapeHtml(title)+'"/>';
   }else{
-    body.innerHTML='<div class="feature-shot-empty"><i class="fas fa-image"></i><p>暂无功能截图<br/><span style="font-size:10.5px;opacity:0.7;">'+(isAdminMode?'点击下方按钮上传':'请联系管理员上传')+'</span></p></div>';
+    body.innerHTML='<div class="feature-shot-empty"><i class="fas fa-image"></i><p>暂无功能介绍图片<br/><span style="font-size:11px;opacity:0.7;">'+(isAdminMode?'点击下方按钮上传':'请联系管理员上传')+'</span></p></div>';
   }
+  App.renderFeatureShotFooter();
 };
 App.closeFeatureScreenshot=function(){
   elements.featureShotOverlay.classList.remove('active');
@@ -2220,7 +2410,7 @@ App.renderFeatureShotFooter=function(){
   footer.style.display='flex';
   var hasShot=!!featureShotCache[currentShotFid];
   footer.innerHTML=
-    '<label class="feature-shot-upload-btn"><i class="fas fa-camera"></i> '+(hasShot?'更换截图':'上传截图')+'<input type="file" accept="image/*" id="featureShotUploadInput"/></label>'+
+    '<label class="feature-shot-upload-btn"><i class="fas fa-camera"></i> '+(hasShot?'更换图片':'上传图片')+'<input type="file" accept="image/*" id="featureShotUploadInput"/></label>'+
     (hasShot?'<button class="feature-shot-remove-btn" id="featureShotRemoveBtn"><i class="fas fa-trash"></i> 移除</button>':'');
   var input=document.getElementById('featureShotUploadInput');
   if(input){
@@ -2234,7 +2424,7 @@ App.renderFeatureShotFooter=function(){
         var body=document.getElementById('featureShotBody');
         body.innerHTML='<img src="'+url+'" alt=""/>';
         App.renderFeatureShotFooter();
-        App.showToast('✅ 功能截图已上传');
+        App.showToast('✅ 功能介绍图片已上传');
       }
       this.value='';
     });
@@ -2244,15 +2434,15 @@ App.renderFeatureShotFooter=function(){
     rm.addEventListener('click',function(){
       App.removeFeatureScreenshot(currentShotFid).then(function(){
         var body=document.getElementById('featureShotBody');
-        body.innerHTML='<div class="feature-shot-empty"><i class="fas fa-image"></i><p>暂无功能截图</p></div>';
+        body.innerHTML='<div class="feature-shot-empty"><i class="fas fa-image"></i><p>暂无功能介绍图片</p></div>';
         App.renderFeatureShotFooter();
-        App.showToast('🗑️ 功能截图已移除');
+        App.showToast('🗑️ 功能介绍图片已移除');
       });
     });
   }
 };
 document.getElementById('featureShotBackBtn').addEventListener('click',App.closeFeatureScreenshot);
-elements.featureShotOverlay.addEventListener('click',function(e){if(e.target===elements.featureShotOverlay)App.closeFeatureScreenshot()});
+
 App.renderAdminPanel=function(){
 var container=elements.cardContainer;
 var html='<div class="admin-panel" style="padding: 4px 0;">'+
@@ -2319,7 +2509,6 @@ break;
 }
 });
 });
-/* ===== 🔧 已修改：管理面板导航图标上传 → WebP 上传到 Supabase Storage ===== */
 container.querySelectorAll('.nav-icon-upload-btn input[type="file"]').forEach(function(input){
 input.addEventListener('change',async function(e){
 var file=this.files[0];
@@ -2393,7 +2582,6 @@ if(item)item.classList.remove('dragging');
 document.querySelectorAll('.drag-over').forEach(function(el){el.classList.remove('drag-over')});
 draggedKey=null;
 });
-/* ===== 🔧 已修改：项目导航栏图标上传 → WebP 上传到 Supabase Storage ===== */
 elements.projectNav.addEventListener('change',async function(e){
 if(e.target.matches('.nav-icon-upload-btn input[type="file"]')){
 var file=e.target.files[0];
@@ -2484,8 +2672,10 @@ document.addEventListener('DOMContentLoaded',function(){
 App.Stats.addVisitor();
 App.Stats.inc('total_visits');
 App.Stats.updateUI();
-var annData=App.getAnnouncement();
-if(annData.body&&annData.body.trim())setTimeout(App.showAnnouncement,500);
+/* ========== 🐛 修复：始终弹出公告 ========== */
+setTimeout(function(){
+  try{ App.showAnnouncement(); }catch(e){ console.error('公告调用失败',e); }
+}, 500);
 App.getNoticeBg().then(function(img){if(img){document.getElementById('noticeBox').style.backgroundImage='url('+img+')';document.getElementById('noticeBgRemove').classList.add('show');setTimeout(App.extractColorFromBg,300)}});
 App.getProjectAreaBg().then(function(img){if(img){document.getElementById('projectAreaWrapper').style.backgroundImage='url('+img+')';document.getElementById('projectAreaBgRemove').classList.add('show')}});
 });
@@ -2629,7 +2819,6 @@ var closeBtn=document.getElementById('closePopupBtn');
 if(closeBtn){closeBtn.addEventListener('click',function(){elements.imagePopup.classList.remove('active');document.body.style.overflow=''})}
 });
 elements.imagePopup.addEventListener('click',function(e){if(e.target===e.currentTarget){e.currentTarget.classList.remove('active');document.body.style.overflow=''}});
-/* ===== 🔧 已修改：客服图片上传 → WebP 上传到 Supabase Storage ===== */
 document.getElementById('yzUploadInput').addEventListener('change',async function(e){var file=this.files[0];if(!file)return;App.showToast('⏳ 正在上传...');var url=await App.uploadToStorage(file,'yz_popup');if(url){App.saveYzPopupImage(url);document.getElementById('yzRemoveBtn').classList.add('show');App.showToast('✅ 客服图片已上传')}this.value=''});
 document.getElementById('yzRemoveBtn').addEventListener('click',function(e){e.stopPropagation();App.removeYzPopupImage();document.getElementById('yzRemoveBtn').classList.remove('show');App.showToast('🗑️ 客服图片已移除')});
 document.getElementById('contactShopLink').addEventListener('click',function(e){var url=App.getShopLink();if(!url||url==='#'||url==='https://你的24H自助下单链接.com'){e.preventDefault();App.showToast('⚠️ 请先设置24H自助下单地址','管理员模式点击铅笔编辑');return}if(!url.startsWith('http://')&&!url.startsWith('https://')){e.preventDefault();App.showToast('⚠️ 链接格式无效','请以 http:// 或 https:// 开头')}});
@@ -2641,8 +2830,7 @@ App.renderNoticeContent=function(){var custom=App.getNoticeContent();elements.no
 App.renderContactLinks=function(){elements.contactShopLink.href=App.getShopLink();elements.contactDownloadLink.href=App.getDownloadContactLink()};
 function removeNetlifyBadge(){document.querySelectorAll('a[href*="netlify"]').forEach(function(el){el.remove()});document.querySelectorAll('[class*="netlify"]').forEach(function(el){el.remove()});document.querySelectorAll('footer a[href*="netlify"]').forEach(function(el){el.remove()});var walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT,{acceptNode:function(node){if(node.textContent&&node.textContent.includes('Powered by Netlify'))return NodeFilter.FILTER_ACCEPT;return NodeFilter.FILTER_REJECT}});var nodes=[];while(walker.nextNode())nodes.push(walker.currentNode);nodes.forEach(function(node){if(node.parentNode)node.parentNode.removeChild(node)})}
 removeNetlifyBadge();setTimeout(removeNetlifyBadge,500);setTimeout(removeNetlifyBadge,1000);setTimeout(removeNetlifyBadge,2000);setTimeout(removeNetlifyBadge,3000);setTimeout(removeNetlifyBadge,5000);
-/* ===== 🔧 已修改：WebP 高清压缩上传到 Supabase Storage ===== */
-// 将图片转为 WebP 格式（高清且体积小）并直接上传到 Supabase Storage 并返回 URL
+/* ===== WebP 高清压缩上传到 Supabase Storage ===== */
 App.uploadToStorage = async function(file, folder = 'uploads') {
     try {
         const maxSize = 1200; 
@@ -2691,11 +2879,9 @@ App.uploadToStorage = async function(file, folder = 'uploads') {
     }
 };
 App.init=function(){
-// ======= 🔧 强力清理本地残留的 Base64 垃圾数据 =======
 (function cleanLocalStorage(){
     try {
         var all = localStorage.getItem('allProjectsData');
-        // 如果发现有旧版的 Base64 图片数据（以 data:image 开头），立刻清理
         if (all && all.includes('data:image')) {
             console.log('🧹 发现本地存在旧版 Base64 图片，正在清理...');
             localStorage.removeItem('allProjectsData');
@@ -2704,11 +2890,10 @@ App.init=function(){
             localStorage.removeItem('brandLogo');
             localStorage.removeItem('announcementData');
             App.showToast('🧹 正在清理本地旧缓存，请稍候...');
-            setTimeout(function(){ location.reload(); }, 1000); // 清理后自动刷新
+            setTimeout(function(){ location.reload(); }, 1000);
         }
     } catch(e) {}
 })();
-// ==========================================================
 (function autoFixDownloadLinks(){var all=App.getAllProjectsData();var changed=false;Object.keys(all).forEach(function(key){var data=all[key];if(data.cardButtons&&Array.isArray(data.cardButtons)){data.cardButtons.forEach(function(btn){if(btn.type==='download'&&(!btn.link||btn.link==='#')&&data.downloadLink&&data.downloadLink!=='#'){btn.link=data.downloadLink;changed=true}if(btn.type==='channel'&&(!btn.link||btn.link==='#')&&data.channelLink&&data.channelLink!=='#'){btn.link=data.channelLink;changed=true}if(btn.type==='group'&&(!btn.link||btn.link==='#')&&data.groupLink&&data.groupLink!=='#'){btn.link=data.groupLink;changed=true}})}if(!data.features||!Array.isArray(data.features)){data.features=JSON.parse(JSON.stringify(defaultFeatures));changed=true}});if(changed)App.saveAllProjectsData(all)})();
 App.openDB().then(async function(){
 console.log('📦 IndexedDB 可用:',dbAvailable);
